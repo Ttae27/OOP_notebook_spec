@@ -1,4 +1,4 @@
-import Product
+from ui.Product import Product
 
 class Storage(Product):
     def __init__(self, model, specification, warranty, price):
