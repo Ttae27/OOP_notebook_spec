@@ -6,5 +6,3 @@ class Account:
   self.__password = password
  def method(self):
   pass
- 
- 
