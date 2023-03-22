@@ -17,11 +17,12 @@ class Build():
         self.totalPrice = 0
 
     def addItem(self, item):
-        self.build[type(item).__name__] = item.value
-        self.totalPrice += item.price
+        self.build[type(item).__name__] = item.model
+        self.totalPrice += int(item.price)
 
     def view(self):
-        print(self.build + self.totalPrice)
+        print(self.build)
+        print(f"Total price = {self.totalPrice}")
 
     def check_compatibility():
         pass
