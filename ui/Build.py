@@ -1,18 +1,18 @@
 class Build():
-    def __init__(self, cpu, gpu, motherboard, ram, hdd, ssd, mdot2, psu, cooling, case, monitor, price, watt):
-        self.cpu = cpu
-        self.gpu = gpu
-        self.motherboard = motherboard
-        self.ram = ram
-        self.hdd = hdd
-        self.ssd = ssd
-        self.mdot2 = mdot2
-        self.psu = psu
-        self.cooling = cooling
-        self.case = case
-        self.monitor = monitor
-        self.price = price
-        self.watt = watt
+    def __init__(self):
+        self.cpu = None
+        self.gpu = None
+        self.motherboard = None
+        self.ram = None
+        self.hdd = None
+        self.ssd = None
+        self.mdot2 = None
+        self.psu = None
+        self.cooling = None
+        self.case = None
+        self.monitor = None
+        self.price = None
+        self.watt = None
 
     def check_compatibility():
         pass
