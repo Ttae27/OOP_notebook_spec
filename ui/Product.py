@@ -1,12 +1,9 @@
 class Product():
-    def __init__(self, price, model, specification, warranty):
-        self.price = price
+    def __init__(self, model, specification, warranty, price):
         self.model = model
         self.specification = specification
         self.warranty = warranty
-
-    def add():
-        pass
+        self.price = price
 
     def remove():
         pass
