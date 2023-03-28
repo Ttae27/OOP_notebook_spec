@@ -5,13 +5,11 @@ class Payment:
     def paid_by_credit_card(self):
         # code to process credit card payment goes here
         card_number = input("card_number:")
-        self.use_coupon()
         print(f"Paid ${self.amount} by credit card ({card_number})")
 
     def paid_by_cashtransfer(self):
         # code to process card transaction payment goes here
         cash = int(input("cash:"))
-        self.use_coupon()
         if cash < self.amount:
             print("Not enough cash provided.")
         else:

@@ -32,6 +32,7 @@ myBuild.addItem(RTX_4090)
 myBuild.view()
 
 payment = Payment(myBuild)
+payment.use_coupon()
 print("1. by card\n2. by transfer")
 pay = input("way to pay:")
 if pay == "1":
