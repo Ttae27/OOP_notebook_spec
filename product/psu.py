@@ -1,6 +1,6 @@
 from ui.Product import Product
 
-class Motherboard(Product):
+class PSU(Product):
     def __init__(self, model, specification, warranty, price):
         super().__init__(model, specification, warranty, price)
 

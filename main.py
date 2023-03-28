@@ -31,7 +31,6 @@ catalog.add_gpu(XFX_Radeon_RX_7900_XTX)
 myBuild = Build()
 John_Doe_Eiei.addBuild(myBuild)
 
-print(catalog.get_item(AMD_Ryzen_7800x3D))
 myBuild.add_item(catalog.get_item(AMD_Ryzen_7800x3D))
 myBuild.add_item(catalog.get_item(MSI_B650M_AII))
 myBuild.add_item(catalog.get_item(RTX_4090))
