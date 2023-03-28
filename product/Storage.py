@@ -16,6 +16,12 @@ class M_dot_2(SSD):
     def __init__(self, model, specification, warranty, price):
         super().__init__(model, specification, warranty, price)
 
+    # def __str__(self):
+    #     return f"{self.model}"
+
 class SATA(SSD):
     def __init__(self, model, specification, warranty, price):
         super().__init__(model, specification, warranty, price)
+
+    # def __str__(self):
+    #     return f"{self.model}"
