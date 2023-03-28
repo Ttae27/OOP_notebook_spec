@@ -1,12 +1,11 @@
-from product import *
-from product.cpu import CPU
-from product.motherboard import Motherboard
-from product.gpu import GPU
-from ui import *
-from ui.Build import Build
-import glob
-from user.user import User
-from ui.Catalog import Catalog
+from ui.Build import *
+from ui.Catalog import *
+from ui.Product import *
+from user.user import *
+from user.account import *
+from user.admin import *
+from user.information import *
+
 
 John_Doe_Eiei = User()
 #
