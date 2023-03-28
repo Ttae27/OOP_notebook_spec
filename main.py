@@ -7,6 +7,23 @@ from user.admin import *
 from user.information import *
 
 
+def checkout():
+    print(f"This is your build.")
+    myBuild.view()
+    print(f"Total price is {myBuild.totalPrice}")
+    while True:
+        user_input = input("Do you confirm your order? (y/n)\n")
+        if user_input.lower() == "y":
+            print("Proceed to payment") #!need to call payment function
+            return True
+        
+        elif user_input.lower() == "n":
+            print("Checkout cancle")
+            return False
+        
+        else:
+            print("invalid input. Please enter 'y' or 'n'.")
+
 John_Doe_Eiei = User()
 #
 AMD_Ryzen_7800x3D = CPU("AMD_Ryzen_7800x3D", "B650", "3", "16500") 
@@ -36,3 +53,5 @@ myBuild.add_item(catalog.get_item(RTX_4090))
 myBuild.view()
 
 John_Doe_Eiei.build.view()
+
+checkout()
