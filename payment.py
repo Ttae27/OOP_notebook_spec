@@ -1,11 +1,16 @@
 class Payment:
     def __init__(self, build):
         self.amount = build.totalPrice
-
+        self.paymentstatus = "unsuccessful"
+                
     def paid_by_credit_card(self):
         # code to process credit card payment goes here
         card_number = input("card_number:")
-        print(f"Paid ${self.amount} by credit card ({card_number})")
+        if len(card_number) != 13:
+            print("Invalid Card Number, please recheck your Card Number")
+        else:
+            print(f"Paid ${self.amount} by credit card ({card_number})")
+            self.paymentstatus = "successful"
 
     def paid_by_cashtransfer(self):
         # code to process card transaction payment goes here
@@ -14,7 +19,9 @@ class Payment:
             print("Not enough cash provided.")
         else:
             change = cash - self.amount
+            self.paymentstatus = "successful"
             print(f"Paid ${self.amount} by cash tranfer. Balance: ${change:.2f}")
+            
 
     def use_coupon(self):
         coupon_check = input("Coupon? y/n : ")
