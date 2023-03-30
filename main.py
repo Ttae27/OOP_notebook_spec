@@ -18,7 +18,7 @@ def checkout():
             return True
         
         elif user_input.lower() == "n":
-            print("Checkout cancle")
+            print("Checkout cancel")
             return False
         
         else:
@@ -28,7 +28,7 @@ John_Doe_Eiei = User()
 #
 AMD_Ryzen_7800x3D = CPU("AMD_Ryzen_7800x3D", "B650", "3", "16500") 
 Intel_Corei9_12900ks_Spacial_Edition = CPU("Core_i9-12900KS_Special_Edition","Core i9","3","28500")
-#Mainboard
+#Main-board
 MSI_B650M_AII = Motherboard("MSI_B650M_AII", "B650M-A II", "3" , "6590")
 GIGABYTE_H510M_k = Motherboard("GIGABYTE_H510M_k","INTEL LGA1200","3","2150")
 
