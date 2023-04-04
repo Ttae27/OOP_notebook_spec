@@ -1,6 +1,6 @@
 class User:
   def __init__(self):
-    pass
+    self.build = None
 
-  def method(self):
-    pass
+  def addBuild(self, build):
+    self.build = build
