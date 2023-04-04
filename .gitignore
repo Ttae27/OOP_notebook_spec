@@ -1,4 +1,2 @@
-test_py.py /
-__pycache__ /
-ui/__pycache__ /
-user/__pycache__
+test_py.py 
+__pycache__ 

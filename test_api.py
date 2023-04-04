@@ -4,6 +4,11 @@ import glob
 from user.user import User
 from user.admin import Admin
 from ui.Catalog import Catalog
+from fastapi import FastAPI
+from typing import Optional
+
+
+app = FastAPI()
 
 John_Doe_Eiei = User()
 Por_sud_tae = Admin("Agogfox")
@@ -27,26 +32,34 @@ catalog.add(GIGABYTE_H510M_k, GIGABYTE_H510M_k.type)
 
 catalog.add(RTX_4090, RTX_4090.type)
 catalog.add(XFX_Radeon_RX_7900_XTX, XFX_Radeon_RX_7900_XTX.type)
-# catalog.remove(Intel_Corei9_12900ks_Spacial_Edition, Intel_Corei9_12900ks_Spacial_Edition.type)
-# print(catalog.list("Motherboard"))
-# print(catalog.catalog)
-# print(catalog.get_item(AMD_Ryzen_7800x3D))
-# print(RTX_4090)
 
 myBuild = Build()
 John_Doe_Eiei.addBuild(myBuild)
 
-# John_Doe_Eiei.build.add_item(catalog.get_item(AMD_Ryzen_7800x3D))
-# John_Doe_Eiei.build.add_item(catalog.get_item(MSI_B650M_AII))
-# John_Doe_Eiei.build.add_item(catalog.get_item(RTX_4090))
+@app.get("/")
+async def root():
+    return {"Notebook": "Spec"}
 
-def add_item(item, type):
+@app.get("/pc-spec")
+async def show_build():
+    return {"Data": John_Doe_Eiei.build}
+
+@app.get("/pc-spec/catalog")
+async def show_catalog():
+    return {"Catalog" : catalog.catalog}
+
+@app.post("/pc-spec")
+async def add_item(item, type):
     for i in catalog.catalog[type]:
         if i.model == item:
             John_Doe_Eiei.build.add_item(catalog.get_item(i))
             return {"Data": "Successfully add!"}
     return {"Data": "Fail to add!"}
 
-add_item("AMD_Ryzen_7800x3D", "CPU")
-add_item("Intel_Corei9_12900ks_Spacial_Edition", "CPU")
-John_Doe_Eiei.build.view()
+@app.delete("/pc-spec")
+async def remove_data(item,type):
+    for items in catalog.catalog[type]:
+        if items.model == item:
+            catalog.remove(items)
+            return {"Remove" : "Successfully remove"}
+    return {"Remove" : "Error"}
