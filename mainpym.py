@@ -6,6 +6,8 @@ from ui import *
 from ui.Build import Build
 import glob
 from user.user import User
+from payment import Payment
+
 
 John_Doe_Eiei = User()
 #
@@ -22,11 +24,27 @@ XFX_Radeon_RX_7900_XTX = GPU("Radeon RX 7900 XT","RX 7900","3","37980")
 myBuild = Build()
 John_Doe_Eiei.addBuild(myBuild)
 
+amount = myBuild.totalPrice
+
 myBuild.addItem(AMD_Ryzen_7800x3D)
 myBuild.addItem(MSI_B650M_AII)
 myBuild.addItem(RTX_4090)
 myBuild.view()
 
-John_Doe_Eiei.build.view()
+payment = Payment(myBuild)
+payment.use_coupon()
+print("1. by card\n2. by transfer")
+pay = input("way to pay:")
+if pay == "1":
+    payment.paid_by_credit_card()
+if pay == "2":
+    payment.paid_by_cashtransfer()
+    
+    
+
+# John_Doe_Eiei.build.view()
+
+
+
 
 
