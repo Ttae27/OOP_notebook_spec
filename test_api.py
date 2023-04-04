@@ -10,6 +10,7 @@ from typing import Optional
 
 app = FastAPI()
 
+
 John_Doe_Eiei = User()
 Por_sud_tae = Admin("Agogfox")
 #
@@ -56,10 +57,21 @@ async def add_item(item, type):
             return {"Data": "Successfully add!"}
     return {"Data": "Fail to add!"}
 
+# @app.put("/pc-spec")
+# async def edit_data(item,type):
+#     count = 0
+#     for items in catalog.catalog[type]:
+#         if items.model == item:
+#             return {"Edit" : catalog.catalog[type][count]}
+#         count += 1
+#     return {"Edit" : "Fail to Edit!"}
+
 @app.delete("/pc-spec")
 async def remove_data(item,type):
+    count = 0
     for items in catalog.catalog[type]:
         if items.model == item:
-            catalog.remove(items)
-            return {"Remove" : "Successfully remove"}
-    return {"Remove" : "Error"}
+            catalog.catalog[type][count] = {}
+            return {"Edit" : catalog.catalog[type]}
+        count += 1
+    return {"Edit" : "Fail to Edit!"}
