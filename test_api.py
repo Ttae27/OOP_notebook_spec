@@ -57,15 +57,6 @@ async def add_item(item, type):
             return {"Data": "Successfully add!"}
     return {"Data": "Fail to add!"}
 
-# @app.put("/pc-spec")
-# async def edit_data(item,type):
-#     count = 0
-#     for items in catalog.catalog[type]:
-#         if items.model == item:
-#             return {"Edit" : catalog.catalog[type][count]}
-#         count += 1
-#     return {"Edit" : "Fail to Edit!"}
-
 @app.delete("/pc-spec")
 async def remove_data(item,type):
     count = 0
@@ -75,3 +66,18 @@ async def remove_data(item,type):
             return {"Edit" : catalog.catalog[type]}
         count += 1
     return {"Edit" : "Fail to Edit!"}
+
+@app.delete("/del-product")
+async def rm_product(item, type):
+    catalog.remove(item, type)
+    return {"remove": "remove success", "catalog" : catalog.catalog}
+
+@app.put("/add-product")
+async def add_product(item, type):
+    catalog.add(item, type)
+    return {"add" : "add success", "catalog" : catalog.catalog}
+
+@app.post("/update-product")
+async def update_product(item, new_warranty=None, new_price=None):
+    catalog.update(item, new_warranty, new_price)
+    return {"update" : "update success", "catalog" : catalog.catalog}
