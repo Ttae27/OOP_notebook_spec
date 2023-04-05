@@ -6,6 +6,7 @@ from user.admin import Admin
 from ui.Catalog import Catalog
 from fastapi import FastAPI
 from typing import Optional
+from compare import Compare
 
 
 app = FastAPI()
@@ -13,7 +14,7 @@ app = FastAPI()
 
 John_Doe_Eiei = User()
 Por_sud_tae = Admin("Agogfox")
-#
+#CPU
 AMD_Ryzen_7800x3D = CPU("AMD_Ryzen_7800x3D", "B650", "3", "16500") 
 Intel_Corei9_12900ks_Spacial_Edition = CPU("Core_i9-12900KS_Special_Edition","Core i9","3","28500")
 #Mainboard
@@ -48,6 +49,9 @@ async def show_build():
 @app.get("/pc-spec/catalog")
 async def show_catalog():
     return {"Catalog" : catalog.catalog}
+@app.get("/compare")
+async def compare():
+    return {"
 
 @app.post("/pc-spec")
 async def add_item(item, type):
