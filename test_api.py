@@ -34,8 +34,8 @@ catalog.add(GIGABYTE_H510M_k, GIGABYTE_H510M_k.type)
 catalog.add(RTX_4090, RTX_4090.type)
 catalog.add(XFX_Radeon_RX_7900_XTX, XFX_Radeon_RX_7900_XTX.type)
 
-myBuild = Build()
-John_Doe_Eiei.addBuild(myBuild)
+my_build = Build()
+John_Doe_Eiei.addBuild(my_build)
 
 @app.get("/")
 async def root():
@@ -43,22 +43,32 @@ async def root():
 
 @app.get("/pc-spec")
 async def show_build():
-    return {"Data": John_Doe_Eiei.build}
-
-@app.get("/pc-spec/catalog")
-async def show_catalog():
-    return {"Catalog" : catalog.catalog}
+    return {"Data": my_build}
 
 @app.post("/pc-spec")
 async def add_item(item, type):
-    for i in catalog.catalog[type]:
-        if i.model == item:
-            John_Doe_Eiei.build.add_item(catalog.get_item(i))
-            return {"Data": "Successfully add!"}
+    if type in catalog.catalog.keys():
+        for i in catalog.catalog[type]:
+            if i.model == item:
+                my_build.add_item(catalog.get_item(i))
+                return {"Data": "Successfully add!"}
     return {"Data": "Fail to add!"}
 
-# @app.put("/pc-spec")
-# async def edit_data(item,type):
+@app.delete("/pc-spec")
+async def remove_item(item, type):
+    if type in catalog.catalog.keys():
+        for i in catalog.catalog[type]:
+            if i.model == item:
+                my_build.remove_item(catalog.get_item(i))
+                return {"Data": "Successfully remove!"}
+    return {"Data": "Fail to remove!"}
+
+# @app.get("/pc-spec/catalog")
+# async def show_catalog(type="CPU"):
+#     return {"Catalog" : catalog.catalog[type]}
+
+# @app.put("/pc-spec/catalog")
+# async def edit_data(item, type):
 #     count = 0
 #     for items in catalog.catalog[type]:
 #         if items.model == item:
@@ -66,12 +76,4 @@ async def add_item(item, type):
 #         count += 1
 #     return {"Edit" : "Fail to Edit!"}
 
-@app.delete("/pc-spec")
-async def remove_data(item,type):
-    count = 0
-    for items in catalog.catalog[type]:
-        if items.model == item:
-            catalog.catalog[type][count] = {}
-            return {"Edit" : catalog.catalog[type]}
-        count += 1
-    return {"Edit" : "Fail to Edit!"}
+
