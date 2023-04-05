@@ -6,6 +6,7 @@ from user.admin import Admin
 from ui.Catalog import Catalog
 from fastapi import FastAPI
 from typing import Optional
+from compare import Compare
 
 
 app = FastAPI()
@@ -13,7 +14,7 @@ app = FastAPI()
 
 John_Doe_Eiei = User()
 Por_sud_tae = Admin("Agogfox")
-#
+#CPU
 AMD_Ryzen_7800x3D = CPU("AMD_Ryzen_7800x3D", "B650", "3", "16500") 
 Intel_Corei9_12900ks_Spacial_Edition = CPU("Core_i9-12900KS_Special_Edition","Core i9","3","28500")
 #Mainboard
@@ -34,8 +35,10 @@ catalog.add(GIGABYTE_H510M_k, GIGABYTE_H510M_k.type)
 catalog.add(RTX_4090, RTX_4090.type)
 catalog.add(XFX_Radeon_RX_7900_XTX, XFX_Radeon_RX_7900_XTX.type)
 
-myBuild = Build()
-John_Doe_Eiei.addBuild(myBuild)
+my_build = Build()
+John_Doe_Eiei.addBuild(my_build)
+
+compare = Compare()
 
 @app.get("/")
 async def root():
@@ -43,18 +46,38 @@ async def root():
 
 @app.get("/pc-spec")
 async def show_build():
-    return {"Data": John_Doe_Eiei.build}
-
-@app.get("/pc-spec/catalog")
-async def show_catalog():
-    return {"Catalog" : catalog.catalog}
+    return {"Data": my_build}
 
 @app.post("/pc-spec")
 async def add_item(item, type):
-    for i in catalog.catalog[type]:
-        if i.model == item:
-            John_Doe_Eiei.build.add_item(catalog.get_item(i))
-            return {"Data": "Successfully add!"}
+    if type in catalog.catalog.keys():
+        for i in catalog.catalog[type]:
+            if i.model == item:
+                my_build.add_item(catalog.get_item(i))
+                return {"Data": "Successfully add!"}
+    return {"Data": "Fail to add!"}
+
+@app.delete("/pc-spec")
+async def remove_item(item, type):
+    if type in catalog.catalog.keys():
+        for i in catalog.catalog[type]:
+            if i.model == item:
+                my_build.remove_item(catalog.get_item(i))
+                return {"Data": "Successfully remove!"}
+    return {"Data": "Fail to remove!"}
+
+@app.get("/compare")
+async def show_compare_item():
+    spec_1, spec_2 = compare.compare_spec()
+    return {"Spec_1": spec_1, "Spec_2": spec_2}
+
+@app.post("/compare")
+async def add_to_compare(item, type, i):
+    if type in catalog.catalog.keys():
+        for j in catalog.catalog[type]:
+            if j.model == item:
+                compare.add_item(catalog.get_item(j), i)
+                return {"Data": "Successfully add!"}
     return {"Data": "Fail to add!"}
 
 @app.delete("/pc-spec")
