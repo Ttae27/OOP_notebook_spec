@@ -46,6 +46,9 @@ def add_item(item, type):
             John_Doe_Eiei.build.add_item(catalog.get_item(i))
             return {"Data": "Successfully add!"}
     return {"Data": "Fail to add!"}
+#!!test
+catalog.remove("AMD_Ryzen_7800x3D","CPU")
+
 
 print(add_item("AMD_Ryzen_7800x3D", "CPU"))
 print(add_item("Intel_Corei9_12900ks_Spacial_Edition", "CPU"))

@@ -1,10 +1,10 @@
 class Product():
     def __init__(self, model, specification, warranty, price):
-        self.model =  model
-        self.specification = specification
-        self.warranty = warranty
-        self.price = price
-
+        self.__model =  model
+        self.__specification = specification
+        self.__warranty = warranty
+        self.__price = price
+#!!make it private
     def remove():
         pass
 
@@ -111,3 +111,5 @@ class SATA(SSD):
 
     def __str__(self):
         return self.model
+    
+    #!!getter eiei

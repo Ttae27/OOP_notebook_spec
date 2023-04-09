@@ -1,5 +1,4 @@
 
-
 class Compare():
     def __init__(self):
         self.spec_1 = {}
@@ -34,4 +33,4 @@ class Compare():
                 totalPrice += int(product.price)
                 self.show_spec_2["price"] = totalPrice
         return self.show_spec_1, self.show_spec_2
-        
+#!!there isnt compare make compare or change method name

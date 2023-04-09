@@ -73,11 +73,11 @@ async def show_compare_item():
 
 @app.post("/compare")
 async def add_to_compare(item, type, i):
-    if type in catalog.catalog.keys():
-        for j in catalog.catalog[type]:
-            if j.model == item:
-                compare.add_item(catalog.get_item(j), i)
-                return {"Data": "Successfully add!"}
+    # if type in catalog.catalog.keys():
+    for j in catalog.catalog:
+        if j.model == item:
+            compare.add_item(j, i)
+            return {"Data": "Successfully add!"}
     return {"Data": "Fail to add!"}
 
 @app.delete("/pc-spec")
