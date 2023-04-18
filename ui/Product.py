@@ -1,6 +1,6 @@
 import sqlite3
 class Product():
-    def __init__(self):
+    def __init__(self) -> None:
         pass
 
     def get(type: str, filter =  None):
