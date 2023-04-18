@@ -1,113 +1,38 @@
+import sqlite3
 class Product():
-    def __init__(self, model, specification, warranty, price):
-        self.model =  model
-        self.specification = specification
-        self.warranty = warranty
-        self.price = price
-
-    def remove():
+    def __init__(self):
         pass
 
-    def update():
-        pass
+    def get(type: str, filter =  None):
+        conn = sqlite3.connect('data/database.db')
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM " + type)
+        products = cursor.fetchall()
+        conn.commit()
+        conn.close()
+        print(products)
+        return products
 
-class Case(Product):
-    def __init__(self, model, specification, warranty, price):
-        super().__init__(model, specification, warranty, price)
-        self.type = __class__.__name__
+    def delete(type, product_id):
+        conn = sqlite3.connect('data/database.db')
+        cursor = conn.cursor()
+        cursor.execute("DELETE from " + type + " WHERE id = (?)", product_id)
+        conn.commit()
+        conn.close()
+        return {'status': 'Successfully delete product ' + str(product_id)}
 
-    def __str__(self):
-        return self.model
+    def modify(type, product_id, product_key, product_value):
+        conn = sqlite3.connect('data/database.db')
+        cursor = conn.cursor()
+        cursor.execute("UPDATE " + type + " SET " + product_key + " = " + product_value + " WHERE id = " + product_id)
+        conn.commit()
+        conn.close()
+        return {'status': 'Successfully modify product ' + str(product_id)}
 
-class Cooling(Product):
-    def __init__(self, model, specification, warranty, price):
-        super().__init__(model, specification, warranty, price)
-        self.type = __class__.__name__
-
-    def __str__(self):
-        return self.model
-
-class CPU(Product):
-    def __init__(self, model, specification, warranty, price):
-        super().__init__(model, specification, warranty, price)
-        self.type = __class__.__name__
-
-    def __str__(self):
-        return self.model
-
-class GPU(Product):
-    def __init__(self, model, specification, warranty, price):
-        super().__init__(model, specification, warranty, price)
-        self.type = __class__.__name__
-
-    def __str__(self):
-        return self.model
-    
-class Monitor(Product):
-    def __init__(self, model, specification, warranty, price):
-        super().__init__(model, specification, warranty, price)
-        self.type = __class__.__name__
-
-    def __str__(self):
-        return self.model
-
-class Motherboard(Product):
-    def __init__(self, model, specification, warranty, price):
-        super().__init__(model, specification, warranty, price)
-        self.type = __class__.__name__
-
-    def __str__(self):
-        return self.model
-
-class PSU(Product):
-    def __init__(self, model, specification, warranty, price):
-        super().__init__(model, specification, warranty, price)
-        self.type = __class__.__name__
-
-    def __str__(self):
-        return self.model
-
-class RAM(Product):
-    def __init__(self, model, specification, warranty, price):
-        super().__init__(model, specification, warranty, price)
-        self.type = __class__.__name__
-
-    def __str__(self):
-        return self.model
-
-class Storage(Product):
-    def __init__(self, model, specification, warranty, price):
-        super().__init__(model, specification, warranty, price)
-        self.type = __class__.__name__
-
-    def __str__(self):
-        return self.model
-
-class HDD(Storage):
-    def __init__(self, model, specification, warranty, price):
-        super().__init__(model, specification, warranty, price)
-        self.type = __class__.__name__
-
-    def __str__(self):
-        return self.model
-
-class SSD(Storage):
-    def __init__(self, model, specification, warranty, price):
-        super().__init__(model, specification, warranty, price)
-        self.type = __class__.__name__
-
-class M_dot_2(SSD):
-    def __init__(self, model, specification, warranty, price):
-        super().__init__(model, specification, warranty, price)
-        self.type = __class__.__name__
-
-    def __str__(self):
-        return self.model
-
-class SATA(SSD):
-    def __init__(self, model, specification, warranty, price):
-        super().__init__(model, specification, warranty, price)
-        self.type = __class__.__name__
-
-    def __str__(self):
-        return self.model
+    def add(type, product):
+        conn = sqlite3.connect('data/database.db')
+        cursor = conn.cursor()
+        cursor.execute("INSERT INTO " + type + " VALUES ", product)
+        conn.commit()
+        conn.close()
+        return {'status': 'Successfully add product'}
