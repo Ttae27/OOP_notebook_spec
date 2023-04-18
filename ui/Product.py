@@ -29,10 +29,11 @@ class Product():
         conn.close()
         return {'status': 'Successfully modify product ' + str(product_id)}
 
-    def add(type, product):
-        conn = sqlite3.connect('data/database.db')
-        cursor = conn.cursor()
-        cursor.execute("INSERT INTO " + type + " VALUES ", product)
-        conn.commit()
-        conn.close()
-        return {'status': 'Successfully add product'}
+    # yang mai sej
+    # def add(type, product):
+    #     conn = sqlite3.connect('data/database.db')
+    #     cursor = conn.cursor()
+    #     cursor.execute("INSERT INTO " + type + " VALUES ", product)
+    #     conn.commit()
+    #     conn.close()
+    #     return {'status': 'Successfully add product'}
