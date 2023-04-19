@@ -47,8 +47,3 @@ class Product():
         conn.commit()
         conn.close()
         return {'status': 'Successfully add product'}
-
-conn = sqlite3.connect('data/database.db')
-cursor = conn.cursor()
-cursor.execute("DROP TABLE pc_case")
-conn.commit()
