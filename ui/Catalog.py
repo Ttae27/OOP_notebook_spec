@@ -4,8 +4,6 @@ import json
 class Catalog():
 
     def list(cat :str, filter :dict, sort :int):
-        # decoded_filter = unquote(filter)
-        # decoded_dict = json.loads(decoded_filter)
         products = product.get(cat, filter)
         #*sort products
         return products

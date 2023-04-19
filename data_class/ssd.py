@@ -18,3 +18,15 @@ class SSD:
         self.__permalink = permalink
         self.__price = price
         self.__thumbnail_url = thumbnail_url
+    
+    @property
+    def id(self):
+        return self.__id
+    
+    @property
+    def model(self):
+        return self.__model
+    
+    @property
+    def price(self):
+        return self.__price
