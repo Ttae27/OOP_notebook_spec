@@ -58,9 +58,6 @@ class Product():
         conn.commit()
         conn.close()
         return {'status': 'Successfully add product'}
-<<<<<<< HEAD
-=======
 
 #!test
 #print(Product.get('cpu', {'brand_name': ['INTEL'], 'series': ['Core i3', 'Ryzen 7']}))
->>>>>>> 6cfafed31dae508275e0333f05b1d372b9868932
