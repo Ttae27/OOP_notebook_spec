@@ -50,5 +50,6 @@ class Product():
 
 conn = sqlite3.connect('data/database.db')
 cursor = conn.cursor()
-cursor.execute("DROP TABLE pc_case")
+cursor.execute("""INSERT INTO member VALUES 
+('agogfox', 'Agogfox', 'admin')""")
 conn.commit()

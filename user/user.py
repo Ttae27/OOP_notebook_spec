@@ -1,6 +1,9 @@
-class User:
-  def __init__(self):
-    self.build = None
+import sqlite3
 
-  def addBuild(self, build):
-    self.build = build
+class User:
+  def sign_up(username, password):
+    conn = sqlite3.connect()
+    cursor = conn.cursor()
+    cursor.execute("""INSERT INTO member VALUES 
+    (?, ?, 'user')""")
+    conn.commit()
