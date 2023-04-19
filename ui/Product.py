@@ -20,9 +20,6 @@ class Product():
                 type_quries.append(type_query)
             type_quries = ' AND '.join(type_quries)
             query = f"SELECT * FROM {cat} WHERE {type_quries}"
-            print(type_quries)
-            print(query)
-
             cursor.execute(query)
         else:
             query = f"SELECT * FROM {cat}" #select all product
@@ -37,7 +34,7 @@ class Product():
     def delete(cat, product_id):
         conn = sqlite3.connect('data/database.db')
         cursor = conn.cursor()
-        cursor.execute("DELETE from " + cat + " WHERE id = (?)", product_id)
+        cursor.execute("DELETE from " + cat + " WHERE id = " + str(product_id))
         conn.commit()
         conn.close()
         return {'status': 'Successfully delete product ' + str(product_id)}
@@ -53,10 +50,17 @@ class Product():
     def add(cat, product):
         conn = sqlite3.connect('data/database.db')
         cursor = conn.cursor()
-        cursor.execute("INSERT INTO " + cat + " VALUES ", product)
+        product = tuple(product.values())
+        cursor.execute("SELECT * FROM " + cat)
+        i = len(cursor.fetchall()[0])
+        query = f"INSERT INTO {cat} VALUES ({'?,' * (i - 1)}?)"
+        cursor.execute(query, product)
         conn.commit()
         conn.close()
         return {'status': 'Successfully add product'}
+<<<<<<< HEAD
+=======
 
 #!test
-print(Product.get('cpu', {'brand_name': ['INTEL'], 'series': ['Core i3', 'Ryzen 7']}))
+#print(Product.get('cpu', {'brand_name': ['INTEL'], 'series': ['Core i3', 'Ryzen 7']}))
+>>>>>>> 6cfafed31dae508275e0333f05b1d372b9868932
