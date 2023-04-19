@@ -20,9 +20,6 @@ class Product():
                 type_quries.append(type_query)
             type_quries = ' AND '.join(type_quries)
             query = f"SELECT * FROM {cat} WHERE {type_quries}"
-            print(type_quries)
-            print(query)
-
             cursor.execute(query)
         else:
             query = f"SELECT * FROM {cat}" #select all product
@@ -59,4 +56,4 @@ class Product():
         return {'status': 'Successfully add product'}
 
 #!test
-print(Product.get('cpu', {'brand_name': ['INTEL'], 'series': ['Core i3', 'Ryzen 7']}))
+#print(Product.get('cpu', {'brand_name': ['INTEL'], 'series': ['Core i3', 'Ryzen 7']}))
