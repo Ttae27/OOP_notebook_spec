@@ -2,13 +2,15 @@ from ui.Product import Product as product
 
 class Catalog():
 
-    def list(type):
-        return product.get(type)
+    def list(cat :str, filter :dict, sort :int):
+        products = product.get(type, filter)
+        #*sort products
+        return products
 
-    def get_item(type, name):
-        return product.get(type, "full_name", name)
+    def get_item(cat, name):
+        return product.get(cat, "full_name", name)
 
-    def search(type, filter_type, filter):
+    def search(cat, filter_type, filter):
         pass
 
 
