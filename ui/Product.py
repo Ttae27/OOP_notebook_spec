@@ -20,8 +20,6 @@ class Product():
                 type_quries.append(type_query)
             type_quries = ' AND '.join(type_quries)
             query = f"SELECT * FROM {cat} WHERE {type_quries}"
-            #!debug
-            print(query)
             cursor.execute(query)
         else:
             query = f"SELECT * FROM {cat}" #select all product
