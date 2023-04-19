@@ -1,9 +1,12 @@
 from ui.Product import Product as product
-
+from urllib.parse import unquote
+import json
 class Catalog():
 
     def list(cat :str, filter :dict, sort :int):
-        products = product.get(type, filter)
+        # decoded_filter = unquote(filter)
+        # decoded_dict = json.loads(decoded_filter)
+        products = product.get(cat, filter)
         #*sort products
         return products
 
@@ -12,5 +15,4 @@ class Catalog():
 
     def search(cat, filter_type, filter):
         pass
-
 

@@ -23,13 +23,14 @@ class cpu(BaseModel):
     pass
 
 @app.get("/products/{product_cat}")
-def get_products(product_cat: str, filter :Optional[str] = None, sort :Optional[int] = None):
-    encoded_str = filter
-    decoded_str = unquote(encoded_str)
-    decoded_dict = json.loads(decoded_str)
-    #!debug
-    print(decoded_dict)
-    return Catalog.list(product_cat, decoded_dict, sort)
+def get_products(product_cat: str, filter :Optional[str] = "", sort :Optional[int] = None):
+    if filter:
+        encoded_str = filter
+        decoded_str = unquote(encoded_str)
+        filter = json.loads(decoded_str)
+        #!debug
+        print(filter)
+    return Catalog.list(product_cat, filter, sort)
 
 @app.delete("/admin/products/{product_cat}")
 def delete_products(product_cat: str, product_id: int):
