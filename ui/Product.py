@@ -3,14 +3,22 @@ class Product():
     def __init__(self) -> None:
         pass
 
-    def get(type: str, filter =  None):
+    def get(type: str, filter_type =  None, filter = None):
+        def dict_factory(cursor, row):
+            d = {}
+            for idx, col in enumerate(cursor.description):
+                d[col[0]] = row[idx]
+            return d
         conn = sqlite3.connect('data/database.db')
+        conn.row_factory = dict_factory
         cursor = conn.cursor()
-        cursor.execute("SELECT * FROM " + type)
+        if filter_type == None:
+            cursor.execute("SELECT * FROM " + type)
+        else:
+            cursor.execute("SELECT * FROM " + type + " WHERE " + filter_type + " = " + filter)
         products = cursor.fetchall()
         conn.commit()
         conn.close()
-        print(products)
         return products
 
     def delete(type, product_id):
@@ -29,11 +37,12 @@ class Product():
         conn.close()
         return {'status': 'Successfully modify product ' + str(product_id)}
 
-    # yang mai sej
-    # def add(type, product):
-    #     conn = sqlite3.connect('data/database.db')
-    #     cursor = conn.cursor()
-    #     cursor.execute("INSERT INTO " + type + " VALUES ", product)
-    #     conn.commit()
-    #     conn.close()
-    #     return {'status': 'Successfully add product'}
+    def add(type, product):
+        conn = sqlite3.connect('data/database.db')
+        cursor = conn.cursor()
+        cursor.execute("INSERT INTO " + type + " VALUES ", product)
+        conn.commit()
+        conn.close()
+        return {'status': 'Successfully add product'}
+
+Product.get('cpu')
