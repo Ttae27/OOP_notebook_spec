@@ -31,6 +31,7 @@ class Product():
         products = cursor.fetchall()
         conn.commit()
         conn.close()
+        print(products)
         return products
 
     def delete(cat, product_id):
@@ -56,7 +57,6 @@ class Product():
         conn.commit()
         conn.close()
         return {'status': 'Successfully add product'}
-
 
 #!test
 print(Product.get('cpu', {'brand_name': ['INTEL'], 'series': ['Core i3', 'Ryzen 7']}))
