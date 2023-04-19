@@ -1,5 +1,22 @@
 class Cooling:
-    def __init__(self, id, series, model, type, cpu_support_intel, cpu_support_amd, dimension, material, fan_built_in, led, warranty, price, brand_name, full_name, thumbnail_url, highlight):
+    def __init__(self,
+                id :int,
+                series :str,
+                model :str,
+                type :str,
+                cpu_support_intel :str,
+                cpu_support_amd :str,
+                dimension :str,
+                material :str,
+                fan_built_in :str,
+                led :int,
+                warranty :int,
+                price :int,
+                brand_name :str,
+                full_name :str,
+                thumbnail_url :str,
+                ):
+
         self.__id = id
         self.__series = series
         self.__model = model
@@ -15,7 +32,6 @@ class Cooling:
         self.__brand_name = brand_name
         self.__full_name = full_name
         self.__thumbnail_url = thumbnail_url
-        self.__highlight = highlight
 
     @property
     def id(self):
@@ -64,13 +80,6 @@ class Cooling:
     @property
     def price(self):
         return self.__price
-    
-    @price.setter
-    def price(self, new_price):
-        if isinstance(new_price, int) and new_price > 0:
-            self.__price = new_price
-        else:
-            print("Please enter valid price")
 
     @property
     def brand_name(self):
@@ -84,6 +93,9 @@ class Cooling:
     def thumbnail_url(self):
         return self.__thumbnail_url
 
-    @property
-    def highlight(self):
-        return self.__highlight
+    @price.setter
+    def price(self, new_price):
+        if isinstance(new_price, int) and new_price > 0:
+            self.__price = new_price
+        else:
+            print("Please enter valid price")

@@ -1,5 +1,25 @@
 class SSD:
-    def __init__(self, id, model, form_factor, capacity, interface, protocal, read, write, max_4k_random, modules, endurance, technology, warranty, brand_name, full_name, permalink, price, thumbnail_url):
+    def __init__(self,
+                id :int,
+                model :str,
+                form_factor :str,
+                capacity :str,
+                interface :str,
+                protocal :str,
+                read :int,
+                write :int,
+                max_4k_random :str,
+                modules :str,
+                endurance :str,
+                technology :str,
+                warranty :int,
+                brand_name :str,
+                full_name :str,
+                permalink :str,
+                price :int,
+                thumbnail_url :str
+                ):
+
         self.__id = id
         self.__model = model
         self.__form_factor = form_factor

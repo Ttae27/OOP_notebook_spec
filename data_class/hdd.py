@@ -1,5 +1,19 @@
 class HDD:
-    def __init__(self, id, model, form_factor, capacity, interface, rpm, buffer, warranty, brand_name, full_name, price, thumbnail_url):
+    def __init__(self,
+                id :int,
+                model :str,
+                form_factor,
+                capacity :str,
+                interface :str,
+                rpm :int,
+                buffer :str,
+                warranty :int,
+                brand_name :str,
+                full_name :str,
+                price :int,
+                thumbnail_url :str
+                ):
+
         self.__id = id
         self.__model = model
         self.__form_factor = form_factor

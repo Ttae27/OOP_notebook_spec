@@ -1,5 +1,22 @@
 class RAM:
-    def __init__(self, id: int, series: str, model: str, type: str, capa: str, bus: int, latency: str, vol: float, color: int, warranty: str, ram_unit: int, brand_name: str, full_name: str, price: int, thumbnail_url: str):
+    def __init__(self,
+                id :int,
+                series :str,
+                model :str,
+                type :str,
+                capa :str,
+                bus :int,
+                latency :str,
+                vol :float,
+                color :int,
+                warranty :str,
+                ram_unit :int,
+                brand_name :str,
+                full_name :str,
+                price :int,
+                thumbnail_url :str
+                ):
+
         self.__id = id
         self.__series = series
         self.__model = model

@@ -1,5 +1,28 @@
 class PSU:
-    def __init__(self, id, series, model, form_factor, max_pw, modular, fans, certificates, efficiency, input_volt, input_frequency, dimension, main_connect, pci_ex, sata_connect, molex, warranty, brand_name, full_name, price, thumbnail_url):
+    def __init__(self,
+                id :int,
+                series :str,
+                model :str,
+                form_factor :str,
+                max_pw :str,
+                modular :str,
+                fans :str,
+                certificates :str,
+                efficiency :str,
+                input_volt :str,
+                input_frequency :str,
+                dimension :str,
+                main_connect :str,
+                pci_ex :str,
+                sata_connect :int,
+                molex :str,
+                warranty :int,
+                brand_name :str,
+                full_name :str,
+                price :int,
+                thumbnail_url :str
+                ):
+
         self.__id = id
         self.__series = series
         self.__model = model

@@ -1,5 +1,36 @@
 class GPU:
-    def __init__(self, id, series, model, chipset, clock, boost_clock, mem_speed, mem_size, bit, mem_type, bus_type, cf_sli, directx, opengl, shader, dsub, dvi, hdmi, hdmi_mini, displayport, displayport_mini, usbc, power, psu_require, warranty, brand_name, full_name, price, thumbnail_url):
+    def __init__(self,
+                id :int,
+                series :str,
+                model :str,
+                chipset :str,
+                clock :str,
+                boost_clock :int,
+                mem_speed :str,
+                mem_size :str,
+                bit :str,
+                mem_type :str,
+                bus_type :str,
+                cf_sli :str,
+                directx :int,
+                opengl :float,
+                shader :float,
+                dsub :int,
+                dvi :int,
+                hdmi :int,
+                hdmi_mini :int,
+                displayport :int,
+                displayport_mini :int,
+                usbc :int,
+                power :str,
+                psu_require :str,
+                warranty :int,
+                brand_name :str,
+                full_name :str,
+                price :int,
+                thumbnail_url :str
+                ):
+
         self.__id = id
         self.__series = series
         self.__model = model

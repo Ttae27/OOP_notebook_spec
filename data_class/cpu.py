@@ -1,5 +1,25 @@
 class CPU:
-    def __init__(self, id: int, series: str, model: str, socket: str, chipsupport: str, core:int, thread:int, frequency:str, l2:str, l3:str, gpu_integrated:str, power:str, warranty:int, active:int, brand_name:str, full_name:str, price:int, thumbnail_url:str):
+    def __init__(self,
+                id: int,
+                series: str,
+                model: str,
+                socket: str,
+                chipsupport: str,
+                core :int,
+                thread :int,
+                frequency :str,
+                l2 :str,
+                l3 :str,
+                gpu_integrated :str,
+                power :str,
+                warranty :int,
+                active :int,
+                brand_name :str, 
+                full_name :str,
+                price :int,
+                thumbnail_url :str
+                ):
+        
         self.__id = id
         self.__series = series
         self.__model = model
