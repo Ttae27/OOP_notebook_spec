@@ -24,6 +24,10 @@ class cpu(BaseModel):
 def get_products(product_cat: str, filter :Optional[str] = None, sort :Optional[str] = None):
     return Catalog.list(product_cat)
 
+@app.post("/admin/products/{product_cat}")
+def add_products(product_cat: str, product: dict):
+    return Product.add(product_cat, product)
+
 @app.delete("/admin/products/{product_cat}")
 def delete_products(product_cat: str, product_id: int):
     return Product.delete(product_cat, product_id)
@@ -32,3 +36,7 @@ def delete_products(product_cat: str, product_id: int):
 def modify_product(product_cat: str, product_id: int, product_key: str, product_value):
     return Product.modify(product_cat, product_id, product_key, product_value)
 
+@app.get("/product/compare")
+def compare(product_cat, product_id_1, product_id_2):
+    pass
+    

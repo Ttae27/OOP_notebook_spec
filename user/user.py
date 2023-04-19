@@ -5,5 +5,6 @@ class User:
     conn = sqlite3.connect()
     cursor = conn.cursor()
     cursor.execute("""INSERT INTO member VALUES 
-    (?, ?, 'user')""")
+    (?, ?, ?)""", (username, password, 'user'))
     conn.commit()
+    conn.close()
