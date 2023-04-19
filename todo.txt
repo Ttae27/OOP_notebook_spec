@@ -1,2 +1,2 @@
--1- find way to manage product id
--2- 
+Add getter and setter for dataclass/*
+Manage database with Product.py class and method
