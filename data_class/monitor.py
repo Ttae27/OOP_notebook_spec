@@ -24,3 +24,15 @@ class Monitor:
         self.price = price
         self.thumbnail_url = thumbnail_url
         self.cont = cont
+
+    @property
+    def id(self):
+        return self.__id
+    
+    @property
+    def model(self):
+        return self.__model
+    
+    @property
+    def price(self):
+        return self.__price

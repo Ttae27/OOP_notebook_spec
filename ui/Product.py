@@ -1,4 +1,6 @@
 import sqlite3
+from data import *
+
 class Product():
     def get(cat: str, filter :dict = None):
         def dict_factory(cursor, row):#convert list of tuple to list of dict
@@ -20,8 +22,6 @@ class Product():
                 type_quries.append(type_query)
             type_quries = ' AND '.join(type_quries)
             query = f"SELECT * FROM {cat} WHERE {type_quries}"
-            #!debug
-            print(query)
             cursor.execute(query)
         else:
             query = f"SELECT * FROM {cat}" #select all product
@@ -33,32 +33,28 @@ class Product():
         return products
 
     def delete(cat, product_id):
-        conn = sqlite3.connect('data/database.db')
-        cursor = conn.cursor()
-        cursor.execute("DELETE from " + cat + " WHERE id = " + str(product_id))
-        conn.commit()
-        conn.close()
-        return {'status': 'Successfully delete product ' + str(product_id)}
+        list_cat = get_list(cat)
+        for lst in list_cat:
+            if lst.id == product_id:
+                list_cat.remove(lst)
+                return {'status': 'Successfully delete product ' + str(product_id)}
+        return {'status': 'Failed delete product'}
 
-    def modify(cat, product_id, product_key, product_value):
-        conn = sqlite3.connect('data/database.db')
-        cursor = conn.cursor()
-        cursor.execute("UPDATE " + cat + " SET " + product_key + " = " + product_value + " WHERE id = " + product_id)
-        conn.commit()
-        conn.close()
-        return {'status': 'Successfully modify product ' + str(product_id)}
+    def modify_product(cat, product_id, product_key, product_value):
+        list_cat = get_list(cat)
+        for lst in list_cat:
+            if lst.id == product_id:
+                lst.product_key = product_value
+                return {'status': 'Successfully modified product ' + str(product_id)}
+        return {'status': 'Failed modified product'}
 
     def add(cat, product):
-        conn = sqlite3.connect('data/database.db')
-        cursor = conn.cursor()
-        product = tuple(product.values())
-        cursor.execute("SELECT * FROM " + cat)
-        i = len(cursor.fetchall()[0])
-        query = f"INSERT INTO {cat} VALUES ({'?,' * (i - 1)}?)"
-        cursor.execute(query, product)
-        conn.commit()
-        conn.close()
-        return {'status': 'Successfully add product'}
+        for lst in all__list:
+            if type(lst[0]).__name__ == cat:
+                for l in lst:
+                    if str(l.id) == product['id']:
+                        return {'status': 'Failed add product'}
+        
 
 #!test
 #print(Product.get('cpu', {'brand_name': ['INTEL'], 'series': ['Core i3', 'Ryzen 7']}))
