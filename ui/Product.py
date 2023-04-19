@@ -2,6 +2,9 @@ import sqlite3
 from data import *
 
 class Product():
+    def __init__(self) -> None:
+        pass
+
     def get(cat: str, filter :dict = None):
         def dict_factory(cursor, row):#convert list of tuple to list of dict
             d = {}
@@ -32,7 +35,7 @@ class Product():
         conn.close()
         return products
 
-    def delete(cat, product_id):
+    def delete_product(cat, product_id):
         list_cat = get_list(cat)
         for lst in list_cat:
             if lst.id == product_id:
@@ -48,13 +51,10 @@ class Product():
                 return {'status': 'Successfully modified product ' + str(product_id)}
         return {'status': 'Failed modified product'}
 
-    def add(cat, product):
-        for lst in all__list:
-            if type(lst[0]).__name__ == cat:
-                for l in lst:
-                    if str(l.id) == product['id']:
-                        return {'status': 'Failed add product'}
-        
+    def add_product(cat, product):
+        list_cat = get_list(cat)
+        for lst in list_cat:
+
 
 #!test
 #print(Product.get('cpu', {'brand_name': ['INTEL'], 'series': ['Core i3', 'Ryzen 7']}))
