@@ -1,2 +1,6 @@
-Add getter and setter for dataclass/*
+******************************TO-DO******************************
 Manage database with Product.py class and method
+
+
+******************************DONE******************************
+Add getter and setter for dataclass/*
