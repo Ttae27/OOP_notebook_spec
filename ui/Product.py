@@ -2,21 +2,11 @@ import sys
 
 # setting path
 sys.path.append('../oop_notebook_spec')
-import sqlite3
 from data import *
-from data_class.pc_case import PC_Case
-from data_class.cooling import Cooling
-from data_class.cpu import CPU
-from data_class.gpu import GPU
-from data_class.hdd import HDD
-from data_class.monitor import Monitor
-from data_class.motherboard import Motherboard
-from data_class.psu import PSU
-from data_class.ram import RAM
-from data_class.ssd import SSD
 
 class Product():
     def __init__(self) -> None:
+        self.current_product = [] #store the current showing product
         pass
 
     def get(self, cat: str, filter :dict = None):
@@ -54,14 +44,14 @@ class Product():
         for product in list_cat:
             if product.id == product_id:
                 list_cat.remove(product)
-                return {'status': 'Successfully delete product ' + str(product_id)}
+                return {'status': 'Successfully delete product' + str(product_id)}
         return {'status': 'Failed delete product'}
 
-    def modify_product(self, cat, product_id, product_key, product_value):
+    def modify_price_product(self, cat, product_id, new_price):
         list_cat = get_list(cat)
         for product in list_cat:
             if product.id == product_id:
-                product.product_key = product_value
+                product.price = new_price
                 return {'status': 'Successfully modified product ' + str(product_id)}
         return {'status': 'Failed modified product'}
 
@@ -70,33 +60,13 @@ class Product():
         for product in list_cat:
             if product.id == product[id]:
                 return {'status': 'Failed to added product'}
-        list_cat.append(self.convert_to_class(cat, product))
+        list_cat.append(convert_to_class(cat, product))
         return {'status': 'Successfully added product'}
 
-    def convert_to_class(cat, product):
-        if cat == "case":
-            return Case(**product)
-        elif cat == "cooling":
-            return Cooling(**product)
-        elif cat == "cpu":
-            return CPU(**product)
-        elif cat == "gpu":
-            return GPU(**product)
-        elif cat == "hdd":
-            return HDD(**product)
-        elif cat == "monitor":
-            return Monitor(**product)
-        elif cat == "motherboard":
-            return Motherboard(**product)
-        elif cat == "psu":
-            return PSU(**product)
-        elif cat == "ram":
-            return RAM(**product)
-        elif cat == "ssd":
-            return SSD(**product)
-        else:
-            return None
+
 
 #!test
 #print(Product.get('cpu', {'brand_name': ['INTEL'], 'series': ['Core i3', 'Ryzen 7']}))
-print(Product.delete_product('cpu', 6))
+product = Product()
+print(product.modify_price_product('cpu', 7, 20))
+print(cpu_list[1].id, cpu_list[1].price)

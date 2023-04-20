@@ -12,101 +12,51 @@ from data_class.psu import PSU
 from data_class.ram import RAM
 from data_class.ssd import SSD
 
-#connect to database
-conn = sqlite3.connect('data/database.db')
-cursor = conn.cursor()
 
-#create cooling list
-item = cursor.execute("SELECT * FROM cooling").fetchall()
-cooling_list = []
-for i in range(len(item)):
-    cooling_list.append(Cooling(*item[i]))
-
-#create cpu list
-item = cursor.execute("SELECT * FROM cpu").fetchall()
-cpu_list = []
-for i in range(len(item)):
-    cpu_list.append(CPU(*item[i]))
-
-#create gpu list
-item = cursor.execute("SELECT * FROM gpu").fetchall()
-gpu_list = []
-for i in range(len(item)):
-    gpu_list.append(GPU(*item[i]))
-
-#create hdd list
-item = cursor.execute("SELECT * FROM hdd").fetchall()
-hdd_list = []
-for i in range(len(item)):
-    hdd_list.append(HDD(*item[i]))
-
-#create monitor list
-item = cursor.execute("SELECT * FROM monitor").fetchall()
-monitor_list = []
-for i in range(len(item)):
-    monitor_list.append(Monitor(*item[i]))
-
-#create montherboard list
-item = cursor.execute("SELECT * FROM motherboard").fetchall()
-motherboard_list = []
-for i in range(len(item)):
-    motherboard_list.append(Motherboard(*item[i]))
-
-#create pc_case list
-item = cursor.execute("SELECT * FROM pc_case").fetchall()
-pc_case_list = []
-for i in range(len(item)):
-    pc_case_list.append(PC_Case(*item[i]))
-
-#create psu list
-item = cursor.execute("SELECT * FROM psu").fetchall()
-psu_list = []
-for i in range(len(item)):
-    psu_list.append(PSU(*item[i]))
-
-#create ram list
-item = cursor.execute("SELECT * FROM ram").fetchall()
-ram_list = []
-for i in range(len(item)):
-    ram_list.append(RAM(*item[i]))
-
-#create ssd list
-item = cursor.execute("SELECT * FROM ssd").fetchall()
-ssd_list = []
-for i in range(len(item)):
-    ssd_list.append(SSD(*item[i]))
-
-def get_list(cat):
+def get_product(cat: str) -> list:
+    conn = sqlite3.connect('data/database.db')
+    cursor = conn.cursor()
+    item = cursor.execute(f"SELECT * FROM {cat}").fetchall()
+    product_list = []
+    
     match cat:
         case "cooling":
-            return cooling_list
+            class_cat = Cooling
         
         case "cpu":
-            return cpu_list
+            class_cat = CPU
         
         case "gpu":
-            return gpu_list
-        
+            class_cat = GPU
+
         case "hdd":
-            return hdd_list
-        
+            class_cat = HDD
+
         case "monitor":
-            return monitor_list
+            class_cat = Monitor
         
         case "motherboard":
-            return motherboard_list
-        
+            class_cat = Motherboard
+
         case "pc_case":
-            return pc_case_list
-        
+            class_cat = PC_Case
+
         case "psu":
-            return psu_list
-        
+            class_cat = PSU
+
         case "ram":
-            return ram_list
-        
+            class_cat = RAM
+
         case "ssd":
-            return ssd_list
-        
-        case _:
-            return "Invalid category"
+            class_cat = SSD
+
+    for i in range(len(item)):
+        product_list.append(class_cat(*item[i]))
+
+    return product_list
+
+# def delete_product(cat, product_id):
+#     conn = sqlite3.connect('data/database.db')
+#     cursor = conn.cursor()
+
+print(get_product('cpu'))
