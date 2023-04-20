@@ -1,3 +1,6 @@
+import sqlite3
+
+#*import data class
 from data_class.cooling import Cooling
 from data_class.cpu import CPU
 from data_class.gpu import GPU
@@ -8,7 +11,7 @@ from data_class.pc_case import PC_Case
 from data_class.psu import PSU
 from data_class.ram import RAM
 from data_class.ssd import SSD
-import sqlite3
+
 #connect to database
 conn = sqlite3.connect('data/database.db')
 cursor = conn.cursor()
