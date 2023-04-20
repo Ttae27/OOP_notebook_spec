@@ -1,6 +1,9 @@
 ******************************TO-DO******************************
 Manage database with Product.py class and method
 
+Remove switch case from data.py. data.py will only manage data with function and interact with database ONLY.
+It MUST NOT have any logic. How to know what category to add? This will manage with Poduct.py.
+Product.py will call function from data.py according to the cat, it's given.
 
 ******************************DONE******************************
 Add getter and setter for dataclass/*
