@@ -47,13 +47,7 @@ for i in range(len(item)):
     monitor_list.append(Monitor(*item[i]))
 
 #create montherboard list
-item = cursor.execute("SELECT * FROM monitor").fetchall()
-motherboard_list = []
-for i in range(len(item)):
-    motherboard_list.append(Motherboard(*item[i]))
-
-#create montherboard list
-item = cursor.execute("SELECT * FROM monitor").fetchall()
+item = cursor.execute("SELECT * FROM motherboard").fetchall()
 motherboard_list = []
 for i in range(len(item)):
     motherboard_list.append(Motherboard(*item[i]))

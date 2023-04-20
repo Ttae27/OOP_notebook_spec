@@ -4,7 +4,7 @@ import sys
 sys.path.append('../oop_notebook_spec')
 import sqlite3
 from data import *
-from data_class.case import Case
+from data_class.pc_case import PC_Case
 from data_class.cooling import Cooling
 from data_class.cpu import CPU
 from data_class.gpu import GPU
