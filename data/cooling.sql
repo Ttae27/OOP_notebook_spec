@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS cooling (
     price INTEGER,
     brand_name TEXT,
     full_name TEXT,
-    thumbnail_url TEXT,
+    thumbnail_url TEXT
 );
 INSERT INTO cooling VALUES (46,'ICE ','ICE EDGE MINI FS','Air Cooler','LGA 1366 / 1156 / 1155 / 1151 / 1150 / 775 ','FM2+ / FM2 / FM1 / AM3+ / AM3 / AM2','127x62x130','2 Heatpipes / Aluminum Fins','1 x 80mm',NULL,1,270,'DEEPCOOL','DEEPCOOL ICE EDGE MINI FS','https://notebookspec.com/storage/pc-cooling/cooling_15_deepcool-ice-edge-mini-fs.jpg'),
 	(47,'GAMMAXX','GAMMAXX 400','Air Cooler','LGA 2011-v3 / 2011 / 1366 / 1156 / 1155 / 1151 / 1150 / 775','FM2+ / FM2 / FM1 / AM3+ / AM3 / AM2','135x80x155','4 heatpipes / Aluminum fins','1 x 120mm',NULL,1,610,'DEEPCOOL','DEEPCOOL GAMMAXX 400','https://notebookspec.com/storage/pc-cooling/cooling_34_deepcool-gammaxx-400.jpg'),
