@@ -1,4 +1,4 @@
-class Case:
+class PC_Case:
     def __init__(self,
                 id: int,
                 model: str,
