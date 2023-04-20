@@ -47,4 +47,7 @@ def modify_product(product_cat: str, product_id: int, product_key: str, product_
 @app.get("/product/compare")
 def compare(product_cat, product_id_1, product_id_2):
     pass
-    
+
+@app.get("/signup")
+def signup():
+    pass
