@@ -1,20 +1,20 @@
 class Cooling:
     def __init__(self,
-                id :int,
-                series :str,
-                model :str,
-                type :str,
-                cpu_support_intel :str,
-                cpu_support_amd :str,
-                dimension :str,
-                material :str,
-                fan_built_in :str,
-                led :int,
-                warranty :int,
-                price :int,
-                brand_name :str,
-                full_name :str,
-                thumbnail_url :str,
+                id: int,
+                series: str,
+                model: str,
+                type: str,
+                cpu_support_intel: str,
+                cpu_support_amd: str,
+                dimension: str,
+                material: str,
+                fan_built_in: str,
+                led: int,
+                warranty: int,
+                price: int,
+                brand_name: str,
+                full_name: str,
+                thumbnail_url: str,
                 ):
 
         self.__id = id
@@ -98,4 +98,4 @@ class Cooling:
         if isinstance(new_price, int) and new_price > 0:
             self.__price = new_price
         else:
-            print("Please enter valid price")
+            print("Please enter valid price") #!need to change this

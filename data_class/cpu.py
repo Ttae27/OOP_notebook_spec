@@ -5,19 +5,19 @@ class CPU:
                 model: str,
                 socket: str,
                 chipsupport: str,
-                core :int,
-                thread :int,
-                frequency :str,
-                l2 :str,
-                l3 :str,
-                gpu_integrated :str,
-                power :str,
-                warranty :int,
-                active :int,
-                brand_name :str, 
-                full_name :str,
-                price :int,
-                thumbnail_url :str
+                core: int,
+                thread: int,
+                frequency: str,
+                l2: str,
+                l3: str,
+                gpu_integrated: str,
+                power: str,
+                warranty: int,
+                active: int,
+                brand_name: str, 
+                full_name: str,
+                price: int,
+                thumbnail_url: str
                 ):
         
         self.__id = id
@@ -107,13 +107,14 @@ class CPU:
     def price(self):
         return self.__price
     
+
+    @property
+    def thumbnail_url(self):
+        return self.__thumbnail_url
+
     @price.setter
     def price(self, new_price):
         if isinstance(new_price, int) and new_price > 0:
             self.__price = new_price
         else:
-            print("Please enter valid price")
-
-    @property
-    def thumbnail_url(self):
-        return self.__thumbnail_url
+            print("Please enter valid price") #!need to change this

@@ -1,18 +1,18 @@
 class Case:
     def __init__(self,
-                id :int,
-                model :str,
-                mat :str,
-                color :str,
-                weight :str,
-                dimension :str,
-                io :str,
-                warranty :int,
-                active :int,
-                brand_name :str,
-                full_name :str,
-                price :int,
-                thumbnail_url :str):
+                id: int,
+                model: str,
+                mat: str,
+                color: str,
+                weight: str,
+                dimension: str,
+                io: str,
+                warranty: int,
+                active: int,
+                brand_name: str,
+                full_name: str,
+                price: int,
+                thumbnail_url: str):
 
         self.__id = id
         self.__model = model
@@ -85,4 +85,4 @@ class Case:
         if isinstance(new_price, int) and new_price > 0:
             self.__price = new_price
         else:
-            print("Please enter valid price")
+            print("Please enter valid price") #! need to change this
