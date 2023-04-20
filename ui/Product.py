@@ -1,6 +1,5 @@
 import sqlite3
-from data import *
-
+import data
 class Product():
     def __init__(self) -> None:
         pass
@@ -14,18 +13,22 @@ class Product():
         conn = sqlite3.connect('data/database.db')
         conn.row_factory = dict_factory
         cursor = conn.cursor()
-        
+        product_list = data.get_list(cat)
         if filter:
             # Create filter query
-            type_quries = []
-            for type in filter.keys():
-                #Change from list to tuple, if list has one item format to ('item')
-                type_filter_tuple = f"('{filter[type][0]}')" if len(filter[type]) == 1 else tuple(filter[type])
-                type_query = f"{type} IN {type_filter_tuple}"
-                type_quries.append(type_query)
-            type_quries = ' AND '.join(type_quries)
-            query = f"SELECT * FROM {cat} WHERE {type_quries}"
-            cursor.execute(query)
+            # type_quries = []
+            # for type in filter.keys():
+            #     #Change from list to tuple, if list has one item format to ('item')
+            #     type_filter_tuple = f"('{filter[type][0]}')" if len(filter[type]) == 1 else tuple(filter[type])
+            #     type_query = f"{type} IN {type_filter_tuple}"
+            #     type_quries.append(type_query)
+            # type_quries = ' AND '.join(type_quries)
+            # query = f"SELECT * FROM {cat} WHERE {type_quries}"
+            # cursor.execute(query)
+            for key,value in filter:
+                if 
+
+
         else:
             query = f"SELECT * FROM {cat}" #select all product
             cursor.execute(query)
@@ -43,13 +46,13 @@ class Product():
                 return {'status': 'Successfully delete product ' + str(product_id)}
         return {'status': 'Failed delete product'}
 
-    def modify_product(cat, product_id, product_key, product_value):
-        list_cat = get_list(cat)
-        for lst in list_cat:
-            if lst.id == product_id:
-                lst.product_key = product_value
-                return {'status': 'Successfully modified product ' + str(product_id)}
-        return {'status': 'Failed modified product'}
+    def modify(cat, product_id, product_key, product_value):
+        conn = sqlite3.connect('data/database.db')
+        cursor = conn.cursor()
+        cursor.execute("UPDATE " + cat + " SET " + product_key + " = " + product_value + " WHERE id = " + product_id)
+        conn.commit()
+        conn.close()
+        return {'status': 'Successfully modify product ' + str(product_id)}
 
     def add_product(cat, product):
         list_cat = get_list(cat)
