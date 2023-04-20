@@ -13,13 +13,7 @@ import sqlite3
 conn = sqlite3.connect('data/database.db')
 cursor = conn.cursor()
 
-#create case list
-item = cursor.execute("SELECT * FROM pc_case").fetchall()
-case_list = []
-for i in range(len(item)):
-    case_list.append(Case(*item[i]))
-
-#create case list
+#create cooling list
 item = cursor.execute("SELECT * FROM cooling").fetchall()
 cooling_list = []
 for i in range(len(item)):
@@ -32,41 +26,90 @@ for i in range(len(item)):
     cpu_list.append(CPU(*item[i]))
 
 #create gpu list
-# gpu_list = []
-# for i in range(len(item)):
-#     gpu_list.append(GPU(*item[i]))
+item = cursor.execute("SELECT * FROM gpu").fetchall()
+gpu_list = []
+for i in range(len(item)):
+    gpu_list.append(GPU(*item[i]))
 
-# case_list = []
-# for i in range(len(item)):
-#     case_list.append(Case(*item[i]))
+#create hdd list
+item = cursor.execute("SELECT * FROM hdd").fetchall()
+hdd_list = []
+for i in range(len(item)):
+    hdd_list.append(HDD(*item[i]))
 
-# case_list = []
-# for i in range(len(item)):
-#     case_list.append(Case(*item[i]))
+#create monitor list
+item = cursor.execute("SELECT * FROM monitor").fetchall()
+monitor_list = []
+for i in range(len(item)):
+    monitor_list.append(Monitor(*item[i]))
 
-# case_list = []
-# for i in range(len(item)):
-#     case_list.append(Case(*item[i]))
+#create montherboard list
+item = cursor.execute("SELECT * FROM monitor").fetchall()
+motherboard_list = []
+for i in range(len(item)):
+    motherboard_list.append(Motherboard(*item[i]))
 
-# case_list = []
-# for i in range(len(item)):
-#     case_list.append(Case(*item[i]))
+#create montherboard list
+item = cursor.execute("SELECT * FROM monitor").fetchall()
+motherboard_list = []
+for i in range(len(item)):
+    motherboard_list.append(Motherboard(*item[i]))
 
-# case_list = []
-# for i in range(len(item)):
-#     case_list.append(Case(*item[i]))
+#create pc_case list
+item = cursor.execute("SELECT * FROM pc_case").fetchall()
+pc_case_list = []
+for i in range(len(item)):
+    pc_case_list.append(PC_Case(*item[i]))
 
-# case_list = []
-# for i in range(len(item)):
-#     case_list.append(Case(*item[i]))
+#create psu list
+item = cursor.execute("SELECT * FROM psu").fetchall()
+psu_list = []
+for i in range(len(item)):
+    psu_list.append(PSU(*item[i]))
+
+#create ram list
+item = cursor.execute("SELECT * FROM ram").fetchall()
+ram_list = []
+for i in range(len(item)):
+    ram_list.append(RAM(*item[i]))
+
+#create ssd list
+item = cursor.execute("SELECT * FROM ssd").fetchall()
+ssd_list = []
+for i in range(len(item)):
+    ssd_list.append(SSD(*item[i]))
 
 def get_list(cat):
-    if cat == "case":
-        return case_list
-    elif cat == "cooling":
-        return cooling_list
-    elif cat == "cpu":
-        return cpu_list
-    elif cat == "gpu":
-        pass
-        #todo continue until end
+    match cat:
+        case "cooling":
+            return cooling_list
+        
+        case "cpu":
+            return cpu_list
+        
+        case "gpu":
+            return gpu_list
+        
+        case "hdd":
+            return hdd_list
+        
+        case "monitor":
+            return monitor_list
+        
+        case "motherboard":
+            return motherboard_list
+        
+        case "pc_case":
+            return pc_case_list
+        
+        case "psu":
+            return psu_list
+        
+        case "ram":
+            return ram_list
+        
+        case "ssd":
+            return ssd_list
+        
+        case _:
+            return "Invalid category"
