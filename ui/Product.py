@@ -18,18 +18,22 @@ class Product():
         conn = sqlite3.connect('data/database.db')
         conn.row_factory = dict_factory
         cursor = conn.cursor()
-        
+        product_list = data.get_list(cat)
         if filter:
             # Create filter query
-            type_quries = []
-            for type in filter.keys():
-                #Change from list to tuple, if list has one item format to ('item')
-                type_filter_tuple = f"('{filter[type][0]}')" if len(filter[type]) == 1 else tuple(filter[type])
-                type_query = f"{type} IN {type_filter_tuple}"
-                type_quries.append(type_query)
-            type_quries = ' AND '.join(type_quries)
-            query = f"SELECT * FROM {cat} WHERE {type_quries}"
-            cursor.execute(query)
+            # type_quries = []
+            # for type in filter.keys():
+            #     #Change from list to tuple, if list has one item format to ('item')
+            #     type_filter_tuple = f"('{filter[type][0]}')" if len(filter[type]) == 1 else tuple(filter[type])
+            #     type_query = f"{type} IN {type_filter_tuple}"
+            #     type_quries.append(type_query)
+            # type_quries = ' AND '.join(type_quries)
+            # query = f"SELECT * FROM {cat} WHERE {type_quries}"
+            # cursor.execute(query)
+            for key,value in filter:
+                if 
+
+
         else:
             query = f"SELECT * FROM {cat}" #select all product
             cursor.execute(query)
