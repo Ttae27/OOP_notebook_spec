@@ -44,27 +44,24 @@ class Product():
         return products
 
     def delete_product(self, cat, product_id):
-        list_cat = get_list(cat)
-        for product in list_cat:
+        for product in self.current_product:
             if product.id == product_id:
-                list_cat.remove(product)
+                delete_data(cat, product_id)
                 return {'status': 'Successfully delete product' + str(product_id)}
         return {'status': 'Failed delete product'}
 
-    def modify_price_product(self, cat, product_id, new_price):
-        list_cat = get_list(cat)
-        for product in list_cat:
+    def update_price_product(self, cat, product_id, new_price):
+        for product in self.current_product:
             if product.id == product_id:
-                product.price = new_price
+                update_price_data(cat, product_id, new_price)
                 return {'status': 'Successfully modified product ' + str(product_id)}
         return {'status': 'Failed modified product'}
 
     def add_product(self, cat, product):
-        list_cat = get_list(cat)
-        for product in list_cat:
+        for product in self.current_product:
             if product.id == product[id]:
                 return {'status': 'Failed to added product'}
-        list_cat.append(convert_to_class(cat, product))
+        add_data(cat, product)
         return {'status': 'Successfully added product'}
 
 
@@ -72,5 +69,3 @@ class Product():
 #!test
 #print(Product.get('cpu', {'brand_name': ['INTEL'], 'series': ['Core i3', 'Ryzen 7']}))
 product = Product()
-print(product.modify_price_product('cpu', 7, 20))
-print(cpu_list[1].id, cpu_list[1].price)
