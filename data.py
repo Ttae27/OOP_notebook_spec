@@ -23,31 +23,22 @@ def get_product(cat: str) -> list:
     match cat:
         case "cooling":
             class_cat = Cooling
-        
         case "cpu":
             class_cat = CPU
-        
         case "gpu":
             class_cat = GPU
-
         case "hdd":
             class_cat = HDD
-
         case "monitor":
             class_cat = Monitor
-        
         case "motherboard":
             class_cat = Motherboard
-
         case "pc_case":
             class_cat = PC_Case
-
         case "psu":
             class_cat = PSU
-
         case "ram":
             class_cat = RAM
-
         case "ssd":
             class_cat = SSD
     #append object to product_list
@@ -55,6 +46,7 @@ def get_product(cat: str) -> list:
         product_list.append(class_cat(*item[i]))
 
     return product_list
+
 
 def delete_data(cat: str, product_id: int) -> list:
     conn = sqlite3.connect('data/database.db')
@@ -64,6 +56,7 @@ def delete_data(cat: str, product_id: int) -> list:
     cursor.execute(query)
     conn.commit()
     return get_product(cat)
+
 
 def update_price_data(cat: str, product_id: int, new_price: int) -> list:
     conn = sqlite3.connect('data/database.db')
