@@ -34,8 +34,8 @@ class Product():
         for product in self.current_product:
             if product.id == product_id:
                 self.current_product = update_price_data(cat, product_id, new_price)
-                return {'status': 'Successfully modified product ' + str(product_id)}
-        return {'status': 'Failed modified product'}
+                return {'status': 'Successfully update product id ' + str(product_id)}
+        return {'status': 'Failed update product'}
 
     def delete_product(self, cat: str, product_id: int):
         for product in self.current_product:

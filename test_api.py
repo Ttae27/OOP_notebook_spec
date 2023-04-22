@@ -6,7 +6,7 @@ from user.admin import Admin
 from ui.Catalog import Catalog
 from fastapi import FastAPI
 from typing import Optional
-from compare import Compare
+from ui.compare import Compare
 
 
 app = FastAPI()
