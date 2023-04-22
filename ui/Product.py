@@ -15,8 +15,9 @@ class Product():
         if self.current_cat != cat:
             self.current_cat = cat
             self.current_product = get_product(cat)
-        
-        if filter:#activate if there is any filter
+
+        #activate if there is any filter
+        if filter:
             filtered_list = (
                 product for product in self.current_product
                 if all(
@@ -26,8 +27,10 @@ class Product():
                 )
             )
             return list(filtered_list)
+        else:
+            return self.current_product
 
-    def update_price_product(self, cat: str, product_id: int, new_price: int):
+    def update_price_product(self, cat: str, product_id: int, new_price: int) -> list:
         for product in self.current_product:
             if product.id == product_id:
                 self.current_product = update_price_data(cat, product_id, new_price)
@@ -48,10 +51,3 @@ class Product():
         new_product = tuple(new_product.values())
         self.current_product = add_data(cat, new_product)
         return {'status': 'Successfully added product'}
-
-#!debug
-product = Product()
-filter = product.get('cpu', {'id' : [8,9], 'brand_name' : 'AMD'})
-print(filter)
-for x in filter:
-    print(x.id)
