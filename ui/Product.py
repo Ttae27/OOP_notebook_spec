@@ -9,7 +9,7 @@ class Product():
         self.current_product = [] #store the current showing product
         self.current_cat = ""
 
-    def get(self, cat: str, filter :dict = None):
+    def get_product(self, cat: str, filter :dict = None):
 
         #only fetch from database if cat change
         if self.current_cat != cat:
@@ -33,6 +33,13 @@ class Product():
                 self.current_product = update_price_data(cat, product_id, new_price)
                 return {'status': 'Successfully modified product ' + str(product_id)}
         return {'status': 'Failed modified product'}
+
+    def delete_product(self, cat: str, product_id: int):
+        for product in self.current_product:
+            if product.id == product_id:
+                self.current_product = delete_data(cat, product_id)
+                return {'status': 'Successfully delete product ' + str(product_id)}
+        return {'status': 'Failed delete product'}
 
     def add_product(self, cat, new_product: dict):
         for product in self.current_product:
