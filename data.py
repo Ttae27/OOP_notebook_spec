@@ -55,8 +55,47 @@ def get_product(cat: str) -> list:
 
     return product_list
 
-# def delete_product(cat, product_id):
-#     conn = sqlite3.connect('data/database.db')
-#     cursor = conn.cursor()
+def delete_data(cat, product_id):
+    conn = sqlite3.connect('data/database.db')
+    cursor = conn.cursor()
+    query = f"DELETE from {cat} WHERE id = {product_id}"
+    cursor.execute(query)
+    conn.commit()
 
-print(get_product('cpu'))
+def update_price_data(cat, product_id, new_price):
+    conn = sqlite3.connect('data/database.db')
+    cursor = conn.cursor()
+    query = f"UPDATE {cat} SET price = {new_price} WHERE id = {product_id}"
+    cursor.execute(query)
+    conn.commit()
+
+def add_data(cat , product):
+    conn = sqlite3.connect('data/database.db')
+    cursor = conn.cursor()
+    product = tuple(product.values())
+    query = f"INSERT INTO {cat} VALUES {product}"
+    cursor.execute(query)
+
+def convert_to_class(cat, product):
+        if cat == "case":
+            return PC_Case(**product)
+        elif cat == "cooling":
+            return Cooling(**product)
+        elif cat == "cpu":
+            return CPU(**product)
+        elif cat == "gpu":
+            return GPU(**product)
+        elif cat == "hdd":
+            return HDD(**product)
+        elif cat == "monitor":
+            return Monitor(**product)
+        elif cat == "motherboard":
+            return Motherboard(**product)
+        elif cat == "psu":
+            return PSU(**product)
+        elif cat == "ram":
+            return RAM(**product)
+        elif cat == "ssd":
+            return SSD(**product)
+        else:
+            return None
