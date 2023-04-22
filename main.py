@@ -9,6 +9,10 @@ from urllib.parse import unquote
 
 app = FastAPI()
 
+# Create instance
+product = Product()
+catalog = Catalog(product)
+
 origins = ["*"]
 
 app.add_middleware(
@@ -18,6 +22,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 class cpu(BaseModel):
     pass
@@ -30,19 +35,19 @@ def get_products(product_cat: str, filter :Optional[str] = "", sort :Optional[in
         filter = json.loads(decoded_str)
         #!debug
         print(filter)
-    return Catalog.list(product_cat, filter, sort)
+    return catalog.list(product_cat, filter, sort)
 
 @app.post("/admin/products/{product_cat}")
-def add_products(product_cat: str, product: dict):
-    return Product.add(product_cat, product)
+def add_products(product_cat: str, new_product: dict):
+    return product.add_product(product_cat, new_product)
 
 @app.delete("/admin/products/{product_cat}")
 def delete_products(product_cat: str, product_id: int):
-    return Product.delete(product_cat, product_id)
+    return product.delete_product(product_cat, product_id)
 
 @app.put("/admin/products/{product_cat}")
-def modify_product(product_cat: str, product_id: int, product_key: str, product_value):
-    return Product.modify(product_cat, product_id, product_key, product_value)
+def update_price(product_cat: str, product_id: int, new_price: int):
+    return product.update_price_product(product_cat, product_id, new_price)
 
 @app.get("/product/compare")
 def compare(product_cat, product_id_1, product_id_2):

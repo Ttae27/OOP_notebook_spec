@@ -16,9 +16,10 @@ from data_class.ssd import SSD
 def get_product(cat: str) -> list:
     conn = sqlite3.connect('data/database.db')
     cursor = conn.cursor()
+    #select all product from cat table
     item = cursor.execute(f"SELECT * FROM {cat}").fetchall()
     product_list = []
-    
+    #Select classs according to parameter cat
     match cat:
         case "cooling":
             class_cat = Cooling
@@ -49,53 +50,35 @@ def get_product(cat: str) -> list:
 
         case "ssd":
             class_cat = SSD
-
+    #append object to product_list
     for i in range(len(item)):
         product_list.append(class_cat(*item[i]))
 
     return product_list
 
-def delete_data(cat, product_id):
+def delete_data(cat: str, product_id: int) -> list:
     conn = sqlite3.connect('data/database.db')
     cursor = conn.cursor()
+    #delete product from table cat
     query = f"DELETE from {cat} WHERE id = {product_id}"
     cursor.execute(query)
     conn.commit()
+    return get_product(cat)
 
-def update_price_data(cat, product_id, new_price):
+def update_price_data(cat: str, product_id: int, new_price: int) -> list:
     conn = sqlite3.connect('data/database.db')
     cursor = conn.cursor()
+    #update price of product in cat table
     query = f"UPDATE {cat} SET price = {new_price} WHERE id = {product_id}"
     cursor.execute(query)
     conn.commit()
+    return get_product(cat)
 
-def add_data(cat , product):
+def add_data(cat: str , product: tuple) -> list:
     conn = sqlite3.connect('data/database.db')
     cursor = conn.cursor()
-    product = tuple(product.values())
+    #add row to cat table
     query = f"INSERT INTO {cat} VALUES {product}"
     cursor.execute(query)
-
-def convert_to_class(cat, product):
-        if cat == "case":
-            return PC_Case(**product)
-        elif cat == "cooling":
-            return Cooling(**product)
-        elif cat == "cpu":
-            return CPU(**product)
-        elif cat == "gpu":
-            return GPU(**product)
-        elif cat == "hdd":
-            return HDD(**product)
-        elif cat == "monitor":
-            return Monitor(**product)
-        elif cat == "motherboard":
-            return Motherboard(**product)
-        elif cat == "psu":
-            return PSU(**product)
-        elif cat == "ram":
-            return RAM(**product)
-        elif cat == "ssd":
-            return SSD(**product)
-        else:
-            return None
+    conn.commit()
+    return get_product(cat)
