@@ -3,6 +3,7 @@ from typing import Optional
 from pydantic import BaseModel
 from ui.Catalog import Catalog
 from ui.Product import Product
+from ui.compare import Compare
 from fastapi.middleware.cors import CORSMiddleware
 import json
 from urllib.parse import unquote
@@ -12,6 +13,7 @@ app = FastAPI()
 # Create instance
 product = Product()
 catalog = Catalog(product)
+compare = Compare()
 
 origins = ["*"]
 
@@ -23,19 +25,18 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
 class cpu(BaseModel):
     pass
 
 @app.get("/products/{product_cat}")
-def get_products(product_cat: str, filter :Optional[str] = "", sort :Optional[int] = None):
+def get_products(product_cat: str, filter = None):
     if filter:
         encoded_str = filter
         decoded_str = unquote(encoded_str)
         filter = json.loads(decoded_str)
         #!debug
         print(filter)
-    return catalog.list(product_cat, filter, sort)
+    return catalog.list(product_cat, filter)
 
 @app.post("/admin/products/{product_cat}")
 def add_products(product_cat: str, new_product: dict):
@@ -50,8 +51,16 @@ def update_price(product_cat: str, product_id: int, new_price: int):
     return product.update_price_product(product_cat, product_id, new_price)
 
 @app.get("/product/compare")
-def compare(product_cat, product_id_1, product_id_2):
-    pass
+def compare_spec():
+    return compare.compare_spec()
+
+@app.post("/product/compare")
+def add_product_compare(cat: str, product_id: int, compare_number: int):
+    return compare.add_item(catalog.get_item(cat, product_id)[0], compare_number)
+
+@app.delete("/product/compare")
+def delete_product_compare(compare_number: int):
+    return compare.remove_item(compare_number)
 
 @app.get("/signup")
 def signup():
