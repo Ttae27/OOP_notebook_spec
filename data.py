@@ -48,7 +48,6 @@ def get_product(cat: str) -> list:
 
     return product_list
 
-
 def delete_data(cat: str, product_id: int) -> list:
     conn = sqlite3.connect('data/database.db')
     cursor = conn.cursor()
@@ -85,7 +84,7 @@ def get_user():
         user_list.append(User(*user[i]))
     return user_list
 
-def add_user(user_data: tuple):
+def sign_up(user_data: tuple):
     conn = sqlite3.connect('data/database.db')
     cursor = conn.cursor()
     #add row to user table
@@ -94,7 +93,7 @@ def add_user(user_data: tuple):
     conn.commit()
     return get_user()
 
-def update_price_data(user_id: int, user_data: str, new_data) -> list:
+def update_user_data(user_id: int, user_data: str, new_data):
     conn = sqlite3.connect('data/database.db')
     cursor = conn.cursor()
     #update data of user in user table
@@ -111,13 +110,3 @@ def delete_user(user_id: int):
     cursor.execute(query)
     conn.commit()
     return get_user()
-
-# conn = sqlite3.connect('data/database.db')
-# cursor = conn.cursor()
-# cursor.execute("""CREATE TABLE user (
-#     username text,
-#     password text,
-#     delivery_address text,
-#     phone text
-# )""")
-# add_user(('Taetester', 'tester', 'bann', '0972525215'))

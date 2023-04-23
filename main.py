@@ -39,6 +39,10 @@ def get_products(product_cat: str, filter = None):
         print(filter)
     return catalog.list(product_cat, filter)
 
+@app.get("/products/{product_cat}/{id}")
+def get_spec_product(product_cat: str, product_id: int):
+    return catalog.get_item(product_cat, product_id)
+
 @app.post("/admin/products/{product_cat}")
 def add_products(product_cat: str, new_product: dict):
     return product.add_product(product_cat, new_product)

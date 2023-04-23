@@ -1,6 +1,7 @@
 # from account import Account
 class User:
-  def __init__(self,username,password,delivery_address,phone):
+  def __init__(self,id, username,password,delivery_address,phone):
+    self.__id = id
     self.__username = username
     self.__password = password
     self.__delivery_address = delivery_address
