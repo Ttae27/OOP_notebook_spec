@@ -1,6 +1,4 @@
 from ui.Product import Product as product
-from urllib.parse import unquote
-import json
 
 class Catalog():
     def __init__(self, product_class) -> None:
