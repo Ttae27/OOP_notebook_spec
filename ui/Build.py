@@ -17,7 +17,7 @@ class Build:
         }
 
     #will return product instance giving id
-    def get_product_from_id(self, cat:str, product_id: int) -> object:
+    def get_product_from_id(self, cat: str, product_id: int) -> object:
         product_instance = self.__product_class.get_product(cat, {'id':[product_id]})
         return product_instance
 
@@ -25,19 +25,19 @@ class Build:
         product = self.get_product_from_id(cat, product_id)
         #if there is already a product in that category, it'll be removed.
         if self.__build_status[cat]:
-            self.__build.remove(self.__getattribute__(cat))
+            self.remove_from_build(cat)
         #add new product to build.
         self.__build.extend(product)
         #after add the product, set the status that the product of that category is now exist.
         self.__build_status[cat] = True
         return self.__build
 
-    def remove_from_build(self, cat: str, product_id: int) -> list:
-        product = self.get_product_from_id(cat, {'id':[product_id]})
-        #check if product exist, if not do nothing
-        if self.__build_status[cat]:
-            self.__build.remove(product)
-        return self.__build #? should I return build here or let main.py use get method
+    def remove_from_build(self, id: int) -> list:
+        for product in self.__build:
+            if product.__getattribute__('id') == id:
+                existing_product = product
+        self.__build.remove(existing_product)
+        return self.__build
 
 
     @property
@@ -51,6 +51,8 @@ build = Build(product)
 
 build.add_to_build('cpu', 6)
 build.add_to_build('gpu', 11)
+print(build.build)
+build.remove_from_build(11)
 
 print(build.build)
 print('cpu series is ' + build.build[0].series)
