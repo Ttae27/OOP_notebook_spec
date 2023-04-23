@@ -1,12 +1,14 @@
 from fastapi import FastAPI
 from typing import Optional
 from pydantic import BaseModel
+from fastapi.middleware.cors import CORSMiddleware
+from urllib.parse import unquote
+import json
+
 from ui.Catalog import Catalog
 from ui.Product import Product
 from ui.compare import Compare
-from fastapi.middleware.cors import CORSMiddleware
-import json
-from urllib.parse import unquote
+
 
 app = FastAPI()
 
@@ -25,8 +27,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-class cpu(BaseModel):
-    pass
+#***************************************<<product>>******************************************
 
 @app.get("/products/{product_cat}")
 def get_products(product_cat: str, filter = None):
@@ -50,6 +51,8 @@ def delete_products(product_cat: str, product_id: int):
 def update_price(product_cat: str, product_id: int, new_price: int):
     return product.update_price_product(product_cat, product_id, new_price)
 
+#***************************************<<catalog>>******************************************
+
 @app.get("/product/compare")
 def compare_spec():
     return compare.compare_spec()
@@ -61,6 +64,8 @@ def add_product_compare(cat: str, product_id: int, compare_number: int):
 @app.delete("/product/compare")
 def delete_product_compare(compare_number: int):
     return compare.remove_item(compare_number)
+
+#***************************************<<user>>******************************************
 
 @app.get("/signup")
 def signup():
