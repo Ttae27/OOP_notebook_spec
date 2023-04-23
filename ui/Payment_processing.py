@@ -41,4 +41,8 @@ class PaymentProcessor:
             self.__paystatus = "Completed"
             return self.__paystatus
         
+    @property
+    def paystatus(self):
+        return self.__paystatus
+    
 # payment_ui = PaymentUI("credit_card", 50.0)

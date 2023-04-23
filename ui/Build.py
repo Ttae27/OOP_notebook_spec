@@ -39,7 +39,7 @@ class Build:
         self.__build.remove(existing_product)
         return self.__build
     
-    def total_price(self,cart):
+    def cal_price(self,cart):
         self.__cart = cart
         for product in range(len(self.__cart)):
             self.__totalprice = self.__totalprice + cart[product].price
