@@ -31,12 +31,3 @@ class Compare():
         spec2_dict = vars(self.__spec_2[0])
         lst = [spec1_dict, spec2_dict]
         return lst
-    
-# from fastapi import FastAPI
-
-# app = FastAPI()
-# compare = Compare()
-
-# @app.get('/compare')
-# def compare():
-#     return com

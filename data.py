@@ -11,6 +11,7 @@ from data_class.pc_case import PC_Case
 from data_class.psu import PSU
 from data_class.ram import RAM
 from data_class.ssd import SSD
+from user.user import User
 
 
 def get_product(cat: str) -> list:
@@ -57,7 +58,6 @@ def delete_data(cat: str, product_id: int) -> list:
     conn.commit()
     return get_product(cat)
 
-
 def update_price_data(cat: str, product_id: int, new_price: int) -> list:
     conn = sqlite3.connect('data/database.db')
     cursor = conn.cursor()
@@ -75,3 +75,49 @@ def add_data(cat: str , product: tuple) -> list:
     cursor.execute(query)
     conn.commit()
     return get_product(cat)
+
+def get_user():
+    conn = sqlite3.connect('data/database.db')
+    cursor = conn.cursor()
+    user = cursor.execute(f"SELECT rowid, * FROM user").fetchall()
+    user_list = []
+    for i in range(len(user)):
+        user_list.append(User(*user[i]))
+    return user_list
+
+def add_user(user_data: tuple):
+    conn = sqlite3.connect('data/database.db')
+    cursor = conn.cursor()
+    #add row to user table
+    query = f"INSERT INTO user VALUES {user_data}"
+    cursor.execute(query)
+    conn.commit()
+    return get_user()
+
+def update_price_data(user_id: int, user_data: str, new_data) -> list:
+    conn = sqlite3.connect('data/database.db')
+    cursor = conn.cursor()
+    #update data of user in user table
+    query = f"UPDATE user SET {user_data} = {new_data} WHERE rowid = {user_id}"
+    cursor.execute(query)
+    conn.commit()
+    return get_user()
+
+def delete_user(user_id: int):
+    conn = sqlite3.connect('data/database.db')
+    cursor = conn.cursor()
+    #delete user from table user
+    query = f"DELETE from user WHERE rowid = {user_id}"
+    cursor.execute(query)
+    conn.commit()
+    return get_user()
+
+# conn = sqlite3.connect('data/database.db')
+# cursor = conn.cursor()
+# cursor.execute("""CREATE TABLE user (
+#     username text,
+#     password text,
+#     delivery_address text,
+#     phone text
+# )""")
+# add_user(('Taetester', 'tester', 'bann', '0972525215'))
