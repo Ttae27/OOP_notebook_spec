@@ -3,6 +3,7 @@ from Product import Product #!debug only pls delete after
 class Build:
     def __init__(self, product_class: object) -> None:
         self.__build = []
+        self.__totalprice = 0
         self.__product_class = product_class
         self.__build_status = {
             'cooling': False,
@@ -33,25 +34,25 @@ class Build:
         return self.__build
 
     def remove_from_build(self, cat: str, product_id: int) -> list:
-        product = self.get_product_from_id(cat, {'id':[product_id]})
+        product = self.get_product_from_id(cat, product_id)
         #check if product exist, if not do nothing
         if self.__build_status[cat]:
             self.__build.remove(product)
         return self.__build #? should I return build here or let main.py use get method
-
-
+    
+    def total_price(self,cart):
+        self.__cart = cart
+        for product in range(len(self.__cart)):
+            self.__totalprice = self.__totalprice + cart[product].price
+        return self.__totalprice
+        
+    @property
+    #get total price from build
+    def totalprice(self):
+        return self.__totalprice
+    
     @property
     #todo add function to convert list of object to dict
     def build(self):
         return self.__build
 
-#!debug only pls remove after
-product = Product()
-build = Build(product)
-
-build.add_to_build('cpu', 6)
-build.add_to_build('gpu', 11)
-
-print(build.build)
-print('cpu series is ' + build.build[0].series)
-print('gpu series is ' + build.build[1].series)

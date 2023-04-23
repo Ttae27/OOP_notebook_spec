@@ -10,7 +10,6 @@ class Product():
         self.current_cat = ""
 
     def get_product(self, cat: str, filter :dict = None):
-
         #only fetch from database if cat change
         if self.current_cat != cat:
             self.current_cat = cat

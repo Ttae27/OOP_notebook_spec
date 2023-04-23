@@ -25,15 +25,16 @@ print(m.get_customer())
 print(p.username)
 acc = Account()
 
-i = Account()
 
 acc.add_account(p)
 acc.add_account(m)
 acc.add_account(t)
 print(acc.allaccount)
 print(acc.allaccount[0].username)
+print(acc.allaccount[0].username)
 print(acc.allaccount[1].username)
 print(acc.allaccount[2].password)
+print(acc.login("Pearwa","LOLO"))
 
 # def namefunction():
 #     pass
@@ -44,17 +45,21 @@ print(acc.allaccount[2].password)
 def get_user():
     lst = []
     for i in range(len(acc.allaccount)):
-        # dick = {'username': acc.allaccount[i].username}
-        lst.append({'username': acc.allaccount[i].username})
-        # lst.append({'password': acc.allaccount[i].password})
-        # lst.append({'delivery_address': acc.allaccount[i].delivery_address})
-        # lst.append({'phone': acc.allaccount[i].phone})
+        lst.append({'id':i,'username': acc.allaccount[i].username,'password':acc.allaccount[i].password,'delivery_address':acc.allaccount[i].delivery_address,'phone':acc.allaccount[i].phone})
+
     return lst
 
 @app.post('/sign_up')
 def sign_up(username, password, delivery_address, phone):
     acc.add_account(User(username, password, delivery_address, phone))
-    return {'eiei': "eieieieiei"}
+    return {'sign up': "Successfully sign up"}
+
+@app.post('/login')
+def sign_in(username, password):
+    if acc.login(username,password) == "Success":
+        return {'sign in': "Successfully to sign in"}
+    else:
+        return {'sign in': "Failed to sign in"}
 
 # print("___________________________________")
 # print(t.sign_in("Pearwa","LOLO",acc.allaccount))
