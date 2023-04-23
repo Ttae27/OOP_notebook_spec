@@ -18,7 +18,7 @@ class Build:
         }
 
     #will return product instance giving id
-    def get_product_from_id(self, cat:str, product_id: int) -> object:
+    def get_product_from_id(self, cat: str, product_id: int) -> object:
         product_instance = self.__product_class.get_product(cat, {'id':[product_id]})
         return product_instance
 
@@ -26,7 +26,7 @@ class Build:
         product = self.get_product_from_id(cat, product_id)
         #if there is already a product in that category, it'll be removed.
         if self.__build_status[cat]:
-            self.__build.remove(self.__getattribute__(cat))
+            self.remove_from_build(cat)
         #add new product to build.
         self.__build.extend(product)
         #after add the product, set the status that the product of that category is now exist.
