@@ -17,7 +17,6 @@ class Build:
             'ssd': False
         }
 
-    #will return product instance giving id
     def get_product_from_id(self, cat: str, product_id: int) -> object:
         product_instance = self.__product_class.get_product(cat, {'id':[product_id]})
         return product_instance
@@ -33,12 +32,12 @@ class Build:
         self.__build_status[cat] = True
         return self.__build
 
-    def remove_from_build(self, cat: str, product_id: int) -> list:
-        product = self.get_product_from_id(cat, product_id)
-        #check if product exist, if not do nothing
-        if self.__build_status[cat]:
-            self.__build.remove(product)
-        return self.__build #? should I return build here or let main.py use get method
+    def remove_from_build(self, id: int) -> list:
+        for product in self.__build:
+            if product.__getattribute__('id') == id:
+                existing_product = product
+        self.__build.remove(existing_product)
+        return self.__build
     
     def total_price(self,cart):
         self.__cart = cart

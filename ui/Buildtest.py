@@ -12,7 +12,7 @@ build.add_to_build('cpu', 6)#add product to basket
 build.add_to_build('gpu', 11)
 # build.add_to_build('gpu', 12)
 build.add_to_build('ram',37)
-build.add_to_build('psu',32)
+build.remove_from_build(6)
 build.total_price(build.build)
 # print(build.totalprice)
 
