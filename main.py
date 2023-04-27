@@ -18,6 +18,13 @@ catalog = Catalog(product)
 compare = Compare()
 account = Account()
 
+#Create base model for request body
+class User(BaseModel):
+    id: int
+    username: str
+    password: str
+    delivery_address: str
+    phone: str
 # origins = ["*"]
 
 # app.add_middleware(
@@ -27,15 +34,6 @@ account = Account()
 #     allow_methods=["*"],
 #     allow_headers=["*"],
 # )
-
-#Create base model for request body
-class User(BaseModel):
-    id: int
-    username: str
-    password: str
-    delivery_address: str
-    phone: str
-
 
 #***************************************<<product>>******************************************
 
@@ -81,7 +79,7 @@ def delete_product_compare(compare_number: int):
 #***************************************<<user>>******************************************
 
 @app.post("/signup")
-def signup(user_data: User):
+def signup(user_data: dict):
     user_data = tuple(user_data.values())
     return account.sign_up(user_data)
 
@@ -90,13 +88,14 @@ def signin(usr: str, passwd: str):
     return account.sign_in(usr, passwd)
 
 @app.put("/{user_id}/update")
-def update(user_id: str, type: str, new_data: User):
+def update(user_id, type, new_data: str):
     return account.update_user(int(user_id), type, new_data)
 
 @app.delete("/{user_id}/delete")
 def delete(user_id):
     return account.delete_user(int(user_id))
 
+#! debug
 @app.get("/test_acc")
 def get_all_acc():
     lst = []

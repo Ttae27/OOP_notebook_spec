@@ -19,13 +19,12 @@ class Account:
                 if account.auth(username, password):
                     self.__current_user = account
                     return {"Status": "log in successfully"}
-
                 else:
                     return {"Status": "Incorrect password. Please try again."}
 
         return {"Status": "User does not exist. Do you want to sign up?"}
 
-    def update_user(self, user_id: int, type: str, new_data: dict) -> dict:
+    def update_user(self, user_id: int, type: str, new_data) -> dict:
         if update_user_data(user_id, type, new_data):
             self.__allaccount = get_user()
             return {"Status": "update data successfully"}
