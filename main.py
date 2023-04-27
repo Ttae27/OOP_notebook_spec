@@ -83,13 +83,14 @@ def signin(usr: str, passwd: str):
     return account.sign_in(usr, passwd)
 
 @app.put("/{user_id}/update")
-def update(user_id, type, new_data):
+def update(user_id, type, new_data: str):
     return account.update_user(int(user_id), type, new_data)
 
 @app.delete("/{user_id}/delete")
 def delete(user_id):
     return account.delete_user(int(user_id))
 
+#! debug
 @app.get("/test_acc")
 def get_all_acc():
     lst = []

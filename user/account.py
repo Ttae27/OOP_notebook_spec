@@ -19,7 +19,6 @@ class Account:
                 if account.auth(username, password):
                     self.__current_user = account
                     return {"Status": "log in successfully"}
-
                 else:
                     return {"Status": "Incorrect password. Please try again."}
 
