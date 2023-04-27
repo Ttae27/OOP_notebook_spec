@@ -2,7 +2,7 @@ import sys
 
 # import data.py
 sys.path.append('../oop_notebook_spec')
-from data import *
+from data import get_product, delete_data, update_price_data, add_product_data
 
 class Product():
     def __init__(self) -> None:
@@ -48,5 +48,5 @@ class Product():
             if product.id == new_product['id']:
                 return {'status': 'Failed to added product'}
         new_product = tuple(new_product.values())
-        self.current_product = add_data(cat, new_product)
+        self.current_product = add_product_data(cat, new_product)
         return {'status': 'Successfully added product'}

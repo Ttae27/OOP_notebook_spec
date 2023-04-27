@@ -1,5 +1,3 @@
-from Product import Product #!debug only pls delete after
-
 class Build:
     def __init__(self, product_class: object) -> None:
         self.__build = []
@@ -16,7 +14,7 @@ class Build:
             'ram': False,
             'ssd': False
         }
-
+    #return product instance base on id
     def get_product_from_id(self, cat: str, product_id: int) -> object:
         product_instance = self.__product_class.get_product(cat, {'id':[product_id]})
         return product_instance

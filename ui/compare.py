@@ -1,4 +1,3 @@
-
 class Compare():
     def __init__(self):
         self.__spec_1 = []
