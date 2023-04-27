@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from typing import Optional
+from pydantic import BaseModel
 from urllib.parse import unquote
 import json
 
@@ -28,6 +28,15 @@ account = Account()
 #     allow_headers=["*"],
 # )
 
+#Create base model for request body
+class User(BaseModel):
+    id: int
+    username: str
+    password: str
+    delivery_address: str
+    phone: str
+
+
 #***************************************<<product>>******************************************
 
 @app.get("/products/{product_cat}")
@@ -36,8 +45,6 @@ def get_products(product_cat: str, filter = None):
         encoded_str = filter
         decoded_str = unquote(encoded_str)
         filter = json.loads(decoded_str)
-        #!debug
-        print(filter)
     return catalog.list(product_cat, filter)
 
 @app.get("/products/{product_cat}/{id}")
@@ -74,7 +81,7 @@ def delete_product_compare(compare_number: int):
 #***************************************<<user>>******************************************
 
 @app.post("/signup")
-def signup(user_data: dict):
+def signup(user_data: User):
     user_data = tuple(user_data.values())
     return account.sign_up(user_data)
 
@@ -83,7 +90,7 @@ def signin(usr: str, passwd: str):
     return account.sign_in(usr, passwd)
 
 @app.put("/{user_id}/update")
-def update(user_id, type, new_data):
+def update(user_id: str, type: str, new_data: User):
     return account.update_user(int(user_id), type, new_data)
 
 @app.delete("/{user_id}/delete")
