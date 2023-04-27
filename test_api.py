@@ -1,9 +1,9 @@
-from ui.Product import *
-from ui.Build import Build
+from ui.product import *
+from ui.build import Build
 import glob
 from user.user import User
 from user.admin import Admin
-from ui.Catalog import Catalog
+from ui.catalog import Catalog
 from fastapi import FastAPI
 from typing import Optional
 from ui.compare import Compare

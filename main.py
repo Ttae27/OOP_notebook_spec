@@ -1,13 +1,13 @@
 from fastapi import FastAPI
 from typing import Optional
-from pydantic import BaseModel
-from fastapi.middleware.cors import CORSMiddleware
 from urllib.parse import unquote
 import json
 
-from ui.Catalog import Catalog
-from ui.Product import Product
+from ui.catalog import Catalog
+from ui.product import Product
 from ui.compare import Compare
+
+from user.account import Account
 
 
 app = FastAPI()
@@ -16,16 +16,17 @@ app = FastAPI()
 product = Product()
 catalog = Catalog(product)
 compare = Compare()
+account = Account()
 
-origins = ["*"]
+# origins = ["*"]
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+# app.add_middleware(
+#     CORSMiddleware,
+#     allow_origins=origins,
+#     allow_credentials=True,
+#     allow_methods=["*"],
+#     allow_headers=["*"],
+# )
 
 #***************************************<<product>>******************************************
 
@@ -40,15 +41,16 @@ def get_products(product_cat: str, filter = None):
     return catalog.list(product_cat, filter)
 
 @app.get("/products/{product_cat}/{id}")
-def get_spec_product(product_cat: str, product_id: int):
+def get_product_spec(product_cat: str, product_id: int):
     return catalog.get_item(product_cat, product_id)
 
+#*Admin access only
 @app.post("/admin/products/{product_cat}")
-def add_products(product_cat: str, new_product: dict):
+def add_product(product_cat: str, new_product: dict):
     return product.add_product(product_cat, new_product)
 
 @app.delete("/admin/products/{product_cat}")
-def delete_products(product_cat: str, product_id: int):
+def delete_product(product_cat: str, product_id: int):
     return product.delete_product(product_cat, product_id)
 
 @app.put("/admin/products/{product_cat}")
@@ -71,6 +73,26 @@ def delete_product_compare(compare_number: int):
 
 #***************************************<<user>>******************************************
 
-@app.get("/signup")
-def signup():
-    pass
+@app.post("/signup")
+def signup(user_data: dict):
+    user_data = tuple(user_data.values())
+    return account.sign_up(user_data)
+
+@app.get("/signin")
+def signin(usr: str, passwd: str):
+    return account.sign_in(usr, passwd)
+
+@app.put("/{user_id}/update")
+def update(user_id, type, new_data):
+    return account.update_user(int(user_id), type, new_data)
+
+@app.delete("/{user_id}/delete")
+def delete(user_id):
+    return account.delete_user(int(user_id))
+
+@app.get("/test_acc")
+def get_all_acc():
+    lst = []
+    for acc in account.allaccount:
+        lst.append(vars(acc))
+    return lst
