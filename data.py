@@ -84,14 +84,19 @@ def get_user():
         user_list.append(User(*user[i]))
     return user_list
 
-def sign_up(user_data: tuple):
+def add_data(user_data: tuple):
     conn = sqlite3.connect('data/database.db')
     cursor = conn.cursor()
+    #check if username exist
+    users = cursor.execute(f"SELECT rowid, * FROM user").fetchall()
+    for user in users:
+        if user[0] == user_data[0]:
+            return {'Notify': 'This username has been used'}
     #add row to user table
     query = f"INSERT INTO user VALUES {user_data}"
     cursor.execute(query)
     conn.commit()
-    return get_user()
+    return {'Notify': 'Successfully sign up'}
 
 def update_user_data(user_id: int, user_data: str, new_data):
     conn = sqlite3.connect('data/database.db')

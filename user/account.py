@@ -1,15 +1,19 @@
-
+from data import *
 
 class Account:
     def __init__(self):
         self.__allaccount = []
         self.__loginstatus = "Success"
     
-    def add_account(self, account):
-        self.__allaccount.append(account)
-    
-    def dict_account(self):
-        pass
+    def sign_in(self, username: str, password: str):
+        self.__allaccount = get_user()
+        for account in self._allaccount:
+            if account.username == username and account.password == password:
+                return {"Status": "log in successfully"}
+        return {"Status" : "Try again"}
+
+    def get_allaccount(self,account):
+        self.__allaccount = get_user()
     
     def login(self,username,password):
         for i in range(len(self.__allaccount)):
