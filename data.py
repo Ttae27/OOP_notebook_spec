@@ -14,6 +14,7 @@ from data_class.ssd import SSD
 from user.user import User
 
 
+#**********************************<<product>>************************************
 def get_product(cat: str) -> list:
     conn = sqlite3.connect('data/database.db')
     cursor = conn.cursor()
@@ -66,7 +67,7 @@ def update_price_data(cat: str, product_id: int, new_price: int) -> list:
     conn.commit()
     return get_product(cat)
 
-def add_data(cat: str , product: tuple) -> list:
+def add_product_data(cat: str , product: tuple) -> list:
     conn = sqlite3.connect('data/database.db')
     cursor = conn.cursor()
     #add row to cat table
@@ -75,7 +76,8 @@ def add_data(cat: str , product: tuple) -> list:
     conn.commit()
     return get_product(cat)
 
-def get_user():
+#**********************************<<user>>************************************
+def get_user() -> list:
     conn = sqlite3.connect('data/database.db')
     cursor = conn.cursor()
     user = cursor.execute(f"SELECT rowid, * FROM user").fetchall()
@@ -84,34 +86,42 @@ def get_user():
         user_list.append(User(*user[i]))
     return user_list
 
-def add_data(user_data: tuple):
+def add_user(user_data: tuple) -> bool:
     conn = sqlite3.connect('data/database.db')
     cursor = conn.cursor()
     #check if username exist
     users = cursor.execute(f"SELECT rowid, * FROM user").fetchall()
     for user in users:
         if user[0] == user_data[0]:
-            return {'Notify': 'This username has been used'}
+            return False
     #add row to user table
     query = f"INSERT INTO user VALUES {user_data}"
     cursor.execute(query)
     conn.commit()
-    return {'Notify': 'Successfully sign up'}
+    return True
 
 def update_user_data(user_id: int, user_data: str, new_data):
     conn = sqlite3.connect('data/database.db')
     cursor = conn.cursor()
     #update data of user in user table
-    query = f"UPDATE user SET {user_data} = {new_data} WHERE rowid = {user_id}"
-    cursor.execute(query)
-    conn.commit()
-    return get_user()
+    users = cursor.execute("SELECT rowid FROM user").fetchall()
+    for user in users:
+        if user[0] == user_id:
+            query = f"UPDATE user SET {user_data} = {new_data} WHERE rowid = {user_id}"
+            cursor.execute(query)
+            conn.commit()
+            return True
+    return False
 
-def delete_user(user_id: int):
+def del_user(user_id: int):
     conn = sqlite3.connect('data/database.db')
     cursor = conn.cursor()
     #delete user from table user
-    query = f"DELETE from user WHERE rowid = {user_id}"
-    cursor.execute(query)
-    conn.commit()
-    return get_user()
+    users = cursor.execute("SELECT rowid FROM user").fetchall()
+    for user in users:
+        if user[0] == user_id:
+            query = f"DELETE from user WHERE rowid = {user_id}"
+            cursor.execute(query)
+            conn.commit()
+            return True
+    return False
