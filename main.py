@@ -3,12 +3,13 @@ from typing import Optional
 from urllib.parse import unquote
 import json
 
-from ui.catalog import Catalog
-from ui.product import Product
+from ui.Catalog import Catalog
+from ui.Product import Product
 from ui.compare import Compare
-
+from ui.Build import Build
 from user.account import Account
-
+from ui.payment import Payment
+from ui.payment_processor import PaymentProcessor
 
 app = FastAPI()
 
@@ -17,6 +18,8 @@ product = Product()
 catalog = Catalog(product)
 compare = Compare()
 account = Account()
+build = Build(product)
+payment = PaymentProcessor(build)
 
 # origins = ["*"]
 
@@ -82,6 +85,26 @@ def signup(user_data: dict):
 def signin(usr: str, passwd: str):
     return account.sign_in(usr, passwd)
 
+@app.post('/build')
+def buildcom(cat:str, product_id: int):
+    return build.add_to_build(cat, product_id)
+    
+@app.post('/payment')
+def payment_processing(transection):
+    return payment.select_payment(transection)
+
+@app.post('/creditcard')
+def credit_card_payment(card_number,expiration_date,cvv): 
+    build.cal_price(build.build)
+    # return PaymentProcessor.process_credit_card_payment(card_number,expiration_date,cvv)
+    return payment.process_credit_card_payment(card_number,expiration_date,cvv)
+
+@app.post('/cashtransfer')
+def credit_card_payment(cash): 
+    build.cal_price(build.build)
+    # return PaymentProcessor.process_credit_card_payment(card_number,expiration_date,cvv)
+    return payment.process_cash_Transfer_payment(cash)
+
 @app.put("/{user_id}/update")
 def update(user_id, type, new_data: str):
     return account.update_user(int(user_id), type, new_data)
@@ -97,3 +120,12 @@ def get_all_acc():
     for acc in account.allaccount:
         lst.append(vars(acc))
     return lst
+
+@app.get("/totalpice")
+def totalprice():
+    build.cal_price(build.build)
+    return {build.totalprice}
+
+@app.get("/amount-payment")
+def amount():
+    return {payment.amount}
