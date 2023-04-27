@@ -1,5 +1,3 @@
-from ui.Product import Product as product
-
 class Catalog():
     def __init__(self, product_class) -> None:
         self.__product_class = product_class
@@ -20,4 +18,7 @@ class Catalog():
 
     def search(self, cat, full_name):
         products = self.__product_class.get_product(cat, {'full_name': full_name})
-        return products
+        lst = []
+        for product in products:
+            lst.append(vars(product))
+        return lst
