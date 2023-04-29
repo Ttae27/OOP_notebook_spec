@@ -1,7 +1,8 @@
 from fastapi import FastAPI
-from typing import Optional
+from pydantic import BaseModel
 from urllib.parse import unquote
 import json
+import requests
 
 from ui.Catalog import Catalog
 from ui.Product import Product
@@ -21,6 +22,13 @@ account = Account()
 build = Build(product)
 payment = PaymentProcessor(build)
 
+#Create base model for request body
+class User(BaseModel):
+    id: int
+    username: str
+    password: str
+    delivery_address: str
+    phone: str
 # origins = ["*"]
 
 # app.add_middleware(
@@ -39,8 +47,6 @@ def get_products(product_cat: str, filter = None):
         encoded_str = filter
         decoded_str = unquote(encoded_str)
         filter = json.loads(decoded_str)
-        #!debug
-        print(filter)
     return catalog.list(product_cat, filter)
 
 @app.get("/products/{product_cat}/{id}")
@@ -81,8 +87,10 @@ def signup(user_data: dict):
     user_data = tuple(user_data.values())
     return account.sign_up(user_data)
 
-@app.get("/signin")
-def signin(usr: str, passwd: str):
+@app.post("/signin")
+def signin(credential: dict):
+    usr = credential['username']
+    passwd = credential['password']
     return account.sign_in(usr, passwd)
 
 @app.post('/build')
