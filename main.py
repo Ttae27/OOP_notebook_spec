@@ -2,14 +2,14 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from urllib.parse import unquote
 import json
-import requests
 
 from ui.catalog import Catalog
 from ui.product import Product
 from ui.compare import Compare
-
+from ui.build import Build
 from user.account import Account
-
+from ui.payment import Payment
+from ui.payment_processor import PaymentProcessor
 
 app = FastAPI()
 
@@ -18,6 +18,8 @@ product = Product()
 catalog = Catalog(product)
 compare = Compare()
 account = Account()
+build = Build(product)
+payment = PaymentProcessor(build)
 
 #Create base model for request body
 class User(BaseModel):
@@ -90,6 +92,33 @@ def signin(credential: dict):
     passwd = credential['password']
     return account.sign_in(usr, passwd)
 
+#*****************************************<<build>>*******************************************
+
+@app.get('/build')
+def show():
+    return build.show_build()
+
+@app.post("/products/{product_cat}")
+def buildcom(product_cat: str, product: dict):
+    product_id = product['id']
+    return build.add_to_build(product_cat, product_id)
+    
+@app.post('/payment')
+def payment_processing(transection):
+    return payment.select_payment(transection)
+
+@app.post('/creditcard')
+def credit_card_payment(card_number,expiration_date,cvv): 
+    build.cal_price(build.build)
+    # return PaymentProcessor.process_credit_card_payment(card_number,expiration_date,cvv)
+    return payment.process_credit_card_payment(card_number,expiration_date,cvv)
+
+@app.post('/cashtransfer')
+def credit_card_payment(cash): 
+    build.cal_price(build.build)
+    # return PaymentProcessor.process_credit_card_payment(card_number,expiration_date,cvv)
+    return payment.process_cash_Transfer_payment(cash)
+
 @app.put("/{user_id}/update")
 def update(user_id, type, new_data: str):
     return account.update_user(int(user_id), type, new_data)
@@ -106,3 +135,11 @@ def get_all_acc():
         lst.append(vars(acc))
     return lst
 
+@app.get("/totalpice")
+def totalprice():
+    build.cal_price(build.build)
+    return {build.totalprice}
+
+@app.get("/amount-payment")
+def amount():
+    return {payment.amount}

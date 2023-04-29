@@ -9,9 +9,6 @@ class ProductCatalogGUI:
         self.__master = master
         self.__master.title("Product Catalog")
 
-        # Define the cart
-        self.__cart = []
-
         # Create the catalog buttons
         self.__catalog_buttons = []
         self.__catalogs = ["cpu", "gpu", "cooling", "hdd", "monitor", "motherboard", "pc_case", "psu", "ram", "ssd"]
@@ -20,11 +17,9 @@ class ProductCatalogGUI:
             button.pack(side="left", padx=1.5)
             self.__catalog_buttons.append(button)
 
-        
-
         # Create the cart and payment buttons
-        cart_button = tk.Button(self.__master, text="Cart", command=self.show_cart)
-        cart_button.pack(side="right")
+        build_button = tk.Button(self.__master, text="Build", command=self.show_build)
+        build_button.pack(side="right")
         payment_button = tk.Button(self.__master, text="Payment")
         payment_button.pack(side="right")
 
@@ -32,20 +27,40 @@ class ProductCatalogGUI:
         self.__frame = tk.Frame(self.__master)
         self.__frame.pack(padx=10, pady=10, anchor="w")
 
+        self.__status_label = tk.Label(master, text='')
+        self.__status_label.pack()
+
         # Display the initial catalog
         self.switch_catalog(self.__catalogs[0])
 
     # Function to add a product to the cart
-    def add_to_cart(self, product):
-        self.__cart.append(product)
+    def add_to_build(self, catalog, product):
+        url = f"http://localhost:8000/products/{catalog}"
+        prod = {'id': product['id']}
+        response = requests.post(url, json=prod)
+        if response.status_code == 200:
+            data = response.json()
+            self.__status_label.config(text=f"{data}")
+        self.switch_catalog(catalog)
 
     # Function to display the cart
-    def show_cart(self):
-        if len(self.__cart) == 0:
-            tk.Label(self.__master, text="Cart: Your cart is empty.")
+    def show_build(self):
+        url = "http://localhost:8000/build"
+        response = requests.get(url)
+        build = json.loads(response.text)
+        if len(build) == 0:
+            tk.Label(self.__master, text="Build: Your build is empty.")
         else:
-            cart_text = "\n".join(self.__cart)
-            tk.Label(self.__master, text=f"Cart: {cart_text}")
+            for product in build:
+                img = Image.open(product['thumbnail_url'])
+                img = img.resize((100, 100), Image.ANTIALIAS)
+                photo = ImageTk.PhotoImage(img)
+                label = tk.Label(self.__master, image=photo)
+                label.image = photo  # to prevent image garbage collection
+                label.pack()
+
+                button = tk.Label(self.__master, text=product["full_name"])
+                button.pack(anchor="w", pady=1)
 
     # Function to switch catalogs
     def switch_catalog(self, catalog):
@@ -53,6 +68,7 @@ class ProductCatalogGUI:
         for widget in self.__frame.winfo_children():
             widget.destroy()
 
+        self.__status_label.config(text="")
         # Get the products from the API
         url = f"http://localhost:8000/products/{catalog}"
         response = requests.get(url)
@@ -67,7 +83,7 @@ class ProductCatalogGUI:
             label.image = photo  # to prevent image garbage collection
             label.pack()
 
-            button = tk.Button(self.__frame, text=product["full_name"], command=lambda p=product["full_name"]: self.add_to_cart(p))
+            button = tk.Button(self.__frame, text=product["full_name"], command=lambda c=catalog, p=product: self.add_to_build(c, p))
             button.pack(anchor="w", pady=1)
 
 

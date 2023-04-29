@@ -23,12 +23,12 @@ class Build:
         product = self.get_product_from_id(cat, product_id)
         #if there is already a product in that category, it'll be removed.
         if self.__build_status[cat]:
-            self.remove_from_build(cat)
+            self.remove_from_build(product_id)
         #add new product to build.
         self.__build.extend(product)
         #after add the product, set the status that the product of that category is now exist.
         self.__build_status[cat] = True
-        return self.__build
+        return {'Status': 'Successfully added to build'}
 
     def remove_from_build(self, id: int) -> list:
         for product in self.__build:
@@ -43,6 +43,12 @@ class Build:
             self.__totalprice = self.__totalprice + cart[product].price
         return self.__totalprice
         
+    def show_build(self):
+        lst = []
+        if len(self.__build) != 0:
+            for product in self.__build:
+                lst.append({k.replace(f"_{type(product).__name__}__", ""): v for k, v in vars(product).items()})
+        return lst
     @property
     #get total price from build
     def totalprice(self):
