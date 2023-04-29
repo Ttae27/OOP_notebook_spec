@@ -2,7 +2,6 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from urllib.parse import unquote
 import json
-import requests
 
 from ui.Catalog import Catalog
 from ui.Product import Product
