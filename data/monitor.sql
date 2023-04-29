@@ -24,8 +24,8 @@ CREATE TABLE IF NOT EXISTS monitor (
     thumbnail_url TEXT,
     cont TEXT
 );
-INSERT INTO monitor VALUES (26,NULL,'203V5LSB2',19.5,NULL,'1600 x 900','16:9',60,'5ms',200,NULL,NULL,NULL,NULL,NULL,1,NULL,0,3,'PHILIPS','PHILIPS 203V5LSB2',2525,'https://notebookspec.com/storage/pc-mon/mon_570_203v5lsb2.jpg',NULL),
-	(27,NULL,'E2016HV',19.5,NULL,'1600 x 900','16:9',60,'5ms',200,NULL,NULL,NULL,NULL,NULL,1,NULL,0,3,'DELL','DELL E2016HV',3500,'https://notebookspec.com/storage/pc-mon/mon_575_e2016hv.jpg',NULL),
-	(28,NULL,'19M38A-B',18.5,NULL,'1366 x 768','16:9',60,'5ms',200,NULL,NULL,NULL,NULL,NULL,1,NULL,0,3,'LG','LG 19M38A-B',2430,'https://notebookspec.com/storage/pc-mon/mon_798_20170707-144707_small.png',NULL),
-	(29,NULL,'P2418HT Touch ',23.8,NULL,'1920 x 1080','16:9',60,'6ms',250,NULL,NULL,1,NULL,1,1,NULL,0,3,'DELL','DELL P2418HT Touch ',10900,'https://notebookspec.com/storage/pc-mon/mon_833_20180123-124711_small.png',NULL),
-	(30,NULL,'Nitro Gaming VG220Qbmiix',21.5,NULL,'1920 x 1080','16:9',75,'1ms',250,NULL,2,NULL,NULL,NULL,1,NULL,0,3,'ACER','ACER Nitro Gaming VG220Qbmiix',3790,'https://notebookspec.com/storage/pc-mon/mon_846_20180521-145209_small.png','100,000,000:1');
+INSERT INTO monitor VALUES (26,NULL,'203V5LSB2',19.5,NULL,'1600 x 900','16:9',60,'5ms',200,NULL,NULL,NULL,NULL,NULL,1,NULL,0,3,'PHILIPS','PHILIPS 203V5LSB2',2525,'img/monitor_26.png',NULL),
+	(27,NULL,'E2016HV',19.5,NULL,'1600 x 900','16:9',60,'5ms',200,NULL,NULL,NULL,NULL,NULL,1,NULL,0,3,'DELL','DELL E2016HV',3500,'img/monitor_27.png',NULL),
+	(28,NULL,'19M38A-B',18.5,NULL,'1366 x 768','16:9',60,'5ms',200,NULL,NULL,NULL,NULL,NULL,1,NULL,0,3,'LG','LG 19M38A-B',2430,'img/monitor_28.png',NULL),
+	(29,NULL,'P2418HT Touch ',23.8,NULL,'1920 x 1080','16:9',60,'6ms',250,NULL,NULL,1,NULL,1,1,NULL,0,3,'DELL','DELL P2418HT Touch ',10900,'img/monitor_29.png',NULL),
+	(30,NULL,'Nitro Gaming VG220Qbmiix',21.5,NULL,'1920 x 1080','16:9',75,'1ms',250,NULL,2,NULL,NULL,NULL,1,NULL,0,3,'ACER','ACER Nitro Gaming VG220Qbmiix',3790,'img/monitor_30.png','100,000,000:1');

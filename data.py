@@ -125,3 +125,8 @@ def del_user(user_id: int):
             conn.commit()
             return True
     return False
+
+# conn = sqlite3.connect('data/database.db')
+# cursor = conn.cursor()
+# cursor.execute("DROP TABLE cpu")
+# conn.commit()
