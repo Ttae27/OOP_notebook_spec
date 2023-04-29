@@ -77,6 +77,6 @@ class PaymentUI:
             print(f"Performing cash transfer payment of {payment_amount} dollars.")
     
     
-root = tk.Tk()
-payment_ui = PaymentUI(root)
-root.mainloop()
+# root = tk.Tk()
+# payment_ui = PaymentUI(root)
+# root.mainloop()

@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from urllib.parse import unquote
 import json
+import requests
 
 from ui.catalog import Catalog
 from ui.product import Product
@@ -83,8 +84,10 @@ def signup(user_data: dict):
     user_data = tuple(user_data.values())
     return account.sign_up(user_data)
 
-@app.get("/signin")
-def signin(usr: str, passwd: str):
+@app.post("/signin")
+def signin(credential: dict):
+    usr = credential['username']
+    passwd = credential['password']
     return account.sign_in(usr, passwd)
 
 @app.put("/{user_id}/update")
@@ -102,3 +105,4 @@ def get_all_acc():
     for acc in account.allaccount:
         lst.append(vars(acc))
     return lst
+

@@ -26,7 +26,5 @@ class Compare():
             return {'warning': 'please select product to compare!'}
         if type(self.__spec_1[0]).__name__ != type(self.__spec_2[0]).__name__:
             return {'warning': 'please select from same catalog!'}
-        spec1_dict = vars(self.__spec_1[0])
-        spec2_dict = vars(self.__spec_2[0])
-        lst = [spec1_dict, spec2_dict]
+        lst = [self.__spec_1[0], self.__spec_2[0]]
         return lst

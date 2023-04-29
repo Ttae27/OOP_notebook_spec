@@ -1,4 +1,5 @@
 import tkinter as tk
+import requests
 
 class LoginGUI:
     def __init__(self, master):
@@ -21,15 +22,17 @@ class LoginGUI:
         self.__login_button = tk.Button(master, text="Login", command=self.login)
         self.__login_button.pack()
 
+        self.__status_label = tk.Label(master, text='')
+        self.__status_label.pack()
+
     def login(self):
         username = self.__username_entry.get()
         password = self.__password_entry.get()
 
-        # Check if username and password are correct
-        if username == "my_username" and password == "my_password":
-            print("Login successful!")
-        else:
-            print("Invalid username or password.")
+        credential = {'username': username, 'password': password}
+        response = requests.post('http://localhost:8000/signin', json=credential)
+        data = response.json()
+        self.__status_label.config(text=f"{data}")
 
 # Create GUI window
 root = tk.Tk()

@@ -1,4 +1,5 @@
 import tkinter as tk
+import requests
 
 class SignupGUI:
     def __init__(self, master):
@@ -33,18 +34,19 @@ class SignupGUI:
         self.__signup_button = tk.Button(master, text="Sign Up", command=self.signup)
         self.__signup_button.pack()
 
+        self.__status_label = tk.Label(master, text='')
+        self.__status_label.pack()
+
     def signup(self):
         username = self.__username_entry.get()
         password = self.__password_entry.get()
         address = self.__address_entry.get()
         phone = self.__phone_entry.get()
 
-        # Save user information to a file or database
-        with open("users.txt", "a") as file:
-            file.write(f"{username},{password},{address},{phone}\n")
-
-        # Print success message
-        print("Sign up successful!")
+        user_data = {'username': username, 'password': password, 'delivery_address': address, 'phone': phone}
+        response = requests.post('http://localhost:8000/signup', json=user_data)
+        data = response.json()
+        self.__status_label.config(text=f"{data}")
         
     @property
     def  username_entry(self):
