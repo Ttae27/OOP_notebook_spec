@@ -99,7 +99,7 @@ def show():
     return build.show_build()
 
 @app.post("/products/{product_cat}")
-def buildcom(product_cat: str, product: dict):
+def build_com(product_cat: str, product: dict):
     product_id = product['id']
     return build.add_to_build(product_cat, product_id)
     
