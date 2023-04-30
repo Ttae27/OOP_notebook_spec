@@ -33,7 +33,7 @@ class ProductCatalogGUI:
         # Display the initial catalog
         self.switch_catalog(self.__catalogs[0])
 
-    # Function to add a product to the cart
+    #! Function to add a product to the cart
     def add_to_build(self, catalog, product):
         url = f"http://localhost:8000/products/{catalog}"
         prod = {'id': product['id']}
