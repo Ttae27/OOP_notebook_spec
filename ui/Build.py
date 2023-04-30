@@ -8,6 +8,7 @@ class Build:
             'cpu': False,
             'gpu': False,
             'hdd': False,
+            'motherboard': False,
             'monitor': False,
             'pc_case': False,
             'psu': False,

@@ -68,7 +68,7 @@ class ProductCatalogGUI:
         for widget in self.__frame.winfo_children():
             widget.destroy()
 
-        self.__status_label.config(text="")
+        # self.__status_label.config(text="")
         # Get the products from the API
         url = f"http://localhost:8000/products/{catalog}"
         response = requests.get(url)
