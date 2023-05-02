@@ -34,4 +34,7 @@ class User:
     
     @property
     def transaction_history(self):
+        transaction_dict = []
+        for transaction in self.__transaction_history:
+            transaction_dict.append(transaction.transaction)
         return self.__transaction_history
