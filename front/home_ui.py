@@ -279,7 +279,7 @@ class ProductCatalogGUI:
 
     # Function to add a product to the cart
     def add_to_build(self, catalog, product):
-        url = f"http://localhost:8000/products/{catalog}"
+        url = f"http://localhost:8000/build/add/{catalog}"
         prod = {'id': product['id']}
         response = requests.post(url, json=prod)
         if response.status_code == 200:
