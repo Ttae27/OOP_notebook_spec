@@ -3,7 +3,7 @@ import random
 class Payment():
     def __init__(self,build: object,status: str) -> None:
         self.__build = build.build
-        self.__amount = build.cal_price()
+        self.__amount = build.totalprice
         self.__created_on = datetime.now()
         self.__transaction_id = random.randint(1000000, 9999999)
         self.__status = status
