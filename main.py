@@ -93,6 +93,7 @@ def signup(user_data: dict):
 def signin(credential: dict):
     usr = credential['username']
     passwd = credential['password']
+    build.clear_build()
     return account.sign_in(usr, passwd)
 
 @app.put("/{user_id}/update")

@@ -41,6 +41,9 @@ class Build:
                 product_in_build.append({key.replace(f"_{type(product).__name__}__", ""): value for key, value in vars(product).items()})
         return product_in_build
     
+    def clear_build(self):
+        self.__build.clear()
+
     @property
     def totalprice(self):
         total = 0
