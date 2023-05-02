@@ -33,13 +33,6 @@ class Build:
                 existing_product = product
         self.__build.remove(existing_product)
         return self.__build
-    
-    def cal_price(self) -> int:
-        totalprice = 0
-        for product in self.__build:
-            totalprice = totalprice + product.price
-        self.__totalprice = totalprice
-        return self.__totalprice
         
     def show_build(self) -> list:
         product_in_build = []
@@ -48,8 +41,15 @@ class Build:
                 product_in_build.append({key.replace(f"_{type(product).__name__}__", ""): value for key, value in vars(product).items()})
         return product_in_build
     
+    def clear_build(self):
+        self.__build.clear()
+
     @property
     def totalprice(self):
+        total = 0
+        for product in self.__build:
+            total = total + product.price
+        self.__totalprice = total
         return self.__totalprice
     
     @property

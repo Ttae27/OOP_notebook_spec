@@ -45,11 +45,15 @@ def get_products(product_cat: str, filter = None):
         encoded_str = filter
         decoded_str = unquote(encoded_str)
         filter = json.loads(decoded_str)
-    return catalog.list(product_cat, filter)
+    return catalog.list_product(product_cat, filter)
 
-@app.get("/products/{product_cat}/{id}")
-def get_product_spec(product_cat: str, product_id: int):
-    return catalog.get_item(product_cat, product_id)
+# @app.get("/products/{product_cat}/{id}")
+# async def get_product_spec(product_cat: str, product_id: int):
+#     return catalog.get_item(product_cat, product_id)
+
+@app.get("/products/search/{product_cat}")
+def search_product(product_cat: str, product_name: str):
+    return catalog.search(product_cat, product_name)
 
 #*Admin access only
 @app.post("/admin/products/{product_cat}")
@@ -89,6 +93,7 @@ def signup(user_data: dict):
 def signin(credential: dict):
     usr = credential['username']
     passwd = credential['password']
+    build.clear_build()
     return account.sign_in(usr, passwd)
 
 @app.put("/{user_id}/update")
@@ -123,32 +128,27 @@ def get_cur_acc():
 def show():
     return build.show_build()
 
-@app.post("/products/{product_cat}")
+@app.post("/build/add/{product_cat}")
 def build_com(product_cat: str, product: dict):
     product_id = product['id']
     return build.add_to_build(product_cat, product_id)
 
 @app.get('/build/price')
 def total_price():
-    return {'price': build.cal_price()}
+    return {'price': build.totalprice}
 
-@app.delete('/build')
+@app.delete('/build/remove')
 def delete_from_build(product: dict):
     product_id = int(product['id'])
     build.remove_from_build(product_id)
     return build.show_build()
 
 #*******************************************<<payment>>***************************************
-    
-@app.post('/payment')
-def payment_processing(payment_method):
-    return {'payment': payment_process.select_payment(payment_method)}
 
 @app.post('/creditcard')
 def credit_card_payment(card_number,expiration_date,cvv): 
     return payment_process.process_credit_card_payment(card_number,expiration_date,cvv, account.current_user)
 
 @app.post('/cashtransfer')
-def cash_transfer_payment(cash): 
-    return payment_process.process_cash_Transfer_payment(cash, account.current_user)
-
+def cash_transfer_payment(): 
+    return payment_process.process_cash_Transfer_payment(account.current_user)
