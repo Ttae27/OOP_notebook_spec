@@ -10,7 +10,11 @@ from tkinter import messagebox
 class HomePageGUI:
     def __init__(self, master):
         self.__master = master
-        master.minsize(width=400, height=400)
+        screen_width = self.__master.winfo_screenwidth()
+        screen_height = self.__master.winfo_screenheight()
+        window_width = screen_width // 2
+        window_height = screen_height // 2
+        self.__master.geometry(f"{window_width}x{window_height}")
         master.title("Home Page")
 
         # Create sign in button
@@ -38,6 +42,11 @@ class HomePageGUI:
 class LoginGUI:
     def __init__(self, master):
         self.__master = master
+        screen_width = self.__master.winfo_screenwidth()
+        screen_height = self.__master.winfo_screenheight()
+        window_width = screen_width // 2
+        window_height = screen_height // 2
+        self.__master.geometry(f"{window_width}x{window_height}")
         self.login_status_button = ""
         master.title("Login")
 
@@ -83,6 +92,11 @@ class LoginGUI:
 class SignupGUI:
     def __init__(self, master):
         self.__master = master
+        screen_width = self.__master.winfo_screenwidth()
+        screen_height = self.__master.winfo_screenheight()
+        window_width = screen_width // 2
+        window_height = screen_height // 2
+        self.__master.geometry(f"{window_width}x{window_height}")
         master.title("Sign Up")
 
         # Create username label and entry
@@ -156,6 +170,11 @@ class SignupGUI:
 class ProductCatalogGUI:
     def __init__(self, master):
         self.__master = master
+        screen_width = self.__master.winfo_screenwidth()
+        screen_height = self.__master.winfo_screenheight()
+        window_width = screen_width 
+        window_height = screen_height 
+        self.__master.geometry(f"{window_width}x{window_height}")
         self.__master.title("Product Catalog")
 
         # Create the catalog buttons
@@ -197,7 +216,7 @@ class ProductCatalogGUI:
         if response.status_code == 200:
             data = response.json()
             self.__status_label.config(text=f"{data}")
-        self.switch_catalog(catalog)
+        # self.switch_catalog(catalog)
 
     # Function to display the cart
     def show_build(self):
@@ -206,7 +225,6 @@ class ProductCatalogGUI:
         build = json.loads(response.text)
         if len(build) == 0:
             messagebox.showinfo("show build","Build: Your build is empty.")
-            # tk.Label(self.__master, text="Build: Your build is empty.")
         else:
             for product in build:
                 messagebox.showinfo("show build","Build: there are somethings in your Build.")
@@ -227,7 +245,7 @@ class ProductCatalogGUI:
         for widget in self.__frame.winfo_children():
             widget.destroy()
 
-        # self.__status_label.config(text="")
+        self.__status_label.config(text="")
         # Get the products from the API
         url = f"http://localhost:8000/products/{catalog}"
         response = requests.get(url)
@@ -251,7 +269,11 @@ class ProductcheckoutGUI:
     def __init__(self, master):
         self.__master = master
         self.__master.title("Product Checkout")
-        master.minsize(width = 400, height= 400)
+        screen_width = self.__master.winfo_screenwidth()
+        screen_height = self.__master.winfo_screenheight()
+        window_width = screen_width
+        window_height = screen_height
+        self.__master.geometry(f"{window_width}x{window_height}")
 
         # # Create the catalog buttons
         # self.__catalog_buttons = []
