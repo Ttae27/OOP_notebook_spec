@@ -1,40 +1,59 @@
+import requests
+import json
 import tkinter as tk
+from urllib.parse import unquote
+from PIL import Image, ImageTk
+class ProductcheckoutGUI:
+    def __init__(self, master):
+        self.__master = master
+        self.__master.title("Product Checkout")
+        master.minsize(width = 400, height= 400)
 
-class CheckoutProductUI:
-    def __init__(self, root, product):
-        self.root = root
-        self.product = product
+        # # Create the catalog buttons
+        # self.__catalog_buttons = []
+        # self.__catalogs = ["cpu", "gpu", "cooling", "hdd", "monitor", "motherboard", "pc_case", "psu", "ram", "ssd"]
+        # for catalog in self.__catalogs:
+        #     button = tk.Button(self.__master, text=catalog, command=lambda c=catalog: self.switch_catalog(c))
+        #     button.pack(side="left", padx=1.5)
+        #     self.__catalog_buttons.append(button)
 
-        self.create_ui()
+        # Create the cart and payment buttons
+        payment_button = tk.Button(self.__master, text="payment")
+        payment_button.pack(side="right",anchor="se")
 
-    def create_ui(self):
-        # Create a frame to hold the product information
-        frame = tk.Frame(self.root)
-        frame.pack(pady=10)
+        # # Create the frame for the products
+        # self.__frame = tk.Frame(self.__master)
+        # self.__frame.pack(padx=10, pady=10, anchor="w")
 
-        # Create a label for the product name
-        name_label = tk.Label(frame, text="Product Name: ")
-        name_label.pack(side=tk.LEFT)
+        # self.__status_label = tk.Label(master, text='')
+        # self.__status_label.pack()
 
-        name_value = tk.Label(frame, text=self.product.name)
-        name_value.pack(side=tk.LEFT)
+        # Display Builds
+        self.show_checkout()
 
-        # Create a label for the product price
-        price_label = tk.Label(frame, text="Price: ")
-        price_label.pack(side=tk.LEFT)
+    # Function to display the cart
+    def show_checkout(self):
+        url = "http://localhost:8000/build"
+        response = requests.get(url)
+        build = json.loads(response.text)
+        if len(build) == 0:
+            # messagebox.showinfo("show build","Build: Your build is empty.")
+            tk.Label(self.__master, text="Build: Your build is empty.").pack()
+        else:
+            for product in build:
+                # messagebox.showinfo("show build","Build: there are somethings in your Build.")
 
-        price_value = tk.Label(frame, text=self.product.price)
-        price_value.pack(side=tk.LEFT)
+                img = Image.open(product['thumbnail_url'])
+                img = img.resize((100, 100), Image.ANTIALIAS)
+                photo = ImageTk.PhotoImage(img)
+                label = tk.Label(self.__master, image=photo)
+                label.image = photo  # to prevent image garbage collection
+                label.pack()
 
-        # Create a "Next" button
-        next_button = tk.Button(self.root, text="Next", command=self.next_clicked)
-        next_button.pack(pady=10)
+                button = tk.Label(self.__master, text=product["full_name"])
+                button.pack(anchor="w", pady=1)
 
-    def next_clicked(self):
-        # Handle the "Next" button click event
-        # Add your logic here
-        pass
-
+# Create GUI window
 root = tk.Tk()
-login_gui = CheckoutProductUI(root)
+product_catalog_gui = ProductcheckoutGUI(root)
 root.mainloop()
