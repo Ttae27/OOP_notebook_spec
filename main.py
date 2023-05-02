@@ -127,7 +127,7 @@ def get_cur_acc():
 def show():
     return build.show_build()
 
-@app.post("/products/{product_cat}")
+@app.post("/build/add/{product_cat}")
 def build_com(product_cat: str, product: dict):
     product_id = product['id']
     return build.add_to_build(product_cat, product_id)
@@ -136,7 +136,7 @@ def build_com(product_cat: str, product: dict):
 def total_price():
     return {'price': build.totalprice}
 
-@app.delete('/build')
+@app.delete('/build/remove')
 def delete_from_build(product: dict):
     product_id = int(product['id'])
     build.remove_from_build(product_id)
