@@ -17,8 +17,8 @@ class PaymentDetail:
             highlightthickness = 0,
             relief = "ridge"
         )
-        
         self.canvas.place(x = 0, y = 0)
+        
         self.canvas.create_rectangle(
             0.0,
             0.0,
@@ -37,7 +37,7 @@ class PaymentDetail:
         )
         
         self.OUTPUT_PATH = Path(__file__).parent
-        self.ASSETS_PATH = self.OUTPUT_PATH / Path(r"./assets/frame0")
+        self.ASSETS_PATH = self.OUTPUT_PATH / Path(r"./build_qr/assets/frame0")
         
         def relative_to_assets(path: str) -> Path:
             return self.ASSETS_PATH / Path(path)
