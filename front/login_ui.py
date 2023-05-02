@@ -34,6 +34,7 @@ class LoginGUI:
         data = response.json()
         self.__status_label.config(text=f"{data}")
 
+
 # Create GUI window
 root = tk.Tk()
 login_gui = LoginGUI(root)
