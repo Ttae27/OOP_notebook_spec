@@ -15,20 +15,16 @@ class Build:
             'ram': False,
             'ssd': False
         }
-    #return product instance base on id
-    def get_product_from_id(self, cat: str, product_id: int) -> object:
-        product_instance = self.__product_class.get_product(cat, {'id':[product_id]})
-        return product_instance
 
     def add_to_build(self, cat: str, product_id: int) -> list:
-        product = self.get_product_from_id(cat, product_id)
-        #if there is already a product in that category, it'll be removed.
+        product = self.__product_class.get_product(cat, {'id':[product_id]})
         if self.__build_status[cat]:
-            self.remove_from_build(product_id)
+            id_to_rm = self.__build_status[cat][0].id
+            self.remove_from_build(id_to_rm)
         #add new product to build.
         self.__build.extend(product)
-        #after add the product, set the status that the product of that category is now exist.
-        self.__build_status[cat] = True
+        #after add the product, also add to dict
+        self.__build_status[cat] = product
         return {'Status': 'Successfully added to build'}
 
     def remove_from_build(self, id: int) -> list:
@@ -46,11 +42,11 @@ class Build:
         return self.__totalprice
         
     def show_build(self):
-        lst = []
+        product_in_build = []
         if len(self.__build) != 0:
             for product in self.__build:
-                lst.append({k.replace(f"_{type(product).__name__}__", ""): v for k, v in vars(product).items()})
-        return lst
+                product_in_build.append({key.replace(f"_{type(product).__name__}__", ""): value for key, value in vars(product).items()})
+        return product_in_build
     
     @property
     def totalprice(self):
