@@ -6,10 +6,10 @@ class Account:
         self.__current_user = None
 
     def sign_up(self, user_data: tuple) -> dict:
-        if add_user(user_data):
+        if add_user(user_data) == True:
             self.__allaccount = get_user()
             return {'Notify': 'Successfully sign up'}
-        else:
+        elif add_user(user_data) == False:
             return {'Notify': 'This username has been used'}
     
     def sign_in(self, username: str, password: str) -> dict:

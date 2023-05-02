@@ -6,11 +6,11 @@ from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
 
 class MyApp:
     def __init__(self, master):
-        self.master = master
+        self.__master = master
         self.OUTPUT_PATH = Path(__file__).parent
         self.ASSETS_PATH = self.OUTPUT_PATH / Path(r"./assets/frame0")
         self.canvas = Canvas(
-            self.master,
+            self.__master,
             bg="#FFFFFF",
             height=600,
             width=1240,
@@ -28,7 +28,7 @@ class MyApp:
             image=self.button_image_1,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_1 clicked"),
+            command=self.print_data_button,
             relief="flat"
         )
         self.button_1.place(x=1021.0, y=513.0, width=169.0, height=46.40189743041992)
@@ -63,7 +63,7 @@ class MyApp:
 
         self.entry_image_3 = PhotoImage(file=self.relative_to_assets("entry_3.png"))
         self.entry_bg_3 = self.canvas.create_image(772.0, 425.5, image=self.entry_image_3)
-        self.entry_3 = Text(
+        self.entry_3 = Entry(
             bd=0,
             bg="#FFFFFF",
             font=("Inter SemiBold", 18 * -1),
@@ -76,11 +76,9 @@ class MyApp:
 
         self.entry_image_4 = PhotoImage(file=self.relative_to_assets("entry_4.png"))
         self.entry_bg_4 = self.canvas.create_image(909.0, 308.0, image=self.entry_image_4)
-        self.entry_4 = Text(
+        self.entry_4 = Entry(
             bd=0,
             bg="#FFFFFF",
-            padx=10,
-            pady=10,
             font=("Inter SemiBold", 18 * -1),
             fg="#000716",
             highlightthickness=0
@@ -91,6 +89,34 @@ class MyApp:
 
     def relative_to_assets(self, path: str) -> Path:
         return self.ASSETS_PATH / Path(path)
+    
+    def print_data_button(self):
+        username = self.entry_1.get()
+        password = self.entry_2.get()
+        address = self.entry_4.get()
+        phone = self.entry_3.get()
+        print(username)
+        print(password)
+        print(address)
+        print(phone)
+        
+    def open_home(self):
+        self.__master.destroy()
+        catalog_window = tk.Tk()
+        login_gui = HomePageGUI(catalog_window)
+        catalog_window.mainloop()
+
+    def signup(self):
+        username = self.__username_entry.get()
+        password = self.__password_entry.get()
+        address = self.__address_entry.get()
+        phone = self.__phone_entry.get()
+
+        user_data = {'username': username, 'password': password, 'delivery_address': address, 'phone': phone}
+        response = requests.post('http://localhost:8000/signup', json=user_data)
+        data = response.json()
+        self.__status_label.config(text=f"{data}")
+    
 
 window = Tk()
 window.geometry("1240x600")

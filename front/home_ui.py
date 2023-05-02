@@ -2,11 +2,11 @@ import tkinter as tk
 from tkinter import ttk
 import requests
 import json
-import tkinter as tk
+from tkinter import *
 from urllib.parse import unquote
 from PIL import Image, ImageTk
 from tkinter import messagebox
-
+import time
 #convvert from figma to tkinter
 from pathlib import Path
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
@@ -161,65 +161,134 @@ class LoginGUI:
 class SignupGUI:
     def __init__(self, master):
         self.__master = master
-        screen_width = self.__master.winfo_screenwidth()
-        screen_height = self.__master.winfo_screenheight()
-        window_width = screen_width // 2
-        window_height = screen_height // 2
-        self.__master.geometry(f"{window_width}x{window_height}")
-        master.title("Sign Up")
-
-        # Create username label and entry
-        self.__username_label = tk.Label(master, text="Username:")
-        self.__username_label.pack()
-        self.__username_entry = tk.Entry(master)
-        self.__username_entry.pack()
-
-        # Create password label and entry
-        self.__password_label = tk.Label(master, text="Password:")
-        self.__password_label.pack()
-        self.__password_entry = tk.Entry(master, show="*")
-        self.__password_entry.pack()
-
-        # Create address label and entry
-        self.__address_label = tk.Label(master, text="Address:")
-        self.__address_label.pack()
-        self.__address_entry = tk.Entry(master)
-        self.__address_entry.pack()
-
-        # Create phone label and entry
-        self.__phone_label = tk.Label(master, text="Phone:")
-        self.__phone_label.pack()
-        self.__phone_entry = tk.Entry(master)
-        self.__phone_entry.pack()
-
-        # Create sign up button
-        self.__signup_button = tk.Button(master, text="Sign Up",bg="#FFA500", command=self.signup)
-        self.__signup_button.pack()
+        self.status = False
+        self.OUTPUT_PATH = Path(__file__).parent
+        self.ASSETS_PATH = self.OUTPUT_PATH / Path(r"./build_sign_up/assets/frame0")
+        self.__master.geometry("1240x600")
+        self.__master.configure(bg="#FFFFFF")
+        self.canvas = Canvas(
+            self.__master,
+            bg="#FFFFFF",
+            height=600,
+            width=1240,
+            bd=0,
+            highlightthickness=0,
+            relief="ridge"
+        )
+        self.canvas.place(x=0, y=0)
         
+        self.image_image_1 = PhotoImage(file=self.relative_to_assets("image_1.png"))
+        self.image_1 = self.canvas.create_image(293.0, 425.0, image=self.image_image_1)
 
-        self.__home_button = tk.Button(master, text="Home", command=self.open_home)
-        self.__home_button.pack()
+        self.button_image_1 = PhotoImage(file=self.relative_to_assets("button_1.png"))
+        self.button_1 = Button(
+            image=self.button_image_1,
+            borderwidth=0,
+            highlightthickness=0,
+            command=self.condition,
+            relief="flat"
+        )
+        self.button_1.place(x=1021.0, y=513.0, width=169.0, height=46.40189743041992)
 
-        self.__status_label = tk.Label(master, text='')
-        self.__status_label.pack()
+        self.canvas.create_text(794.0, 30.0, anchor="nw", text="OOP SPEC", fill="#000000", font=("Inter SemiBold", 48 * -1))
+
+        self.entry_image_1 = PhotoImage(file=self.relative_to_assets("entry_1.png"))
+        self.entry_bg_1 = self.canvas.create_image(754.5, 187.5, image=self.entry_image_1)
+        self.__username_entry = Entry(
+            bd=0,
+            bg="#FFFFFF",
+            fg="#000716",
+            font=("Inter SemiBold", 18 * -1),
+            highlightthickness=0
+        )
+        self.__username_entry.place(x=618.0, y=166.0, width=273.0, height=41.0)
+
+        self.entry_image_2 = PhotoImage(file=self.relative_to_assets("entry_2.png"))
+        self.entry_bg_2 = self.canvas.create_image(1077.5, 187.5, image=self.entry_image_2)
+        self.__password_entry = Entry(
+            bd=0,
+            bg="#FFFFFF",
+            fg="#000716",
+            font=("Inter SemiBold", 18 * -1),
+            highlightthickness=0
+        )
+        self.__password_entry.place(x=941.0, y=166.0, width=273.0, height=41.0)
+
+        self.canvas.create_text(951.0, 125.0, anchor="nw", text="Password", fill="#000000", font=("Inter SemiBold", 20 * -1))
+
+        self.canvas.create_text(629.0, 125.0, anchor="nw", text="Username", fill="#000000", font=("Inter SemiBold", 20 * -1))
+
+        self.entry_image_3 = PhotoImage(file=self.relative_to_assets("entry_3.png"))
+        self.entry_bg_3 = self.canvas.create_image(772.0, 425.5, image=self.entry_image_3)
+        self.__phone_entry = Entry(
+            bd=0,
+            bg="#FFFFFF",
+            font=("Inter SemiBold", 18 * -1),
+            fg="#000716",
+            highlightthickness=0
+        )
+        self.__phone_entry.place(x=618.0, y=404.0, width=308.0, height=41.0)
+
+        self.canvas.create_text(629.0, 359.0, anchor="nw", text="Phone", fill="#000000", font=("Inter SemiBold", 20 * -1))
+
+        self.entry_image_4 = PhotoImage(file=self.relative_to_assets("entry_4.png"))
+        self.entry_bg_4 = self.canvas.create_image(909.0, 308.0, image=self.entry_image_4)
+        self.__address_entry = Entry(
+            bd=0,
+            bg="#FFFFFF",
+            font=("Inter SemiBold", 18 * -1),
+            fg="#000716",
+            highlightthickness=0
+        )
+        self.__address_entry.place(x=618.0, y=283.0, width=582.0, height=48.0)
+
+        self.canvas.create_text(631.0, 239.0, anchor="nw", text="Address", fill="#000000", font=("Inter SemiBold", 20 * -1))
+
+        self.__master.resizable(False, False)
+        self.__master.mainloop()
+    def relative_to_assets(self, path: str) -> Path:
+        return self.ASSETS_PATH / Path(path)
+    
+    def clear_text(self):
+        self.__username_entry.delete(0,END)
+        self.__password_entry.delete(0,END)
+        self.__address_entry.delete(0,END)
+        self.__phone_entry.delete(0,END)
+        # .delete(0, END)
         
-    def open_home(self):
+    def open_login(self):
         self.__master.destroy()
         catalog_window = tk.Tk()
-        login_gui = HomePageGUI(catalog_window)
+        login_gui = LoginGUI(catalog_window)
         catalog_window.mainloop()
 
+    def popup_status_error(self):
+        messagebox.showinfo('Notify', 'This username has been used')
+        
+    def popup_status_completed(self):
+        messagebox.showinfo('Notify', 'Successfully sign up')
+        
+    
     def signup(self):
         username = self.__username_entry.get()
         password = self.__password_entry.get()
         address = self.__address_entry.get()
         phone = self.__phone_entry.get()
-
+        print()
         user_data = {'username': username, 'password': password, 'delivery_address': address, 'phone': phone}
         response = requests.post('http://localhost:8000/signup', json=user_data)
         data = response.json()
-        self.__status_label.config(text=f"{data}")
-        
+        return data
+    
+    def condition(self):
+        data = self.signup()
+        if data == {'Notify': 'Successfully sign up'}:
+            self.popup_status_completed()
+            self.open_login()
+        elif data == {'Notify': 'This username has been used'}:
+            self.popup_status_error()
+            self.clear_text()
+               
     @property
     def  username_entry(self):
         return  self.__username_entry
@@ -239,34 +308,96 @@ class SignupGUI:
 class ProductCatalogGUI:
     def __init__(self, master):
         self.__master = master
-        screen_width = self.__master.winfo_screenwidth()
-        screen_height = self.__master.winfo_screenheight()
-        window_width = screen_width 
-        window_height = screen_height 
-        self.__master.geometry(f"{window_width}x{window_height}")
-        self.__master.title("Product Catalog")
+        OUTPUT_PATH = Path(__file__).parent
+        ASSETS_PATH = OUTPUT_PATH / Path(r"./build_catalog/assets/frame0")
 
-        # Create the catalog buttons
-        self.__catalog_buttons = []
+        def relative_to_assets(path: str) -> Path:
+            return ASSETS_PATH / Path(path)
+
+        self.__master.geometry("1240x600")
+        self.__master.configure(bg="#FFFFFF")
+        self.__width = 200.0
+        self.__height = 30.0
+        self.__y = 120.0
+        self.__x = 0
+
+        self.canvas = Canvas(
+            self.__master,
+            bg="#FFFFFF",
+            height=600,
+            width=1240,
+            bd=0,
+            highlightthickness=0,
+            relief="ridge"
+        )
+        self.canvas.place(x=0, y=0)
+
+        image_image_1 = PhotoImage(file=relative_to_assets("image_1.png"))
+        self.image_1 = self.canvas.create_image(100.0, 300.0, image=image_image_1)
+        self.canvas.create_text(
+            38.0,
+            16.0,
+            anchor="nw",
+            text="OOP SPEC",
+            fill="#FFFFFF",
+            font=("Inter SemiBold", 24 * -1)
+        )
+        # Create the catalog buttons 
         self.__catalogs = ["cpu", "gpu", "cooling", "hdd", "monitor", "motherboard", "pc_case", "psu", "ram", "ssd"]
-        for catalog in self.__catalogs:
-            button = tk.Button(self.__master, text=catalog, command=lambda c=catalog: self.switch_catalog(c))
-            button.pack(side="left", padx=1.5)
-            self.__catalog_buttons.append(button)
+        
+        self.button_image = [] #load image for button
+        for i in range(len(self.__catalogs)):
+            self.button_image.append(
+                PhotoImage(file=relative_to_assets("button_"+str(i+1)+".png")) #load image name form 3-12
+            )
+        
+        self.button = []
+        for i, catalog in enumerate(self.__catalogs):
+            self.__y += 35
+            self.button.append(
+                Button(
+                        image = self.button_image[i],
+                        borderwidth=0,
+                        highlightthickness=0,
+                        command=lambda c=catalog: self.switch_catalog(c),
+                        relief="flat"
+                    )
+            )
+            self.button[i].place(x=0, y= self.__y, width=self.__width,height= self.__height)
 
         # Create the cart and payment buttons
 
         # build_button = tk.Button(self.__master, text="show Build", command=self.show_build)
         # build_button.pack(side="right")
-        self.__checkout_button = tk.Button(self.__master, text="Checkout",bg="green", command=self.open_checkout)
-        self.__checkout_button.pack(side="right")
-
-        # Create the frame for the products
+        button_image_1 = PhotoImage(file=relative_to_assets("button_12.png"))
+        self.button_1 = Button(
+            image=button_image_1,
+            borderwidth=0,
+            highlightthickness=0,
+            command=self.open_checkout,
+            relief="flat"
+        )
+        self.button_1.place(x=1101.0, y=552.0, width=117.0, height=29.25)
+        
+        
+        # button_image_2 = PhotoImage(file=relative_to_assets("button_11.png"))
+        # self.button_2 = Button(
+        #     image=button_image_2,
+        #     borderwidth=0,
+        #     highlightthickness=0,
+        #     command=lambda: print("button_2 clicked"),
+        #     relief="flat"
+        # )
+        # self.button_2.place(x=23.0, y=531.0, width=130.0, height=36.0)
+        
         self.__frame = tk.Frame(self.__master)
-        self.__frame.pack(padx=10, pady=10, anchor="w")
+        self.__frame.pack(padx=350, pady=0, anchor="w")
 
-        self.__status_label = tk.Label(master, text='')
+        self.__status_label = tk.Label(self.__master, text='')
         self.__status_label.pack()
+        # Create the frame for the products
+        self.__master.resizable(False, False)
+        self.__master.mainloop()
         
     def open_checkout(self):
         self.__master.destroy()
@@ -284,8 +415,17 @@ class ProductCatalogGUI:
         response = requests.post(url, json=prod)
         if response.status_code == 200:
             data = response.json()
-            self.__status_label.config(text=f"{data}")
+            messagebox.showinfo('status : ', 'Successfully added product')
+            # self.__status_label.config(text=f"{data}")
+        else:
+             messagebox.showinfo({'status', 'Failed to added product'})
 
+    def open_checkout(self):
+        self.__master.destroy()
+        checkout_window = tk.Tk()
+        catalog_ui = ProductcheckoutGUI(checkout_window)
+        checkout_window.mainloop()
+    
     # Function to switch catalogs
     def switch_catalog(self, catalog):
         # Clear the frame
@@ -301,15 +441,14 @@ class ProductCatalogGUI:
         # Display the products in the catalog
         for product in products:
             img = Image.open(product['thumbnail_url'])
-            img = img.resize((100, 100), Image.ANTIALIAS)
+            img = img.resize((70, 70), Image.ANTIALIAS)
             photo = ImageTk.PhotoImage(img)
             label = tk.Label(self.__frame, image=photo)
             label.image = photo  # to prevent image garbage collection
             label.pack()
 
-            button = tk.Button(self.__frame, text=product["full_name"], command=lambda c=catalog, p=product: self.add_to_build(c, p))
-            button.pack(anchor="w", pady=1)
-    
+            button = tk.Button(self.__frame, text=product["full_name"], command= lambda c=catalog, p=product: self.add_to_build(c, p),)
+            button.pack(anchor="w", pady=10)
     
 
 class ProductcheckoutGUI:

@@ -4,7 +4,9 @@
 
 
 from pathlib import Path
-
+import requests
+from PIL import Image
+from io import BytesIO
 # from tkinter import *
 # Explicit imports to satisfy Flake8
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
@@ -83,6 +85,7 @@ canvas.create_rectangle(
     fill="#D9D9D9",
     outline="")
 
+# Make a request to the URL
 image_image_1 = PhotoImage(
     file=relative_to_assets("image_1.png"))
 image_1 = canvas.create_image(

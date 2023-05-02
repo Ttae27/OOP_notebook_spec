@@ -92,7 +92,7 @@ def add_user(user_data: tuple) -> bool:
     #check if username exist
     users = cursor.execute(f"SELECT rowid, * FROM user").fetchall()
     for user in users:
-        if user[0] == user_data[0]:
+        if user[1] == user_data[0]:
             return False
     #add row to user table
     query = f"INSERT INTO user VALUES {user_data}"
