@@ -116,4 +116,4 @@ class PaymentDetail:
         )
 
         self.entry_image_4 = PhotoImage(
-            file=self
+            file=self)
