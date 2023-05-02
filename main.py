@@ -47,13 +47,13 @@ async def get_products(product_cat: str, filter = None):
         filter = json.loads(decoded_str)
     return catalog.list_product(product_cat, filter)
 
-@app.get("/products/{product_cat}/{id}")
-async def get_product_spec(product_cat: str, product_id: int):
-    return catalog.get_item(product_cat, product_id)
+# @app.get("/products/{product_cat}/{id}")
+# async def get_product_spec(product_cat: str, product_id: int):
+#     return catalog.get_item(product_cat, product_id)
 
 @app.get("/products/search/{product_cat}")
 async def search_product(product_cat: str, product_name: str):
-    return catalog.list_product(product_cat, {"full_name": product_name})
+    return catalog.search(product_cat, product_name)
 
 #*Admin access only
 @app.post("/admin/products/{product_cat}")
