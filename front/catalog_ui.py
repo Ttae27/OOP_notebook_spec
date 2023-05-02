@@ -12,9 +12,11 @@ class ProductCatalogGUI:
         # Create the catalog buttons
         self.__catalog_buttons = []
         self.__catalogs = ["cpu", "gpu", "cooling", "hdd", "monitor", "motherboard", "pc_case", "psu", "ram", "ssd"]
+        self.__frame1 = tk.Frame(self.__master)
+        self.__frame1.pack(side= 'left', padx=100, pady=0)
         for catalog in self.__catalogs:
-            button = tk.Button(self.__master, text=catalog, command=lambda c=catalog: self.switch_catalog(c))
-            button.pack(side="left", padx=1.5)
+            button = tk.Button(self.__frame1, text=catalog, command=lambda c=catalog: self.switch_catalog(c))
+            button.pack(anchor = 'w', padx = 10, pady=1.5)
             self.__catalog_buttons.append(button)
 
         # Create the cart and payment buttons
@@ -24,8 +26,8 @@ class ProductCatalogGUI:
         # build_button.pack(side="right")
 
         # Create the frame for the products
-        self.__frame = tk.Frame(self.__master)
-        self.__frame.pack(padx=10, pady=10, anchor="w")
+        self.__frame2 = tk.Frame(self.__master)
+        self.__frame2.pack(side = 'left', padx=100, pady=0)
 
         self.__status_label = tk.Label(master, text='')
         self.__status_label.pack()
@@ -68,7 +70,7 @@ class ProductCatalogGUI:
     # Function to switch catalogs
     def switch_catalog(self, catalog):
         # Clear the frame
-        for widget in self.__frame.winfo_children():
+        for widget in self.__frame2.winfo_children():
             widget.destroy()
 
         # self.__status_label.config(text="")
@@ -82,11 +84,11 @@ class ProductCatalogGUI:
             img = Image.open(product['thumbnail_url'])
             img = img.resize((100, 100), Image.ANTIALIAS)
             photo = ImageTk.PhotoImage(img)
-            label = tk.Label(self.__frame, image=photo)
+            label = tk.Label(self.__frame2, image=photo)
             label.image = photo  # to prevent image garbage collection
             label.pack()
 
-            button = tk.Button(self.__frame, text=product["full_name"], command=lambda c=catalog, p=product: self.add_to_build(c, p))
+            button = tk.Button(self.__frame2, text=product["full_name"], command=lambda c=catalog, p=product: self.add_to_build(c, p))
             button.pack(anchor="w", pady=1)
 
 class ProductcheckoutGUI:

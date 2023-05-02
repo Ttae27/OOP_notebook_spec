@@ -216,28 +216,6 @@ class ProductCatalogGUI:
         if response.status_code == 200:
             data = response.json()
             self.__status_label.config(text=f"{data}")
-        # self.switch_catalog(catalog)
-
-    # Function to display the cart
-    def show_build(self):
-        url = "http://localhost:8000/build"
-        response = requests.get(url)
-        build = json.loads(response.text)
-        if len(build) == 0:
-            messagebox.showinfo("show build","Build: Your build is empty.")
-        else:
-            for product in build:
-                messagebox.showinfo("show build","Build: there are somethings in your Build.")
-
-                img = Image.open(product['thumbnail_url'])
-                img = img.resize((100, 100), Image.ANTIALIAS)
-                photo = ImageTk.PhotoImage(img)
-                label = tk.Label(self.__master, image=photo)
-                label.image = photo  # to prevent image garbage collection
-                label.pack()
-
-                button = tk.Label(self.__master, text=product["full_name"])
-                button.pack(anchor="w", pady=1)
 
     # Function to switch catalogs
     def switch_catalog(self, catalog):
@@ -275,44 +253,26 @@ class ProductcheckoutGUI:
         window_height = screen_height
         self.__master.geometry(f"{window_width}x{window_height}")
 
-        # # Create the catalog buttons
-        # self.__catalog_buttons = []
-        # self.__catalogs = ["cpu", "gpu", "cooling", "hdd", "monitor", "motherboard", "pc_case", "psu", "ram", "ssd"]
-        # for catalog in self.__catalogs:
-        #     button = tk.Button(self.__master, text=catalog, command=lambda c=catalog: self.switch_catalog(c))
-        #     button.pack(side="left", padx=1.5)
-        #     self.__catalog_buttons.append(button)
-
-        # Create the cart and payment buttons
         payment_button = tk.Button(self.__master, text="payment",bg="green")
         payment_button.pack(side="right",anchor="se")
 
         back_button = tk.Button(self.__master, text="back",bg="#FFA500",command=self.open_back_catalog)
         back_button.pack(side="left",anchor="sw", padx=1.5)
-        # # Create the frame for the products
-        # self.__frame = tk.Frame(self.__master)
-        # self.__frame.pack(padx=10, pady=10, anchor="w")
-
-        # self.__status_label = tk.Label(master, text='')
-        # self.__status_label.pack()
 
         # Display Builds
         self.show_checkout()
-
+        
     # Function to display the cart
     def show_checkout(self):
         url = "http://localhost:8000/build"
         response = requests.get(url)
         build = json.loads(response.text)
         if len(build) == 0:
-            # messagebox.showinfo("show build","Build: Your build is empty.")
             tk.Label(self.__master, text="Build: Your build is empty.").pack()
         else:
             for product in build:
-                # messagebox.showinfo("show build","Build: there are somethings in your Build.")
-
                 img = Image.open(product['thumbnail_url'])
-                img = img.resize((100, 100), Image.ANTIALIAS)
+                img = img.resize((60, 60), Image.ANTIALIAS)
                 photo = ImageTk.PhotoImage(img)
                 label = tk.Label(self.__master, image=photo)
                 label.image = photo  # to prevent image garbage collection
@@ -320,6 +280,11 @@ class ProductcheckoutGUI:
 
                 button = tk.Label(self.__master, text=product["full_name"])
                 button.pack(anchor="w", pady=1)
+            url = "http://localhost:8000/build/price"
+            response = requests.get(url)
+            price = json.loads(response.text)
+            t = tk.Label(self.__master, text=str(price['price']) + ' baht')
+            t.pack(anchor="ne", pady=1)
 
 
     def open_back_catalog(self):
