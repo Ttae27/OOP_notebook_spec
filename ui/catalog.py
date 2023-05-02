@@ -2,24 +2,24 @@ class Catalog():
     def __init__(self, product_class) -> None:
         self.__product_class = product_class
 
-    def list(self, cat :str, filter :dict):
+    def list(self, cat :str, filter :dict) -> list:
         products = self.__product_class.get_product(cat, filter)
-        lst = []
+        product_list = []
         for product in products:
-            lst.append({k.replace(f"_{type(product).__name__}__", ""): v for k, v in vars(product).items()})
-        return lst
+            product_list.append({key.replace(f"_{type(product).__name__}__", ""): value for key, value in vars(product).items()})
+        return product_list
 
-    def get_item(self, cat :str, product_id :str):
+    def get_item(self, cat :str, product_id :str) -> list:
         products = self.__product_class.get_product(cat, {'id': [product_id]})
-        lst = []
+        product_list = []
         for product in products:
-            lst.append({k.replace(f"_{type(product).__name__}__", ""): v for k, v in vars(product).items()})
-        return lst
+            product_list.append({key.replace(f"_{type(product).__name__}__", ""): value for key, value in vars(product).items()})
+        return product_list
 
-    def search(self, cat, full_name):
+    def search(self, cat, full_name) -> list:
         products = self.__product_class.get_product(cat, {'full_name': full_name})
-        lst = []
+        product_list = []
         for product in products:
-            lst.append({k.replace(f"_{type(product).__name__}__", ""): v for k, v in vars(product).items()})
-        return lst
+            product_list.append({key.replace(f"_{type(product).__name__}__", ""): value for key, value in vars(product).items()})
+        return product_list
     

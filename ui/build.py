@@ -34,14 +34,14 @@ class Build:
         self.__build.remove(existing_product)
         return self.__build
     
-    def cal_price(self):
+    def cal_price(self) -> int:
         totalprice = 0
         for product in self.__build:
             totalprice = totalprice + product.price
         self.__totalprice = totalprice
         return self.__totalprice
         
-    def show_build(self):
+    def show_build(self) -> list:
         product_in_build = []
         if len(self.__build) != 0:
             for product in self.__build:
