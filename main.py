@@ -45,7 +45,7 @@ def get_products(product_cat: str, filter = None):
         encoded_str = filter
         decoded_str = unquote(encoded_str)
         filter = json.loads(decoded_str)
-    return catalog.list(product_cat, filter)
+    return catalog.list_product(product_cat, filter)
 
 @app.get("/products/{product_cat}/{id}")
 def get_product_spec(product_cat: str, product_id: int):
@@ -134,7 +134,7 @@ def build_com(product_cat: str, product: dict):
 
 @app.get('/build/price')
 def total_price():
-    return {'price': build.cal_price()}
+    return {'price': build.totalprice}
 
 @app.delete('/build')
 def delete_from_build(product: dict):

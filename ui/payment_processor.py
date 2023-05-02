@@ -26,7 +26,7 @@ class PaymentProcessor:
         user.add_transaction(Payment(self.__build, 'complete').data_payment())
         return {'Status': 'Complete'}
 
-    def process_cash_Transfer_payment(self, cash: int, user: object):
+    def process_cash_Transfer_payment(self, cash: int, user: object) -> dict:
         self.get_price()
         if int(cash) != int(self.__amount):
             return {'Status': f'Please insert exact amount {self.__amount}'}

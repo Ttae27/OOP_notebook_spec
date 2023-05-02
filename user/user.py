@@ -1,5 +1,5 @@
 class User:
-    def __init__(self, id: int, username: str, password: str, delivery_address: str, phone: str):
+    def __init__(self, id: int, username: str, password: str, delivery_address: str, phone: str) -> None:
         self.__id = id
         self.__username = username
         self.__password = password
@@ -7,13 +7,13 @@ class User:
         self.__phone = phone
         self.__transaction_history = []
 
-    def auth(self, username: str, password: str):
+    def auth(self, username: str, password: str) -> bool:
         if self.__username == username and self.__password == password:
             return True
         else:
             return False
         
-    def add_transaction(self, transaction):
+    def add_transaction(self, transaction: dict) -> None:
         self.__transaction_history.append(transaction)
 
     @property

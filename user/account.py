@@ -24,7 +24,7 @@ class Account:
 
         return {"Status": "User does not exist. Do you want to sign up?"}
 
-    def update_user(self, user_id: int, type: str, new_data) -> dict:
+    def update_user(self, user_id: int, type: str, new_data: dict) -> dict:
         if update_user_data(user_id, type, new_data):
             self.__allaccount = get_user()
             return {"Status": "update data successfully"}
