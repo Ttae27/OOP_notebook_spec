@@ -310,8 +310,6 @@ class ProductCatalogGUI:
             button = tk.Button(self.__frame, text=product["full_name"], command=lambda c=catalog, p=product: self.add_to_build(c, p))
             button.pack(anchor="w", pady=1)
     
-    
-
 class ProductcheckoutGUI:
     def __init__(self, master):
         self.__master = master
