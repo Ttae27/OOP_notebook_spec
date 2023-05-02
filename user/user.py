@@ -37,4 +37,4 @@ class User:
         transaction_dict = []
         for transaction in self.__transaction_history:
             transaction_dict.append(transaction.transaction)
-        return self.__transaction_history
+        return transaction_dict

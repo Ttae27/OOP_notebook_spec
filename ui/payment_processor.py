@@ -23,7 +23,7 @@ class PaymentProcessor:
     def process_credit_card_payment(self, card_number: str, expiration_date: str, cvv: str, user: object) -> dict:
         if card_number == None or expiration_date == None or cvv == None:
             return {'Status': 'Fail'}
-        user.add_transaction(Payment(self.__build, 'complete').data_payment())
+        user.add_transaction(Payment(self.__build, 'complete'))
         return {'Status': 'Complete'}
 
     def process_cash_Transfer_payment(self, cash: int, user: object) -> dict:
@@ -31,7 +31,7 @@ class PaymentProcessor:
         if int(cash) != int(self.__amount):
             return {'Status': f'Please insert exact amount {self.__amount}'}
         else:
-            user.add_transaction(Payment(self.__build, 'complete').data_payment())
+            user.add_transaction(Payment(self.__build, 'complete'))
             return {'Status': 'Complete'}
 
     @property
