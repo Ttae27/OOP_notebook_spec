@@ -1,7 +1,7 @@
 from datetime import datetime
 import random
 class Payment():
-    def __init__(self,build,status):
+    def __init__(self,build: object,status: str) -> None:
         self.__build = build.build
         self.__amount = build.cal_price()
         self.__created_on = datetime.now()
@@ -14,7 +14,7 @@ class Payment():
         for i in range(len(self.__build)):
             self.__lstbuild.append(self.__build[i].model)
     
-    def data_payment(self):
+    def data_payment(self) -> dict:
         self.__date = self.__created_on.strftime("%d/%m/%Y")
         self.__time = self.__created_on.strftime('%H:%M:%S')
         self.get_data_from_build()

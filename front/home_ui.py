@@ -7,6 +7,10 @@ from urllib.parse import unquote
 from PIL import Image, ImageTk
 from tkinter import messagebox
 
+#convvert from figma to tkinter
+from pathlib import Path
+from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
+
 class HomePageGUI:
     def __init__(self, master):
         self.__master = master
@@ -42,33 +46,85 @@ class HomePageGUI:
 class LoginGUI:
     def __init__(self, master):
         self.__master = master
-        screen_width = self.__master.winfo_screenwidth()
-        screen_height = self.__master.winfo_screenheight()
-        window_width = screen_width // 2
-        window_height = screen_height // 2
-        self.__master.geometry(f"{window_width}x{window_height}")
-        self.login_status_button = ""
-        master.title("Login")
-
-        # Create username label and entry
-        self.__username_label = tk.Label(master, text="Username:")
-        self.__username_label.pack()
-        self.__username_entry = tk.Entry(master)
-        self.__username_entry.pack()
-
-        # Create password label and entry
-        self.__password_label = tk.Label(master, text="Password:")
-        self.__password_label.pack()
-        self.__password_entry = tk.Entry(master, show="*")
-        self.__password_entry.pack()
-
-        # Create login button and switch to catalog page
-        self.__login_button = tk.Button(master, text="Login",bg="#FFA500", command=self.open_catalog)
-        self.__login_button.pack()
-
-        self.__status_label = tk.Label(master, text='')
-        self.__status_label.pack()
+        self.__master.geometry("1240x600")
+        self.__master.configure(bg="#FFFFFF")
         
+        self.OUTPUT_PATH = Path(__file__).parent
+        self.ASSETS_PATH = self.OUTPUT_PATH / Path(r"./build_login/assets/frame0")
+        
+        self.canvas = Canvas(
+            self.__master,
+            bg="#FFFFFF",
+            height=600,
+            width=1240,
+            bd=0,
+            highlightthickness=0,
+            relief="ridge"
+        )
+        self.canvas.place(x=0, y=0)
+        
+        self.image_image_1 = PhotoImage(file=self.relative_to_assets("image_1.png"))
+        self.image_1 = self.canvas.create_image(293.0, 425.0, image=self.image_image_1)
+        
+        self.button_image_1 = PhotoImage(file=self.relative_to_assets("button_1.png"))
+        self.button_1 = Button(
+            self.__master,
+            image=self.button_image_1,
+            borderwidth=0,
+            highlightthickness=0,
+            command=self.open_signup,
+            relief="flat"
+        )
+        self.button_1.place(x=912.8680419921875, y=519.8560180664062, width=228.1319580078125, height=39.14398193359375)
+        
+        self.button_image_2 = PhotoImage(file=self.relative_to_assets("button_2.png"))
+        self.button_2 = Button(
+            self.__master,
+            image=self.button_image_2,
+            borderwidth=0,
+            highlightthickness=0,
+            command= self.open_catalog ,
+            relief="flat"
+        )
+        self.button_2.place(x=807.0, y=429.0, width=169.0, height=46.40189743041992)
+        
+        self.canvas.create_text(794.0, 30.0, anchor="nw", text="OOP SPEC", fill="#000000", font=("Inter SemiBold", 48 * -1))
+        
+        self.entry_image_1 = PhotoImage(file=self.relative_to_assets("entry_1.png"))
+        self.entry_bg_1 = self.canvas.create_image(904.5, 361.5, image=self.entry_image_1)
+        self.__password_entry = Entry(
+            self.__master,
+            bd=0,
+            bg="#FFFFFF",
+            fg="#000716",
+            font=("Inter SemiBold", 20 * -1),
+            highlightthickness=0
+        )
+        self.__password_entry.place(x=707.0, y=332.0, width=395.0, height=57.0)
+        
+        self.entry_image_2 = PhotoImage(file=self.relative_to_assets("entry_2.png"))
+        self.entry_bg_2 = self.canvas.create_image(904.5, 196.5, image=self.entry_image_2)
+        self.__username_entry = Entry(
+            self.__master,
+            bd=0,
+            bg="#FFFFFF",
+            fg="#000716",
+            font=("Inter SemiBold", 20 * -1),
+            highlightthickness=0
+        )
+        self.__username_entry.place(x=707.0, y=167.0 ,width=395.0,height=57.0)
+        self.canvas.create_text(707.0, 295.0, anchor="nw", text="Password", fill="#000000", font=("Inter SemiBold", 20 * -1))
+        
+        self.canvas.create_text(707.0, 125.0, anchor="nw", text="Username", fill="#000000", font=("Inter SemiBold", 20 * -1))
+        
+        self.canvas.create_text(647.0, 528.0, anchor="nw", text="Don’t have an account?", fill="#000000", font=("Inter SemiBold", 20 * -1))
+        
+        self.__master.resizable(False, False)
+        self.__master.mainloop()
+        
+    def relative_to_assets(self, path: str) -> Path:
+        return self.ASSETS_PATH / Path(path)
+    
 
     def login(self):
         username = self.__username_entry.get()
@@ -77,18 +133,31 @@ class LoginGUI:
         credential = {'username': username, 'password': password}
         response = requests.post('http://localhost:8000/signin', json=credential)
         data = response.json()
-        self.__status_label.config(text=f"{data}")
+        print(username)
+        print(password)
+        # self.__status_label.config(text=f"{data}")
         return data
-
+    
+    def on_click(self):
+        messagebox.showinfo("Status: ", "User does not exist. Do you want to sign up?")
+            
     def open_catalog(self):
         # print(self.login_status_button)
         data = self.login()
+        if data == {"Status": "User does not exist. Do you want to sign up?"}:
+            self.on_click()
         if data == {"Status": "log in successfully"}:
             self.__master.destroy()
             catalog_window = tk.Tk()
             login_gui = ProductCatalogGUI(catalog_window)
             catalog_window.mainloop()
-
+            
+    def open_signup(self):
+        self.__master.destroy()
+        signup_window = tk.Tk()
+        signup_gui = SignupGUI(signup_window)
+        signup_window.mainloop()
+            
 class SignupGUI:
     def __init__(self, master):
         self.__master = master
@@ -295,5 +364,5 @@ class ProductcheckoutGUI:
 
 
 root = tk.Tk()
-login_gui = HomePageGUI(root)
+login_gui = LoginGUI(root)
 root.mainloop()
