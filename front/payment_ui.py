@@ -39,6 +39,7 @@ import tkinter as tk
 class PaymentUI:
     def __init__(self, parent):
         self.parent = parent
+        parent.minsize(width = 400,height=400)
         
         # create widgets
         self.payment_type_var = tk.StringVar()
@@ -77,6 +78,6 @@ class PaymentUI:
             print(f"Performing cash transfer payment of {payment_amount} dollars.")
     
     
-# root = tk.Tk()
-# payment_ui = PaymentUI(root)
-# root.mainloop()
+root = tk.Tk()
+payment_ui = PaymentUI(root)
+root.mainloop()

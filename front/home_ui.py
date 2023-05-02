@@ -18,11 +18,11 @@ class HomePageGUI:
         master.title("Home Page")
 
         # Create sign in button
-        self.__signin_button = ttk.Button(master, text="Sign In", command=self.open_login)
+        self.__signin_button = tk.Button(master, text="Sign In", command=self.open_login)
         self.__signin_button.pack()
 
         # Create sign up button
-        self.__signup_button = ttk.Button(master, text="Sign Up", command=self.open_signup)
+        self.__signup_button = tk.Button(master, text="Sign Up", command=self.open_signup)
         self.__signup_button.pack()
 
     def open_login(self):
