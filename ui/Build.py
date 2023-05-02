@@ -38,10 +38,11 @@ class Build:
         self.__build.remove(existing_product)
         return self.__build
     
-    def cal_price(self,cart):
-        self.__cart = cart
-        for product in range(len(self.__cart)):
-            self.__totalprice = self.__totalprice + cart[product].price
+    def cal_price(self):
+        totalprice = 0
+        for product in self.__build:
+            totalprice = totalprice + product.price
+        self.__totalprice = totalprice
         return self.__totalprice
         
     def show_build(self):
@@ -50,13 +51,12 @@ class Build:
             for product in self.__build:
                 lst.append({k.replace(f"_{type(product).__name__}__", ""): v for k, v in vars(product).items()})
         return lst
+    
     @property
-    #get total price from build
     def totalprice(self):
         return self.__totalprice
     
     @property
-    #todo add function to convert list of object to dict
     def build(self):
         return self.__build
 

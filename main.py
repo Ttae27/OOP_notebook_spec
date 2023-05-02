@@ -8,7 +8,6 @@ from ui.product import Product
 from ui.compare import Compare
 from ui.build import Build
 from user.account import Account
-from ui.payment import Payment
 from ui.payment_processor import PaymentProcessor
 
 app = FastAPI()
@@ -19,7 +18,7 @@ catalog = Catalog(product)
 compare = Compare()
 account = Account()
 build = Build(product)
-payment = PaymentProcessor(build)
+payment_process = PaymentProcessor(build)
 
 #Create base model for request body
 class User(BaseModel):
@@ -92,6 +91,32 @@ def signin(credential: dict):
     passwd = credential['password']
     return account.sign_in(usr, passwd)
 
+@app.put("/{user_id}/update")
+def update(user_id, type, new_data: str):
+    return account.update_user(int(user_id), type, new_data)
+
+@app.delete("/{user_id}/delete")
+def delete(user_id):
+    return account.delete_user(int(user_id))
+
+@app.get("/transaction_history")
+def transac_his():
+    return account.current_user.transaction_history
+
+#! debug
+@app.get("/test_acc")
+def get_all_acc():
+    lst = []
+    for acc in account.allaccount:
+        lst.append(vars(acc))
+    return lst
+
+@app.get("/test_cur_acc")
+def get_cur_acc():
+    lst = []
+    lst.append(vars(account.current_user))
+    return lst
+
 #*****************************************<<build>>*******************************************
 
 @app.get('/build')
@@ -102,44 +127,28 @@ def show():
 def build_com(product_cat: str, product: dict):
     product_id = product['id']
     return build.add_to_build(product_cat, product_id)
+
+@app.get('/build/price')
+def total_price():
+    return {'price': build.cal_price()}
+
+@app.delete('/build')
+def delete_from_build(product: dict):
+    product_id = int(product['id'])
+    build.remove_from_build(product_id)
+    return build.show_build()
+
+#*******************************************<<payment>>***************************************
     
 @app.post('/payment')
-def payment_processing(transection):
-    return payment.select_payment(transection)
+def payment_processing(payment_method):
+    return {'payment': payment_process.select_payment(payment_method)}
 
 @app.post('/creditcard')
 def credit_card_payment(card_number,expiration_date,cvv): 
-    build.cal_price(build.build)
-    # return PaymentProcessor.process_credit_card_payment(card_number,expiration_date,cvv)
-    return payment.process_credit_card_payment(card_number,expiration_date,cvv)
+    return payment_process.process_credit_card_payment(card_number,expiration_date,cvv, account.current_user)
 
 @app.post('/cashtransfer')
-def credit_card_payment(cash): 
-    build.cal_price(build.build)
-    # return PaymentProcessor.process_credit_card_payment(card_number,expiration_date,cvv)
-    return payment.process_cash_Transfer_payment(cash)
+def cash_transfer_payment(cash): 
+    return payment_process.process_cash_Transfer_payment(cash, account.current_user)
 
-@app.put("/{user_id}/update")
-def update(user_id, type, new_data: str):
-    return account.update_user(int(user_id), type, new_data)
-
-@app.delete("/{user_id}/delete")
-def delete(user_id):
-    return account.delete_user(int(user_id))
-
-#! debug
-@app.get("/test_acc")
-def get_all_acc():
-    lst = []
-    for acc in account.allaccount:
-        lst.append(vars(acc))
-    return lst
-
-@app.get("/totalpice")
-def totalprice():
-    build.cal_price(build.build)
-    return {build.totalprice}
-
-@app.get("/amount-payment")
-def amount():
-    return {payment.amount}
