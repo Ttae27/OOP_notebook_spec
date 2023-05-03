@@ -97,6 +97,7 @@ class LoginGUI:
             bd=0,
             bg="#FFFFFF",
             fg="#000716",
+            show="*",
             font=("Inter SemiBold", 20 * -1),
             highlightthickness=0
         )
@@ -117,8 +118,7 @@ class LoginGUI:
         
         self.canvas.create_text(707.0, 125.0, anchor="nw", text="Username", fill="#000000", font=("Inter SemiBold", 20 * -1))
         
-        self.canvas.create_text(647.0, 528.0, anchor="nw", text="Don’t have an account?", fill="#000000", font=("Inter SemiBold", 20 * -1))
-        
+        self.canvas.create_text(647.0, 528.0, anchor="nw", text="Don’t have an account?", fill="#000000", font=("Inter SemiBold", 20 * -1)) 
         self.__master.resizable(False, False)
         self.__master.mainloop()
         
@@ -379,6 +379,15 @@ class ProductCatalogGUI:
         )
         self.button_1.place(x=1101.0, y=552.0, width=117.0, height=29.25)
         
+        button_image_11 = PhotoImage(file=relative_to_assets("button_11.png"))
+        self.button_11 = Button(
+            image=button_image_11,
+            borderwidth=0,
+            highlightthickness=0,
+            command=lambda:self.open_login(),
+            relief="flat"
+        )
+        self.button_11.place(x=23.0, y=531.0, width=130.0, height=36.0)
         
         # button_image_2 = PhotoImage(file=relative_to_assets("button_11.png"))
         # self.button_2 = Button(
@@ -402,11 +411,17 @@ class ProductCatalogGUI:
     def open_checkout(self):
         self.__master.destroy()
         checkout_window = tk.Tk()
-        login_gui = ProductcheckoutGUI(checkout_window)
+        product_gui = ProductcheckoutGUI(checkout_window)
         checkout_window.mainloop()
 
         # Display the initial catalog
         self.switch_catalog(self.__catalogs[0])
+        
+    def open_login(self):
+        self.__master.destroy()
+        login_window = tk.Tk()
+        login_open = LoginGUI(login_window)
+        login_window.mainloop()
 
     # Function to add a product to the cart
     def add_to_build(self, catalog, product):

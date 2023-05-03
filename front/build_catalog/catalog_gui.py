@@ -27,7 +27,7 @@ class MyApp:
         image_image_1 = PhotoImage(file=relative_to_assets("image_1.png"))
         self.image_1 = self.canvas.create_image(100.0, 300.0, image=image_image_1)
 
-        button_image_1 = PhotoImage(file=relative_to_assets("button_1.png"))
+        button_image_1 = PhotoImage(file=relative_to_assets("button_12.png"))
         self.button_1 = Button(
             image=button_image_1,
             borderwidth=0,
@@ -37,7 +37,7 @@ class MyApp:
         )
         self.button_1.place(x=1101.0, y=552.0, width=117.0, height=29.25)
 
-        button_image_2 = PhotoImage(file=relative_to_assets("button_2.png"))
+        button_image_2 = PhotoImage(file=relative_to_assets("button_11.png"))
         self.button_2 = Button(
             image=button_image_2,
             borderwidth=0,
