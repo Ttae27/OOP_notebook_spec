@@ -1,6 +1,5 @@
 import sqlite3
 
-#*import data class
 from data_class.cooling import Cooling
 from data_class.cpu import CPU
 from data_class.gpu import GPU
@@ -125,8 +124,3 @@ def del_user(user_id: int):
             conn.commit()
             return True
     return False
-
-# conn = sqlite3.connect('data/database.db')
-# cursor = conn.cursor()
-# cursor.execute("DROP TABLE user")
-# conn.commit()

@@ -27,16 +27,7 @@ class User(BaseModel):
     password: str
     delivery_address: str
     phone: str
-# origins = ["*"]
-
-# app.add_middleware(
-#     CORSMiddleware,
-#     allow_origins=origins,
-#     allow_credentials=True,
-#     allow_methods=["*"],
-#     allow_headers=["*"],
-# )
-
+    
 #***************************************<<product>>******************************************
 
 @app.get("/products/{product_cat}")
@@ -46,10 +37,6 @@ def get_products(product_cat: str, filter = None):
         decoded_str = unquote(encoded_str)
         filter = json.loads(decoded_str)
     return catalog.list_product(product_cat, filter)
-
-# @app.get("/products/{product_cat}/{id}")
-# async def get_product_spec(product_cat: str, product_id: int):
-#     return catalog.get_item(product_cat, product_id)
 
 @app.get("/products/search/{product_cat}")
 def search_product(product_cat: str, product_name: str):
@@ -107,20 +94,6 @@ def delete(user_id):
 @app.get("/transaction_history")
 def transac_his():
     return account.current_user.transaction_history
-
-#! debug
-@app.get("/test_acc")
-def get_all_acc():
-    lst = []
-    for acc in account.allaccount:
-        lst.append(vars(acc))
-    return lst
-
-@app.get("/test_cur_acc")
-def get_cur_acc():
-    lst = []
-    lst.append(vars(account.current_user))
-    return lst
 
 #*****************************************<<build>>*******************************************
 

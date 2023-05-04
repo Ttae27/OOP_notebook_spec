@@ -23,10 +23,10 @@ class Catalog():
             product_list.append({key.replace(f"_{type(product).__name__}__", ""): value for key, value in vars(product).items()})
         return product_list
 
-    # def search(self, cat, full_name) -> list:
-    #     products = self.__product_class.get_product(cat, {'full_name': [full_name]})
-    #     product_list = []
-    #     for product in products:
-    #         product_list.append({key.replace(f"_{type(product).__name__}__", ""): value for key, value in vars(product).items()})
-    #     return product_list
+    def search(self, cat, full_name) -> list:
+        products = self.__product_class.get_product(cat, {'full_name': [full_name]})
+        product_list = []
+        for product in products:
+            product_list.append({key.replace(f"_{type(product).__name__}__", ""): value for key, value in vars(product).items()})
+        return product_list
     

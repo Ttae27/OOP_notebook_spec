@@ -133,16 +133,12 @@ class LoginGUI:
         credential = {'username': username, 'password': password}
         response = requests.post('http://localhost:8000/signin', json=credential)
         data = response.json()
-        print(username)
-        print(password)
-        # self.__status_label.config(text=f"{data}")
         return data
     
     def on_click(self):
         messagebox.showinfo("Status: ", "User does not exist. Do you want to sign up?")
             
     def open_catalog(self):
-        # print(self.login_status_button)
         data = self.login()
         if data == {"Status": "User does not exist. Do you want to sign up?"}:
             self.on_click()
@@ -274,7 +270,6 @@ class SignupGUI:
         password = self.__password_entry.get()
         address = self.__address_entry.get()
         phone = self.__phone_entry.get()
-        print()
         user_data = {'username': username, 'password': password, 'delivery_address': address, 'phone': phone}
         response = requests.post('http://localhost:8000/signup', json=user_data)
         data = response.json()
@@ -389,16 +384,6 @@ class ProductCatalogGUI:
         )
         self.button_11.place(x=23.0, y=531.0, width=130.0, height=36.0)
         
-        # button_image_2 = PhotoImage(file=relative_to_assets("button_11.png"))
-        # self.button_2 = Button(
-        #     image=button_image_2,
-        #     borderwidth=0,
-        #     highlightthickness=0,
-        #     command=lambda: print("button_2 clicked"),
-        #     relief="flat"
-        # )
-        # self.button_2.place(x=23.0, y=531.0, width=130.0, height=36.0)
-        
         self.__frame = tk.Frame(self.__master)
         self.__frame.pack(padx=350, pady=0, anchor="w")
 
@@ -433,7 +418,7 @@ class ProductCatalogGUI:
             messagebox.showinfo('status : ', 'Successfully added product')
             # self.__status_label.config(text=f"{data}")
         else:
-             messagebox.showinfo({'status', 'Failed to added product'})
+            messagebox.showinfo({'status', 'Failed to added product'})
 
     def open_checkout(self):
         self.__master.destroy()
@@ -512,7 +497,6 @@ class ProductcheckoutGUI:
             width=148.0,
             height=64.0
         )
-           
 
         self.button_image_2 = PhotoImage(
             file=self.relative_to_assets1("button_2.png"))
@@ -757,54 +741,6 @@ class ProductcheckoutGUI:
         checkout_window = tk.Tk()
         login_gui = Way_to_pay(checkout_window)
         checkout_window.mainloop()
-
-        # Display the initial catalog
-        # self.switch_catalog(self.__catalogs[0])
-# class ProductcheckoutGUI:
-#     def __init__(self, master):
-#         self.__master = master
-#         self.__master.title("Product Checkout")
-#         screen_width = self.__master.winfo_screenwidth()
-#         screen_height = self.__master.winfo_screenheight()
-#         window_width = screen_width
-#         window_height = screen_height
-#         self.__master.geometry(f"{window_width}x{window_height}")
-
-#         payment_button = tk.Button(self.__master, text="payment",bg="green",command = self.open_waytopay)
-#         payment_button.pack(side="right",anchor="se")
-
-#         back_button = tk.Button(self.__master, text="back",bg="#FFA500",command=self.open_back_catalog)
-#         back_button.pack(side="left",anchor="sw", padx=1.5)
-
-#         # Display Builds
-#         self.show_checkout()
-        
-#     # Function to display the cart
-#     def show_checkout(self):
-#         url = "http://localhost:8000/build"
-#         response = requests.get(url)
-#         build = json.loads(response.text)
-#         if len(build) == 0:
-#             tk.Label(self.__master, text="Build: Your build is empty.").pack()
-#         else:
-#             for product in build:
-#                 img = Image.open(product['thumbnail_url'])
-#                 img = img.resize((60, 60), Image.ANTIALIAS)
-#                 photo = ImageTk.PhotoImage(img)
-#                 label = tk.Label(self.__master, image=photo)
-#                 label.image = photo  # to prevent image garbage collection
-#                 label.pack()
-
-#                 button = tk.Label(self.__master, text=product["full_name"])
-#                 button.pack(anchor="w", pady=1)
-#             url = "http://localhost:8000/build/price"
-#             response = requests.get(url)
-#             price = json.loads(response.text)
-#             t = tk.Label(self.__master, text=str(price['price']) + ' baht')
-#             t.pack(anchor="ne", pady=1)
-
-
-
     
 class Way_to_pay:
     def __init__(self, master):
