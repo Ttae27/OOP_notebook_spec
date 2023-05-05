@@ -13,7 +13,7 @@ class User:
         else:
             return False
         
-    def add_transaction(self, transaction: dict) -> None:
+    def add_transaction(self, transaction: object) -> None:
         self.__transaction_history.append(transaction)
 
     @property

@@ -250,7 +250,6 @@ class SignupGUI:
         self.__password_entry.delete(0,END)
         self.__address_entry.delete(0,END)
         self.__phone_entry.delete(0,END)
-        # .delete(0, END)
         
     def open_login(self):
         self.__master.destroy()
@@ -283,7 +282,6 @@ class SignupGUI:
         elif data == {'Notify': 'This username has been used'}:
             self.popup_status_error()
             self.clear_text()
-               
     @property
     def  username_entry(self):
         return  self.__username_entry
@@ -418,7 +416,7 @@ class ProductCatalogGUI:
             messagebox.showinfo('status : ', 'Successfully added product')
             # self.__status_label.config(text=f"{data}")
         else:
-            messagebox.showinfo({'status', 'Failed to added product'})
+            messagebox.showinfo('status', 'Failed to added product')
 
     def open_checkout(self):
         self.__master.destroy()
