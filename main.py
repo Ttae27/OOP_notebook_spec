@@ -33,9 +33,7 @@ class User(BaseModel):
 @app.get("/products/{product_cat}")
 def get_products(product_cat: str, filter = None):
     if filter:
-        encoded_str = filter
-        decoded_str = unquote(encoded_str)
-        filter = json.loads(decoded_str)
+        filter = json.loads(filter)
     return catalog.list_product(product_cat, filter)
 
 @app.get("/products/search/{product_cat}")

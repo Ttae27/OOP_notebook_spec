@@ -17,17 +17,16 @@ class Product():
 
         #activate if there is any filter
         if filter:
-            filtered_list = (
+            filtered_list = [
                 product for product in self.current_product
                 if all(
                 getattr(product, key) in value_list
                 for key, value_list in filter.items()
                 if value_list
                 )
-            )
-            return list(filtered_list)
-        else:
-            return self.current_product
+            ]
+            return filtered_list
+        return self.current_product
 
     def update_price_product(self, cat: str, product_id: int, new_price: int) -> list:
         for product in self.current_product:
