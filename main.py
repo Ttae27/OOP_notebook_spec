@@ -55,7 +55,7 @@ def delete_product(product_cat: str, product_id: int):
 def update_price(product_cat: str, product_id: int, new_price: int):
     return product.update_price_product(product_cat, product_id, new_price)
 
-#***************************************<<catalog>>******************************************
+#***************************************<<compare>>******************************************
 
 @app.get("/product/compare")
 def compare_spec():
