@@ -3,7 +3,7 @@ class PaymentProcessor:
     def __init__(self, build: object) -> None:
         self.__build = build
         self.__amount = int(self.__build.totalprice)
-    
+
     def get_price(self):
         self.__amount = int(self.__build.totalprice)
 
