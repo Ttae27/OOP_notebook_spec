@@ -1,0 +1,25 @@
+CREATE TABLE IF NOT EXISTS cpu (
+    id INTEGER,
+    series TEXT,
+    model TEXT,
+    socket TEXT,
+    chipsupport TEXT,
+    core INTEGER,
+    thread INTEGER,
+    frequency TEXT,
+    l2 TEXT,
+    l3 TEXT,
+    gpu_intergrated TEXT,
+    power TEXT,
+    waranty INTEGER,
+    active INTEGER,
+    brand_name TEXT,
+    full_name TEXT,
+    price INTEGER,
+    thumbnail TEXT
+);
+INSERT INTO cpu VALUES (6,'Core i3','Core i3-2100','INTEL LGA1155','Intel B75, Inten H61, Intel H67, Intel H77, Intel Z68, Intel Z77',2,4,'3.10 GHz','512KB','3MB','Intel HD Graphics 2000','65 W',3,1,'INTEL','INTEL Core i3-2100',1100,'img/cpu_6.png'),
+	(7,'Core i5','Core i5-4460','INTEL LGA1150','Intel B85, Intel H81, Intel H87, Intel H97, Intel Z87, Intel Z97',4,4,'3.20 GHz','4 x 256KB','6MB','Intel HD Graphics 4600','84 W',3,1,'INTEL','INTEL Core i5-4460',2250,'img/cpu_7.png'),
+	(8,'Core i7','Core i7-4790','INTEL LGA1150','Intel B85, Intel H81, Intel H87, Intel H97, Intel Z87, Intel Z97',4,8,'3.60 GHz','4 x 256KB','8MB','Intel HD Graphics 4600','84 W',3,1,'INTEL','INTEL Core i7-4790',3980,'img/cpu_8.png'),
+	(9,'Ryzen 3','Ryzen 3 1200','AMD AM4','AMD A320, AMD B350, AMD B450, AMD X370, AMD X470',4,4,'3.10 GHz','2MB','8MB','None','65 W',3,1,'AMD','AMD Ryzen 3 1200',2990,'img/cpu_9.png'),
+	(10,'Ryzen 7','Ryzen 7 3800X','AMD AM4','AMD A320, AMD B350, AMD B450, AMD X370, AMD X470, AMD X570',8,16,'3.90 GHz','4MB','32MB','None','105 W',3,1,'AMD','AMD Ryzen 7 3800X',15400,'img/cpu_10.png');

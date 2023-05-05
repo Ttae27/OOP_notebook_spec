@@ -1,0 +1,25 @@
+CREATE TABLE IF NOT EXISTS ssd (
+    id INTEGER,
+    model TEXT,
+    form_factor TEXT,
+    capacity TEXT,
+    interface TEXT,
+    protocal TEXT,
+    read INTEGER,
+    write INTEGER,
+    max_4k_random TEXT,
+    modules TEXT,
+    endurance TEXT,
+    technology TEXT,
+    warranty INTEGER,
+    brand_name TEXT,
+    full_name TEXT,
+    permalink TEXT,
+    price INTEGER,
+    thumbnail_url TEXT
+);
+INSERT INTO ssd VALUES (41,'WD GREEN M.2 120GB','M.2','120GB','M.2 SATA','AHCI',540,430,'63,000 / 37,000 IOPS','-','-',NULL,3,'Western Digital','Western Digital WD GREEN M.2 120GB','https://notebookspec.com/pc-ssd/292-western-digital-wd-green-m2-120gb.html',2000,'img/ssd_41.png'),
+	(42,'PANTHER AS340 240GB','SATA 2.5','240GB','SATA 6Gb/s','AHCI',505,410,'100,000/72,000 IOPS','-','-','TCL',3,'Apacer','Apacer PANTHER AS340 240GB','https://notebookspec.com/pc-ssd/299-apacer-panther-as340-240gb.html',660,'img/ssd_42.png'),
+	(43,'A400 120GB','SATA 2.5','120GB','SATA 6Gb/s','AHCI',500,320,'-','-','-','TLC',3,'KINGSTON','KINGSTON A400 120GB','https://notebookspec.com/pc-ssd/338-kingston-a400-120gb.html',1890,'img/ssd_43.png'),
+	(44,'A400 240GB','SATA 2.5','240GB','SATA 6Gb/s','AHCI',500,350,'-','-','-','TLC',3,'KINGSTON','KINGSTON A400 240GB','https://notebookspec.com/pc-ssd/341-kingston-a400-240gb.html',640,'img/ssd_43.png'),
+	(45,'A400 480GB','SATA 2.5','480GB','SATA 6Gb/s','AHCI',500,450,'-','-','-','TLC',3,'KINGSTON','KINGSTON A400 480GB','https://notebookspec.com/pc-ssd/342-kingston-a400-480gb.html',990,'img/ssd_43.png');
